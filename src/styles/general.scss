@@ -1,23 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,200,300,regular,italic,500,600,700&display=swap&subset=cyrillic-ext);
 
-//максимальная и минимальная ширина экрана
-$minWidth: 320px;
-$maxWidth: 1600px;
-
-//натроики шрифта
-$fontFamily: 'IBM Plex Sans', sans-serif;
-$fontSize: 16px;
-
-//медиа берек-поинты, при каких размерах экрана будет перестраиваться преложение
-$md1: $maxWidth + 12px;
-$md2: 992.98px;
-$md3: 767.98px;
-$md4: 479.98px;
-
-//цвета
-$mainColor: #ffffff; //цвет шрифта
-$backgroundColor: #222222;
-
+@import './variables.scss';
 @import 'reset.scss';
 
 html {
@@ -25,8 +8,8 @@ html {
 }
 
 body {
-  color: $mainColor;
-  background: $backgroundColor;
+  color: $whiteColor;
+  background: $darkGrayColor;
   font-family: $fontFamily;
 }
 
@@ -53,13 +36,13 @@ body {
   margin: 0 auto;
   width: 100%;
   padding: 0 0px;
-  @media (max-width: $md1) {
+  @media (max-width: $mediaDesktop) {
     max-width: 970px;
   }
-  @media (max-width: $md2) {
+  @media (max-width: $mediaSmallDesktop) {
     max-width: 750px;
   }
-  @media (max-width: $md3) {
+  @media (max-width: $mediaTablet) {
     max-width: none;
     padding: 0 10px;
   }
