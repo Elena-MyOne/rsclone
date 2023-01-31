@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,200,300,regular,italic,500,600,700&display=swap&subset=cyrillic-ext);
+
+//максимальная и минимальная ширина экрана
+$minWidth: 320px;
+$maxWidth: 1600px;
+
+//натроики шрифта
+$fontFamily: 'IBM Plex Sans', sans-serif;
+$fontSize: 16px;
+
+//медиа берек-поинты, при каких размерах экрана будет перестраиваться преложение
+$md1: $maxWidth + 12px;
+$md2: 992.98px;
+$md3: 767.98px;
+$md4: 479.98px;
+
+//цвета
+$mainColor: #ffffff; //цвет шрифта
+$backgroundColor: #222222;
+
+@import 'reset.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: $mainColor;
+  background: $backgroundColor;
+  font-family: $fontFamily;
+}
+
+//ддя контентаб будет прижимать footer к низу
+.content {
+  flex: 1 1 auto;
+}
+
+//врапер, который отцентрует приложение по середине
+.root {
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 16px;
+  //для футора, чтобы он всегда был снизу
+  display: flex;
+  flex-direction: column;
+}
+
+//для выравнивания контента внутри root
+.container {
+  max-width: $maxWidth;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 0px;
+  @media (max-width: $md1) {
+    max-width: 970px;
+  }
+  @media (max-width: $md2) {
+    max-width: 750px;
+  }
+  @media (max-width: $md3) {
+    max-width: none;
+    padding: 0 10px;
+  }
+}
