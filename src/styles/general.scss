@@ -48,6 +48,7 @@ body {
   }
 }
 
+@import '../pages/start/start.scss';
 @import '../components/header/header.scss';
 @import '../components/footer/footer.scss';
 @import '../pages/main/main.scss';
@@ -56,4 +57,5 @@ body {
 @import '../pages/help/help.scss';
 @import '../pages/userProfile/userProfile.scss';
 @import '../pages/registration/registration.scss';
+@import '../pages/places/places.scss';
 @import '../pages/error404/error404.scss';
