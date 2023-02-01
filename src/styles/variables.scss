@@ -1,0 +1,17 @@
+//максимальная и минимальная ширина экрана
+$minWidth: 320px;
+$maxWidth: 1600px;
+
+//натроики шрифта
+$fontFamily: 'IBM Plex Sans', sans-serif;
+$fontSize: 16px;
+
+//медиа берек-поинты, при каких размерах экрана будет перестраиваться преложение
+$mediaDesktop: $maxWidth + 12px;
+$mediaSmallDesktop: 992.98px;
+$mediaTablet: 767.98px;
+$mediaPhone: 479.98px;
+
+//цвета
+$whiteColor: #ffffff; //цвет шрифта
+$darkGrayColor: #222222;
