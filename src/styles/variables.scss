@@ -1,3 +1,9 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
 //максимальная и минимальная ширина экрана
 $minWidth: 320px;
 $maxWidth: 1600px;
@@ -13,5 +19,20 @@ $mediaTablet: 767.98px;
 $mediaPhone: 479.98px;
 
 //цвета
-$whiteColor: #ffffff; //цвет шрифта
-$darkGrayColor: #222222;
+$colorWhite: #ffffff;
+$colorGray: #4a4a4a;
+$colorBlack: #000000;
+
+//color help
+$accordion-color: $colorBlack;
+$accordion-bg: $cyan-100;
+$accordion-border-color: $cyan-600;
+$accordion-button-color: $colorBlack;
+$accordion-button-bg: $cyan-300;
+$accordion-button-active-bg: $cyan-700;
+$accordion-button-active-color: $colorWhite;
+$accordion-button-focus-border-color: $colorWhite;
+$accordion-button-focus-box-shadow: $colorWhite;
+$accordion-icon-active-color: $colorWhite;
+$accordion-icon-color: $colorBlack;
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
