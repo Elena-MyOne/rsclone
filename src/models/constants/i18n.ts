@@ -178,7 +178,7 @@ export const content = {
     helpTestText: `This is a very simple test, take it and find out how good is your memory. After you pass it, you can see the percentage bar, both in your profile and progress page, that will display how deep are your knowledge.`,
     helpProfile: 'Profile',
     helpProfileText: `Everything is simple here. There is your avatar (if you chose one), your name (if you wrote one), and your travel progress (if you “traveled” somewhere). Here you can learn a few phrases in the official language of the countries. You can change the time of day and interface language.`,
-    helpWish: 'Everything is simple here. There is your avatar (if you chose one), your name (if you wrote "went somewhere"). Here you can learn a few phrases in the official language of the countries. You can change the time of day and interface language.',
+    helpWish: 'Hava a nice trip',
     helpCreators: 'These guys teamed up to work on it',
     helpSchool: 'Has gathered everyone together: '
   },
