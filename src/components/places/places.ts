@@ -11,7 +11,7 @@ export function generatePlacesDesc(img: string, places: string, description: str
         </div>
         <div class="modal-body">
           <img src="${img}" class="card-img-top"
-            alt="Great barrier reef">
+            alt="Interesting places">
           <p class="modal-desc">${description}</p>
         </div>
       </div>
