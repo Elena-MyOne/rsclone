@@ -1,5 +1,7 @@
 import { ROUTER_PATH } from "./constants/enums";
 import { generateHelpPage } from "./pages/help/help";
+import { generateStartPage } from "./pages/start/start";
+import { sceneInitStartPage } from "./pages/start/sceneInit";
 
 export function router() {
   generateContentByHash();
@@ -27,7 +29,7 @@ function generateContentByHash() {
       break;
     case '':
     case ROUTER_PATH.START: {
-      contentMain = 'Start'; // Вставить функцию генерации стартовой страницы
+      contentMain = generateStartPage(); // Вставить функцию генерации стартовой страницы
       contentHeader = '';
       break;
     }
@@ -35,4 +37,6 @@ function generateContentByHash() {
   }
   header.innerHTML = contentHeader;
   main.innerHTML = contentMain;
+
+  sceneInitStartPage();
 }
