@@ -3,5 +3,6 @@ export enum ROUTER_PATH {
   COUNTRY = 'country',
   HELP = 'help',
   START = 'start',
-  PROFILE = 'profile'
+  PROFILE = 'profile',
+  REGISTRATION = 'registration'
 }

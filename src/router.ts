@@ -23,6 +23,8 @@ function generateContentByHash() {
       break;
     case ROUTER_PATH.PROFILE: contentMain = 'Profile'; // Вставить функцию генерации профиля пользователя
       break;
+    case ROUTER_PATH.REGISTRATION: contentMain = 'Registration'; // Вставить функцию генерации страницы регистрации
+      break;
     case '':
     case ROUTER_PATH.START: {
       contentMain = 'Start'; // Вставить функцию генерации стартовой страницы
