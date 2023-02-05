@@ -32,6 +32,30 @@ body {
   flex-direction: column;
 }
 
+
+//для выравнивания контента внутри root
+.container {
+  max-width: $maxWidth;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 0px;
+  z-index: 1;
+
+  @media (max-width: $mediaDesktop) {
+    max-width: 970px;
+  }
+
+  @media (max-width: $mediaSmallDesktop) {
+    max-width: 750px;
+  }
+
+  @media (max-width: $mediaTablet) {
+    max-width: none;
+    padding: 0 10px;
+  }
+}
+
+
 @import '../pages/start/start.scss';
 @import '../components/header/header.scss';
 @import '../pages/home/home.scss';
