@@ -1,0 +1,13 @@
+.header {
+  &__logo {
+    font-family: 'Kalam', cursive;
+  }
+}
+
+.navbar {
+  background-color: $cyan-700;
+}
+
+.navbar-brand {
+  margin-right: 50px;
+}

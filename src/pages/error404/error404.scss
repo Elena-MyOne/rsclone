@@ -1,0 +1,29 @@
+.error-page {
+  &__body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 75vh;
+  }
+
+  &__title {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+  }
+
+  &__text {
+    font-size: 20px;
+    margin-bottom: 2rem;
+  }
+
+  &__link {
+    color: $cyan-300;
+    transition: all 0.3s;
+    text-decoration: none;
+    &:hover{
+      color: $cyan-600;
+    }
+  }
+}

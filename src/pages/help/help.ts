@@ -77,7 +77,7 @@ export function generateHelpPage(): string {
       </div>
     </div>
   </div>
-  <h3 data-i18="helpWish" class="wish">Have a good trip!</h3>
+  <h3 data-i18="helpWish" class="wish">Have a nice trip!</h3>
       <div  class="creators">
         <p data-i18="helpCreators">Cats worked on this app</p>
         <a class="tooltips" href="https://github.com/AlexKabanau" target="_blank"> <img class="creators__link" src="./assets/icons/github_logo_black.svg" alt="github logo"><span class="tooltiptext">AlexKabanau</span></a>
