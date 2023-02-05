@@ -1,4 +1,5 @@
 import { ROUTER_PATH } from "./constants/enums";
+import { generateCountryPage } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage } from "./pages/start/sceneInit";
@@ -20,7 +21,7 @@ function generateContentByHash() {
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
       break;
-    case ROUTER_PATH.COUNTRY: contentMain = 'Country'; // TODO Сюда вставить функцию, которая принимает id страны
+    case ROUTER_PATH.COUNTRY: contentMain = generateCountryPage(Number(id));
       break;
     case ROUTER_PATH.HOME: contentMain = 'Home'; // Вставить функцию генерации домашней страницы
       break;
