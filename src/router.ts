@@ -2,6 +2,7 @@ import { ROUTER_PATH } from "./constants/enums";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage } from "./pages/start/sceneInit";
+import { startPageHandlers } from "./pages/start/handlers";
 
 export function router() {
   generateContentByHash();
@@ -39,4 +40,5 @@ function generateContentByHash() {
   main.innerHTML = contentMain;
 
   sceneInitStartPage();
+  startPageHandlers();// I really dont know how to use it another way
 }

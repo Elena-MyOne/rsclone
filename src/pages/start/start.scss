@@ -1,7 +1,19 @@
 canvas.start-page
 {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     outline: none;
 }
+.buttons-container {
+    position: absolute;
+    bottom: 10px;
+}
+.blink {
+    color: $colorWhite;
+    animation: blink 2s infinite;
+   }
+   @keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0; }
+   }

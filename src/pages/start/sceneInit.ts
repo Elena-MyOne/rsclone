@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-// import { OrbitControls } from '../../assets/images/textures/'
+
+
 
 export function sceneInitStartPage() {
+
 
   //Canvas
   const canvas = document.querySelector('canvas.start-page') as HTMLElement;
@@ -51,7 +53,7 @@ export function sceneInitStartPage() {
   renderer.setClearColor(0x000000, 0.0);
 
 
-  //loading
+  //loading console.log - debug
   const loadingManager = new THREE.LoadingManager()
   loadingManager.onStart = () =>
   {
@@ -140,7 +142,7 @@ scene.add(galaxy);
   scene.add(ambientlight);
 
   // point light
-  const pointLight = new THREE.PointLight(0xffffff, 1) // 5 for night
+  const pointLight = new THREE.PointLight(0xffffff, 1, 100) // 5 for night
   pointLight.position.set(5, 3, 5);
   scene.add(pointLight);
 
@@ -171,5 +173,5 @@ scene.add(galaxy);
   }
 
   tick()
-  console.log(scene);
+  // console.log(scene);
 }
