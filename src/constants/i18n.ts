@@ -63,7 +63,7 @@ export const content = {
     autPassword: 'Пароль',
     autGit: 'Авторизация через',
     autLogin: 'Войти',
-    helpTitle: 'Добро пожаловать в приложение AmazingTrip!',
+    helpTitle: 'Добро пожаловать в приложение Amazing Trip!',
     helpAdvice: `Мы рекомендуем пройти регистрацию, нажав кнопку "Регистрация"
                  на верхней панели. Так прогресс вашего путешествия сохранится и
                  вы сможете обсуждать страны с другими пользователями.`,
@@ -164,7 +164,7 @@ export const content = {
     autPassword: 'Password',
     autGit: 'Log in with',
     autLogin: 'Log in',
-    helpTitle: 'Welcome to app AmazingTrip!',
+    helpTitle: 'Welcome to app Amazing Trip!',
     helpAdvice: `We recommend that you go through the registration, consisting of the "Sign up" on the top bar. So the progress of our journey will be saved and you can participate in discussion with other users.`,
     helpStart: 'Start page',
     helpStartText: `Here you can see the beauty and perfection of our planet. Rotate it as you like, zoom in and out. Don't worry, it's not dangerous and has no effect on the real planet 😉 To start the journey, press the Enter key.`,
@@ -246,7 +246,7 @@ export const content = {
     autPassword: 'Пароль',
     autGit: 'Аўтарызацыя праз',
     autLogin: 'Увайсці',
-    helpTitle: 'Сярдэчна запрашаем у дадатак AmazingTrip!',
+    helpTitle: 'Сярдэчна запрашаем у дадатак Amazing Trip!',
     helpAdvice: `Мы рэкамендуем прайсці рэгістрацыю, націснуўшы кнопку "Рэгістрацыя"
      на верхняй панэлі. Так прагрэс вашага падарожжа захаваецца і вы зможаце абмяркоўваць краіны з іншымі карыстальнікамі.`,
     helpStart: 'Стартавая старонка',
