@@ -42,7 +42,7 @@ function generateContentByHash() {
   header.innerHTML = contentHeader;
   main.append(contentMain);
 
-  if (hash === ROUTER_PATH.START) {
+  if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
   };
 }
