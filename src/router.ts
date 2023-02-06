@@ -36,6 +36,10 @@ function generateContentByHash() {
     case ROUTER_PATH.START: {
       contentMain = generateStartPage();
       contentHeader = '';
+      setTimeout(() => {
+        sceneInitStartPage();
+        startPageHandlers();// I really dont know how to use it another way
+      }, 0);
       break;
     }
     default: contentMain = generateError404Page();
