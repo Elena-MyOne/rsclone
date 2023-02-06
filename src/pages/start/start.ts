@@ -8,7 +8,7 @@ export function generateStartPage() {
   helpBlock.innerHTML = `
   <canvas class="start-page"></canvas>
   <div class="container py-5 text-center">
-    <h1 class="display-1 fw-semibold">Amazing Trip</h1>
+    <h1 class="start-page__title display-1 fw-semibold">Amazing Trip</h1>
     <div class="buttons-container container">
     <div class="row">
       <div class="col">

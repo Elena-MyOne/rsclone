@@ -5,6 +5,11 @@ canvas.start-page
     left: 0;
     outline: none;
 }
+.start-page__title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .buttons-container {
     position: absolute;
     bottom: 10px;
