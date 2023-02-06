@@ -4,6 +4,7 @@ import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage } from "./pages/start/sceneInit";
 import { startPageHandlers } from "./pages/start/handlers";
+import { generateHeader } from "./components/header/header";
 
 export function router() {
   generateContentByHash();
@@ -16,7 +17,7 @@ function generateContentByHash() {
   const main = document.querySelector('.root') as HTMLElement;
   const header = document.querySelector('.header') as HTMLElement;
   let contentMain = '';
-  let contentHeader = 'Header'; // Вставить функцию генерации хедера
+  let contentHeader = generateHeader();
   const [hash, id] = window.location.hash.slice(1).split('/');
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
