@@ -98,7 +98,9 @@ export const content = {
                       Можно поменять время суток и язык интерфейса.`,
     helpWish: 'Удачного путешествия!',
     helpCreators: 'Над приложением работали котики',
-    helpSchool: 'Собрал их вместе'
+    helpSchool: 'Собрал их вместе',
+    errorText: 'Страница не найдена',
+    errorLink: 'Вернуться на Главную страницу'
   },
   en: {
     btnHome: 'Home',
@@ -180,7 +182,9 @@ export const content = {
     helpProfileText: `Everything is simple here. There is your avatar (if you chose one), your name (if you wrote one), and your travel progress (if you “traveled” somewhere). Here you can learn a few phrases in the official language of the countries. You can change the time of day and interface language.`,
     helpWish: 'Have a nice trip',
     helpCreators: 'These guys teamed up to work on it',
-    helpSchool: 'Has gathered everyone together: '
+    helpSchool: 'Has gathered everyone together: ',
+    errorText: 'Page not found',
+    errorLink: 'Go back to Home page'
   },
   be: {
     btnHome: 'Дадому',
@@ -279,6 +283,8 @@ export const content = {
     Можна памяняць час сутак і мову інтэрфейсу.`,
     helpWish: 'Удалага падарожжа!',
     helpCreators: 'Над дадаткам працавалі коцікі',
-    helpSchool: 'Сабраў іх разам'
+    helpSchool: 'Сабраў іх разам',
+    errorText: 'Старонка не знойдзена',
+    errorLink: 'Вярнуцца на Галоўную старонку'
   }
 }
