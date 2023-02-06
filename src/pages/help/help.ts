@@ -1,6 +1,8 @@
-export function generateHelpPage(): string {
-  return `
-  <div class="help">
+export function generateHelpPage(): HTMLElement {
+  const helpBlock = document.createElement('div');
+  helpBlock.className = 'help';
+  helpBlock.innerHTML = `
+  
   <h1 class="help__title" data-18i="helpTitle">Welcome to app Amazing Trip!</h1>
   <p data-18i="helpAdvice">We recommend that you go through the registration, consisting of the "Sign up" on the top bar. So the progress of our journey will be saved and you can participate in discussion with other users.</p>
   <div class="accordion" id="accordionExample">
@@ -88,6 +90,6 @@ export function generateHelpPage(): string {
         <span data-18i="helpSchool">Has gathered everyone together:</span>
         <a href="https://rs.school/js/"><img class="rsschool__link" src="./assets/icons/rs_logo_white.svg" alt="RSSchool logo"></a>
       </div>
-      </div>
-    </div>`
+      </div>`;
+  return helpBlock;
 }

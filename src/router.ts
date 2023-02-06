@@ -3,7 +3,6 @@ import { generateCountryPage } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage } from "./pages/start/sceneInit";
-import { startPageHandlers } from "./pages/start/handlers";
 import { generateHeader } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 
@@ -17,8 +16,9 @@ export function router() {
 function generateContentByHash() {
   const main = document.querySelector('.root') as HTMLElement;
   const header = document.querySelector('.header') as HTMLElement;
-  let contentMain = '';
   let contentHeader = generateHeader();
+  main.innerHTML = '';
+  let contentMain = null;
   const [hash, id] = window.location.hash.slice(1).split('/');
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
@@ -33,15 +33,16 @@ function generateContentByHash() {
       break;
     case '':
     case ROUTER_PATH.START: {
-      contentMain = generateStartPage(); // Вставить функцию генерации стартовой страницы
+      contentMain = generateStartPage();
       contentHeader = '';
       break;
     }
     default: contentMain = generateError404Page();
   }
   header.innerHTML = contentHeader;
-  main.innerHTML = contentMain;
+  main.append(contentMain);
 
-  sceneInitStartPage();
-  startPageHandlers();// I really dont know how to use it another way
+  if (hash === ROUTER_PATH.START || hash === '') {
+    sceneInitStartPage();
+  };
 }
