@@ -21,7 +21,7 @@ export function generateHeader(): string {
                 <a data-18i="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
               </li>
               <li class="nav-item">
-                <a data-18i="btnSignUp" class="nav-link" href="#">Sign up</a>
+                <a data-18i="btnSignUp" class="nav-link" href="#registration">Sign up</a>
               </li>
               <li class="nav-item">
                 <a data-18i="btnLogIn" class="nav-link" href="#profile">Log in</a>
