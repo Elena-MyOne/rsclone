@@ -142,7 +142,7 @@ export const content = {
     progressChina: 'China',
     progressRussia: 'Russia',
     progressUsa: 'USA',
-    titleTest: 'Country Test',
+    titleTest: 'Country Quiz',
     testCountry: 'Country name',
     testCapital: 'Capital',
     testFlag: 'Choose country flag',
