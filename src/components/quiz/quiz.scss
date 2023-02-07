@@ -1,0 +1,101 @@
+.quiz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+  &__body {
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 700px;
+    background: $gray-200;
+    color: $cyan-900;
+  }
+  &__title {
+    text-align: center;
+    padding: 20px 0px;
+  }
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+    margin: 20px 0px;
+  }
+  &__input {
+    border-radius: 5px;
+    flex: 0 1 50%;
+    height: 35px;
+    padding: 5px 10px;
+    border: 1px solid $cyan-600;
+    background: $gray-100;
+  }
+  &__feedback {
+    flex: 0 1 25%;
+  }
+  &__symbol {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    height: 100px;
+  }
+  &__flag {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    height: 56px;
+  }
+  &__label-flag {
+    width: 90px;
+    height: 60px;
+    border-radius: 5px;
+    margin-left: 10px;
+    &-one {
+      background: url('../assets/images/quiz/flags/australia.jpg') 0 0/cover no-repeat;
+    }
+    &-two {
+      background: url('../assets/images/quiz/flags/brazil.png') 0 0 /cover no-repeat;
+    }
+    &-three {
+      background: url('../assets/images/quiz/flags/china.png') 0 0/cover no-repeat;
+    }
+  }
+  &__label-symbol {
+    width: 120px;
+    height: 70px;
+    border-radius: 5px;
+    margin-left: 10px;
+    &-one {
+      background: url('../assets/images/quiz/animals/australia-kenguru.jpg') 0 0/cover no-repeat;
+    }
+    &-two {
+      background: url('../assets/images/quiz/animals/brazil-jaguar.jpg') 0 0 /cover no-repeat;
+    }
+    &-three {
+      background: url('../assets/images/quiz/animals/china-panda.jpg') 0 0/cover no-repeat;
+    }
+  }
+  &__buttons {
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+  }
+  &__button {
+    color:  $cyan-100;
+    max-width: 150px;
+    background-color: $cyan-700;
+    padding: 7px 50px;
+    border-radius: 5px;
+    transition: 0.3s;
+    &:hover{
+      background-color: $cyan-800;
+      color: $cyan-200; 
+    }
+  }
+}
+
+.text {
+  flex: 0 0 22%;
+}
