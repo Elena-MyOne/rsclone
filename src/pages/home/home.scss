@@ -1,0 +1,25 @@
+canvas.home-page
+{
+  position: absolute;
+  top: 56px;
+  left: 0;
+  outline: none;
+  // z-index: -1;
+}
+// .class {
+//   position: relative;
+// }
+.home-page__container {
+  // display: block;
+  // z-index: 2;
+  position: absolute;
+  // width: 100%;
+  // left: 50%;
+  // transform: translateX(-50%);
+}
+.form-select {
+  cursor: pointer;
+}
+// .theme-button {
+//   cursor: pointer;
+// }
