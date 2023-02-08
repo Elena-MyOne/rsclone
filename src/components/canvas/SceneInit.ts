@@ -363,12 +363,12 @@ export function sceneInitHomePage() {
   //handlers
   const mouse = new THREE.Vector2();
   const topOffset = Number(canvas.offsetTop);
-  // console.log(top)
+  console.log(top)
 
   canvas.addEventListener('click', onCanvasMouseClick, false);
   function onCanvasMouseClick(event: MouseEvent) {
     mouse.x = event.clientX / sizes.width * 2 - 1;
-    mouse.y = - ((event.clientY - topOffset) / (sizes.height) * 2) + 1;
+    mouse.y = - ((event.clientY) / (sizes.height) * 2) + 1;
 
     raycaster.setFromCamera(mouse, camera);
 
@@ -391,7 +391,7 @@ export function sceneInitHomePage() {
 
 
     galaxy.rotation.y -= 0.002;
-    earth.rotation.y -= 0.002;
+    // earth.rotation.y -= 0.002;
 
     // Update controls
     controls.update()

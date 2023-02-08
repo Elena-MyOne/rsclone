@@ -2,7 +2,7 @@ import { ROUTER_PATH } from "./constants/enums";
 import { generateCountryPage } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
-import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/sceneInit";
+import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/SceneInit";
 import { generateHeader } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
