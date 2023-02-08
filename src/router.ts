@@ -20,11 +20,11 @@ function generateContentByHash() {
   let contentHeader = generateHeader();
   main.innerHTML = '';
   let contentMain = null;
-  const [hash, id] = window.location.hash.slice(1).split('/');
+  const [hash, id] = window.location.hash.slice(1).split('/');  
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
       break;
-    case ROUTER_PATH.COUNTRY: contentMain = generateCountryPage(Number(id));
+    case ROUTER_PATH.COUNTRY: contentMain = generateCountryPage(Number(id[0]));
       break;
     case ROUTER_PATH.HOME: contentMain = generateHomePage(); // Вставить функцию генерации домашней страницы
       break;

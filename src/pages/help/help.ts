@@ -1,5 +1,5 @@
 export function generateHelpPage(): HTMLElement {
-  const helpBlock = document.createElement('div');
+  const helpBlock = document.createElement('section');
   helpBlock.className = 'help container';
   helpBlock.innerHTML = `
   
