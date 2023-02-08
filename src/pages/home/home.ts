@@ -1,26 +1,36 @@
-// import { generateHeader } from "../../components/header/header";
+import { getCountriesNames } from "../../api/requests";
 
 export function generateHomePage() {
-  const db = {
-    '1': 'Australia',
-    '2': 'Brazil',
-    '3': 'China',
-    '4': 'Russia',
-    '5': 'USA',
-  };
-  const div: HTMLElement = document.createElement("div");
-  div.className = "d-grid gap-2";
-  div.role = "group";
-  div.ariaLabel = "Vertical button group";
-  let prop: keyof typeof db
-  for (prop in db) {
-    // console.log(`db.${prop} = ${db[prop]}`);
-    const button: HTMLButtonElement = document.createElement("button");
-    button.type = "button";
-    button.className = "btn btn-primary";
-    button.innerText = db[prop];
-    div.append(button);
-  }
+  //get coutries
+  const names = getCountriesNames('en');
+  console.log(names);
+  // names.then((res) => console.log([...res]))
+  names.then((res) => {
+    console.log(res)
+    const div: HTMLElement = document.createElement("div");
+    div.className = "d-grid gap-2";
+    div.role = "group";
+    div.ariaLabel = "Vertical button group";
+    let prop: keyof typeof res
+    for (prop in res) {
+      // console.log(`db.${prop} = ${db[prop]}`);
+      const button: HTMLButtonElement = document.createElement("button");
+      button.type = "button";
+      button.className = "btn btn-primary";
+      button.innerText = res[prop];
+      div.append(button);
+    }
+    console.log(div)
+  });
+
+  // const db = {
+  //   '1': 'Australia',
+  //   '2': 'Brazil',
+  //   '3': 'China',
+  //   '4': 'Russia',
+  //   '5': 'USA',
+  // };
+  
   const getString = (el:HTMLElement) => el.outerHTML;
   const content = document.createElement("div");
   // content.className = "position-relative";
@@ -30,7 +40,7 @@ export function generateHomePage() {
     <div class="home-page__container">
       <div class="row ">
         <div class="col-2">
-          ${getString(div)}
+          
         </div>
         <div class="col-7">
           <h4 class="home-page__title display-2 fw-semibold" data-18i="titleChoice">

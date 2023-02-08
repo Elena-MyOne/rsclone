@@ -1,9 +1,9 @@
 import { ROUTER_PATH } from "./constants/enums";
-import { generateHeader } from "./components/header/header";
 import { generateCountryPage } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
-import { sceneInitStartPage } from "./components/canvas/SceneInit";
+import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/sceneInit";
+import { generateHeader } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 
@@ -36,10 +36,6 @@ function generateContentByHash() {
     case ROUTER_PATH.START: {
       contentMain = generateStartPage();
       contentHeader = '';
-      setTimeout(() => {
-        sceneInitStartPage();
-        startPageHandlers();// I really dont know how to use it another way
-      }, 0);
       break;
     }
     default: contentMain = generateError404Page();
@@ -49,5 +45,8 @@ function generateContentByHash() {
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
+  };
+  if (hash === ROUTER_PATH.HOME) {
+    sceneInitHomePage();
   };
 }
