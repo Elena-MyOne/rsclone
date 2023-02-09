@@ -12,9 +12,9 @@ export function getCountry(id: number, lang: string) {
 
 //get a list of country names
 
-export async function getCountriesNames(lang: string) {
+export function getCountriesNames(lang: string) {
   try {
-    return await fetch(`${baseUrl}/countries?` + new URLSearchParams({ lang })).then((res) => res.json());
+    return fetch(`${baseUrl}/countries?` + new URLSearchParams({ lang })).then((res) => res.json());
   } catch (error) {
     throw new Error('Error: ' + error);
   }

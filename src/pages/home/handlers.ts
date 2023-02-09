@@ -6,11 +6,10 @@ export function handlers() {
   countryButtons.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
     // console.log(target)
-    const countyButton = target.closest(".btn");
-    if (countyButton) {
-      //lookAt
+    const countryButton = target.closest(".btn");
+    if (countryButton) {
       //popUp
-      alert(countyButton.innerHTML)
+      alert(countryButton.innerHTML)
     }
   })
 
@@ -21,6 +20,5 @@ export function handlers() {
     localStorage.setItem("language", langSelect.value.toLowerCase())
     const lang = localStorage.getItem("language") as string
     console.log(lang)
-    // addCountriesButtons(lang);
   })
 }
