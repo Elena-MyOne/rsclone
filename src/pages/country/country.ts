@@ -29,14 +29,14 @@ export function generateCountryPage(id: number) {
           </div>
           <input type="range" class="volume-hymn" min="0" step="any" max="1" value="1">
         </div>
-        <img src="" alt="" class="info__flag col">
+        <div class="col"><img src="./assets/images/country_flags/${nameEN}_flag.jpg" alt="Flag" class="info__flag"></div>
       </div>
       <div class="row">
       <div class="info__map col">
         <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
         <div class="info__animal">
           <span data-18i="countryAnimal">National symbol</span>
-          ${generateBtnAnimals('', animalName)}
+          ${generateBtnAnimals(`./assets/images/country_animals/${nameEN}.jpg`, animalName)}
         </div>
       </div>
       <div class="info__cities cities col">
