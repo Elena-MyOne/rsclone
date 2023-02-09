@@ -2,9 +2,10 @@ import { ROUTER_PATH } from "./constants/enums";
 import { generateCountryPage } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
-import { sceneInitStartPage } from "./pages/start/sceneInit";
+import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/SceneInit";
 import { generateHeader } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
+import { generateHomePage } from "./pages/home/home";
 
 export function router() {
   generateContentByHash();
@@ -25,7 +26,7 @@ function generateContentByHash() {
       break;
     case ROUTER_PATH.COUNTRY: contentMain = generateCountryPage(Number(id));
       break;
-    case ROUTER_PATH.HOME: contentMain = 'Home'; // Вставить функцию генерации домашней страницы
+    case ROUTER_PATH.HOME: contentMain = generateHomePage(); // Вставить функцию генерации домашней страницы
       break;
     case ROUTER_PATH.PROFILE: contentMain = 'Profile'; // Вставить функцию генерации профиля пользователя
       break;
@@ -44,5 +45,8 @@ function generateContentByHash() {
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
+  };
+  if (hash === ROUTER_PATH.HOME) {
+    sceneInitHomePage();
   };
 }

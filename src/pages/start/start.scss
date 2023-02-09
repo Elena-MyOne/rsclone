@@ -1,24 +1,24 @@
 canvas.start-page
 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
 }
 .start-page__title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .buttons-container {
-    position: absolute;
-    bottom: 10px;
+  position: absolute;
+  bottom: 10px;
 }
 .blink {
-    color: $colorWhite;
-    animation: blink 2s infinite;
-   }
-   @keyframes blink {
-    from { opacity: 1; }
-    to { opacity: 0; }
-   }
+  color: $colorWhite;
+  animation: blink 2s infinite;
+}
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

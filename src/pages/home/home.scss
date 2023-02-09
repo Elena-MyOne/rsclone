@@ -1,0 +1,36 @@
+.main_home-page {
+  min-height: auto;
+}
+canvas.home-page
+{
+  position: absolute;
+  top: 56px;
+  left: 0;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  // overflow: hidden;
+  // z-index: -1;
+}
+// .class {
+//   position: relative;
+// }
+.home-page__container {
+  // display: block;
+  // z-index: 2;
+  position: absolute;
+  // width: 100%;
+  // left: 50%;
+  // transform: translateX(-50%);
+}
+.form-select {
+  cursor: pointer;
+}
+// .theme-button {
+//   cursor: pointer;
+// }
+.button_container,
+.theme_container,
+.select_container {
+  padding-top: 1.5rem;
+}
