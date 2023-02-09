@@ -1,5 +1,5 @@
 import { getCountriesNames } from "../../api/requests";
-import { handlers } from "./handlers";
+import { handlers } from "./home-page-handlers";
 
 export function generateHomePage() {
 
@@ -57,7 +57,7 @@ export const addCountriesButtons = (lang: string) => {
       // console.log(`db.${prop} = ${db[prop]}`);
       const button: HTMLButtonElement = document.createElement("button");
       button.type = "button";
-      button.className = "btn btn-primary";
+      button.className = "btn btn-info";
       button.innerText = res[prop];
       div.append(button);
     }

@@ -1,7 +1,7 @@
 // import { addCountriesButtons } from "./home";
 
 export function handlers() {
-  const countryButtons = document.querySelector(".button_container") as HTMLElement;
+  const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
   // console.log(countryButtons);
   countryButtons.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
