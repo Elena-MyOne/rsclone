@@ -105,3 +105,30 @@
 .volume-hymn {
   mix-blend-mode: plus-lighter;
 }
+
+.animal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+
+  &.active {
+    display: block;
+  }
+
+  &__card {
+    position: fixed;
+    width: 40vw;
+    height: auto;
+    left: calc(50% - 40vw/2);
+    top: 50px;
+  }
+
+  &__title {
+    color: $cyan-900;
+  }
+}
