@@ -183,29 +183,34 @@ export function sceneInitHomePage() {
   //Canvas
   const canvas = document.querySelector('canvas.home-page') as HTMLElement;
   // console.log(canvas)
+  let topOffset = Number(canvas.offsetTop);
   // Scene
   const scene = new THREE.Scene();
 
   //sizes
   const sizes = {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: document.body.clientHeight - topOffset
   }
 
 
-  // window.addEventListener('resize', () =>
-  // {
-  //   // Update sizes
-  //   sizes.width = window.innerWidth
-  //   sizes.height = window.innerHeight
+  window.addEventListener('resize', () =>
+  {
+    topOffset = Number(canvas.offsetTop);
+    // Update sizes
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight - topOffset
 
-  //   // Update camera
-  //   camera.aspect = sizes.width / sizes.height
-  //   camera.updateProjectionMatrix()
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
 
-  //   // Update renderer
-  //   renderer.setSize(sizes.width, sizes.height)
-  //   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    // Update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  })
+  // window.addEventListener('scroll', () => {
+  //   topOffset = Number(canvas.offsetTop);
   // })
 
   // Base camera
@@ -300,16 +305,6 @@ export function sceneInitHomePage() {
 
   const cities = [
     {
-      name: 'Moscow',
-      lat: 55.751244,
-      lon: 37.618423
-    },
-    {
-      name: 'Washington',
-      lat: 38.8951100,
-      lon: -77.0363700
-    },
-    {
       name: 'Canberra',
       lat: -35.282001,
       lon: 149.128998
@@ -323,6 +318,16 @@ export function sceneInitHomePage() {
       name: 'Beijing',
       lat: 39.916668,
       lon: 116.383331
+    },
+    {
+      name: 'Moscow',
+      lat: 55.751244,
+      lon: 37.618423
+    },
+    {
+      name: 'Washington',
+      lat: 38.8951100,
+      lon: -77.0363700
     },
   ];
   function calcPosFromLatLonRad(lat: number, lon: number) {
@@ -362,13 +367,13 @@ export function sceneInitHomePage() {
 
   //handlers
   const mouse = new THREE.Vector2();
-  const topOffset = Number(canvas.offsetTop);
-  console.log(top)
+
+  console.log(canvas.style)
 
   canvas.addEventListener('click', onCanvasMouseClick, false);
   function onCanvasMouseClick(event: MouseEvent) {
     mouse.x = event.clientX / sizes.width * 2 - 1;
-    mouse.y = - ((event.clientY) / (sizes.height) * 2) + 1;
+    mouse.y = - ((event.clientY - topOffset) / (sizes.height) * 2) + 1;
 
     raycaster.setFromCamera(mouse, camera);
 
@@ -376,13 +381,24 @@ export function sceneInitHomePage() {
 
     if (intersects.length > 0) {
       intersectedObject = intersects[0].object;
-      console.log(intersectedObject.name)
+      alert(intersectedObject.name)
     }
   }
 
 
   //animation
 
+
+  //camera position
+  earth.rotation.x = arrOfPins[0].position.x;
+  earth.rotation.y = arrOfPins[0].position.y;
+  earth.rotation.z = arrOfPins[0].position.z;
+
+  // camera.lookAt(
+  //   arrOfPins[0].position.x,
+  //   arrOfPins[0].position.y,
+  //   arrOfPins[0].position.z
+  // )
 
   const clock = new THREE.Clock();
   const tick = () =>
