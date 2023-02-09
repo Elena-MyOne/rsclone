@@ -35,17 +35,17 @@ export function generateCountryPage(id: number) {
       <div class="info__map col">
         <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
         <div class="info__animal">
-          <p data-18i="countryAnimal">National symbol</p>
+          <span data-18i="countryAnimal">National symbol</span>
           ${generateBtnAnimals('', animalName)}
         </div>
       </div>
       <div class="info__cities cities col">
         <h2 class="cities__title" data-18i="countryCities">Cities</h2>
-        <span class="cities__item">${cities[0].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
-        <span class="cities__item">${cities[1].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
-        <span class="cities__item">${cities[2].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
-        <span class="cities__item">${cities[3].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
-        <span class="cities__item">${cities[4].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
+        <span class="cities__item">${cities[0].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+        <span class="cities__item">${cities[1].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+        <span class="cities__item">${cities[2].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+        <span class="cities__item">${cities[3].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+        <span class="cities__item">${cities[4].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
       </div>
       </div>
       <div class="row">
