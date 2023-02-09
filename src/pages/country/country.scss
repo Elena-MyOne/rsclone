@@ -1,0 +1,88 @@
+.country {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+
+  &__gallery {
+    position: relative;
+    border-left: 2px solid $cyan-900;
+    padding: 0 20px;
+    background-color: $cyan-700;
+  }
+
+  &__photos {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+.info {
+
+  &__header {
+    align-items: center;
+  }
+
+  &__map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__animal {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__cities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cities__title {
+  grid-column: 1/3;
+}
+
+.gallery-photos__item {
+  width: 15vw;
+}
+
+.map {
+  width: 20vw;
+}
+
+.img-fluid {
+  width: 15vw;
+  margin-bottom: 2px;
+}
+
+.figure-caption {
+  color: $colorWhite;
+}
+
+.arrow {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 50%;
+
+}
+
+.row {
+  margin-top: 40px;
+}
+
+.btn-map {
+  @include button-outline-variant($colorWhite, $cyan-100, $cyan-700, $cyan-700);
+  @include button-size(3px, 10px, 1.2vw, 0.25rem);
+}
+
+.places-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

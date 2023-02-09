@@ -1,76 +1,100 @@
 import { getCountry } from "../../api/requests";
+import { generatePlacesDesc } from "../../components/places/places";
 
 export function generateCountryPage(id: number) {
-  let lang = localStorage.getItem('language') || 'en';
+  let lang = localStorage.getItem('language') || 'ru';
   getCountry(id, lang).then((res) => {
-    const {name, language, animalName, capital, cities, phrases, places, countryCode, comments} = res;
+    const {name, nameEN, language, animalName, capital, cities, phrases, places, langCode, comments} = res;
+    console.log(nameEN);
+    
     const main = document.querySelector('.root') as HTMLElement;
     main.innerHTML = `
-    <section class="country">
-    <div class="info__header">
-      <h3 class="country__name">${name}</h3>
-      <span data-18i="countryCapital">capital<strong class="country__capital">  ${capital}</strong></span>
-      <div class="country__player player">
-        <audio controls onended="hymnEnd()" class="country__hymn" src="./assets/audio/hymn_brazil.mp3" hidden></audio>
-        <div class="player__controls">
-          <div class="btn-play" onclick="playCountryHymn()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill"
-              viewBox="0 0 16 16">
-              <path
-                d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-            </svg>
-          </div>
-          <div class="time-bar ">
-            <div class="time-bar__progress progress-hymn"></div>
-            <div class="time-bar__progress circle-hymn"></div>
-            <div class="time-bar__info">
-              <div class="time-bar__countdown hymn-countdown">0:0</div>
-              <div class="time-bar__duration hymn-duration">0:3</div>
+    <section class="country container">
+    <div class="country__info info container text-center">
+      <div class="info__header row">
+        <h1 class="country__name col">${name}</h1>
+        <h4 class="col" data-18i="countryCapital">capital<strong class="country__capital">  ${capital}</strong></h4>
+        <div class="country__player player col">
+          <h6 data-18i="countryHymn">National Anthem</h6>
+          <audio controls onended="hymnEnd()" class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
+          <div class="player__controls"> 
+            <div class="btn-play" onclick="playCountryHymn()">
+              ${generateSvgPlay()}
+              ${generateSvgPause()}
+            </div>
+            <div class="time-bar ">
+              <div class="time-bar__progress progress-hymn"></div>
+              <div class="time-bar__progress circle-hymn"></div>
             </div>
           </div>
+          <input type="range" class="volume-hymn" min="0" step="any" max="1" value="1">
         </div>
-        <input type="range" class="volume-hymn" min="0" step="any" max="1" value="1">
+        <img src="" alt="" class="info__flag col">
       </div>
-      <img src="" alt="" class="info__flag">
-    </div>
-    <div class="info__map">
-      <img class="map" src="./assets/images/country_maps/brazil.png" alt="Country Map">
-      <div class="info__animals">
-        <p data-18i="countryAnimal">National symbol</p>
-        generateBtnAnimals()
-      </div>
-    </div>
-    <div class="info__cities cities">
-      <h5 data-18i="countryCities">Cities</h5>
-      <p class="cities__item"></p> <button data-18i="btnLook">Show on the map</button>
-      <p class="cities__item"></p> <button data-18i="btnLook">Show on the map</button>
-      <p class="cities__item"></p> <button data-18i="btnLook">Show on the map</button>
-      <p class="cities__item"></p> <button data-18i="btnLook">Show on the map</button>
-      <p class="cities__item"></p> <button data-18i="btnLook">Show on the map</button>
-    </div>
-    <div class="info__language language">
-      <h5 data-18i="countryLanguage">Official language <strong class="language__country">Португальский</strong></h5>
-      <div class="language__lesson">
-        <h5 data-18i="countryLesson">Language lessons</h5>
-        <div class="phrases">
-          <p class="phrases__item"></p> generateSvgPlay() generateSvgPause() generateSvgMicro()
-          <p class="phrases__item"></p> generateSvgPlay() generateSvgPause() generateSvgMicro()
-          <p class="phrases__item"></p> generateSvgPlay() generateSvgPause() generateSvgMicro()
-          <p class="phrases__item"></p> generateSvgPlay() generateSvgPause() generateSvgMicro()
-          <p class="phrases__item"></p> generateSvgPlay() generateSvgPause() generateSvgMicro()
+      <div class="row">
+      <div class="info__map col">
+        <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
+        <div class="info__animal">
+          <p data-18i="countryAnimal">National symbol</p>
+          ${generateBtnAnimals('', animalName)}
         </div>
       </div>
+      <div class="info__cities cities col">
+        <h2 class="cities__title" data-18i="countryCities">Cities</h2>
+        <span class="cities__item">${cities[0].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
+        <span class="cities__item">${cities[1].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
+        <span class="cities__item">${cities[2].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
+        <span class="cities__item">${cities[3].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
+        <span class="cities__item">${cities[4].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm btn-map">Show on the map</button>
+      </div>
+      </div>
+      <div class="row">
+      <div class="info__language language col">
+        <h2 data-18i="countryLanguage">Official language <strong class="language__country">${language}</strong></h2>
+        <div class="language__lesson">
+          <h2 data-18i="countryLesson">Language lessons</h2>
+          <div class="phrases">
+            <p class="phrases__item">${phrases[0]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
+            <p class="phrases__item">${phrases[1]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
+            <p class="phrases__item">${phrases[2]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
+            <p class="phrases__item">${phrases[3]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
+            <p class="phrases__item">${phrases[4]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
+          </div>
+        </div>
+      </div>
+      <div class="info__places col">
+        <h2 data-18i="countryPlaces">Interesting places to visit</h2>
+        <div class="places-list">${generatePlacesDesc('', places[0].name, places[0].description)} 
+        ${generatePlacesDesc('', places[1].name, places[1].description)}
+        ${generatePlacesDesc('', places[2].name, places[2].description)}
+        ${generatePlacesDesc('', places[3].name, places[3].description)}
+        ${generatePlacesDesc('', places[4].name, places[4].description)}</div>
+      </div>
     </div>
-    <div class="info__places">
-      <h5 data-18i="countryPlaces">Interesting places to visit</h5>
-      <div class="places-list">generatePlacesDesc()</div>
     </div>
-  </div>
-  <div class="country__gallery">
-    generateSvgArrowUp()
-    generateSvgArrowDown()
-    <div class="gallery-photos">
-      generateGallery(country: string)
+    </div>
+    <div class="country__gallery">
+      <div class="arrow">
+        ${generateSvgArrowUp()}
+        ${generateSvgArrowDown()}
+      </div>
+      <div class="country__photos">
+      ${generatePhoto(nameEN, 1)}
+      ${generatePhoto(nameEN, 2)}
+      ${generatePhoto(nameEN, 3)}
+      ${generatePhoto(nameEN, 4)}
+      ${generatePhoto(nameEN, 5)}
+      ${generatePhoto(nameEN, 6)}
+      ${generatePhoto(nameEN, 7)}
+      ${generatePhoto(nameEN, 8)}
+      ${generatePhoto(nameEN, 9)}
+      ${generatePhoto(nameEN, 10)}
+      ${generatePhoto(nameEN, 11)}
+      ${generatePhoto(nameEN, 12)}
+      ${generatePhoto(nameEN, 13)}
+      ${generatePhoto(nameEN, 14)}
+      ${generatePhoto(nameEN, 15)}
+      </div>
     </div>
     </section>`;
   })
@@ -113,17 +137,17 @@ setInterval(() => {
 }, 1000);
 
 // обработка кликов play/pause
-export function playCountryHymn() {
-  if (!isHymnPlay) {
-    countryHymn.play();
-    btnPlayHymn.innerHTML = generateSvgPause();
-    isHymnPlay = true;
-  } else {
-    countryHymn.pause();
-    btnPlayHymn.innerHTML = generateSvgPlay();
-    isHymnPlay = false;
-  }
-}
+// export function playCountryHymn() {
+//   if (!isHymnPlay) {
+//     countryHymn.play();
+//     btnPlayHymn.innerHTML = generateSvgPause();
+//     isHymnPlay = true;
+//   } else {
+//     countryHymn.pause();
+//     btnPlayHymn.innerHTML = generateSvgPlay();
+//     isHymnPlay = false;
+//   }
+// }
 
 // обработка окончания audio
 export function hymnEnd() {
@@ -139,7 +163,7 @@ export function hymnEnd() {
 // popup с животным
 export function generateBtnAnimals(img: string, animal: string): string {
   return `<button type="button" class="btn btn-primary places__btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Пятнистый ягуар
+  ${animal}
 </button>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -165,7 +189,7 @@ export function generateSvgPlay() {
 }
 
 export function generateSvgPause() {
-  return `svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
   <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
 </svg>`;
 }
@@ -178,24 +202,20 @@ export function generateSvgMicro() {
 }
 
 export function generateSvgArrowUp() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+  return `<svg class="arrow-up" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
 </svg>`;
 }
 
 export function generateSvgArrowDown() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+  return `<svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
 </svg>`;
 }
 
-export function generateGallery(country: string) {
-  const numberPhotos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  numberPhotos.forEach((n) => {
-    return `<img src="./assets/./images/gallery/${country}/img_${country}${n}.jpg" alt="Country photo">`;
-  })
+function generatePhoto(country: string, n: number) {
+  return `<figure class="figure">
+      <img src="./assets/./images/gallery/${country}/img_${n}.jpg" class="figure-img img-fluid rounded" alt="Nice place">
+      <figcaption class="figure-caption">click to enlarge</figcaption>
+    </figure>`;
 }
-
-// получение страны
-
-

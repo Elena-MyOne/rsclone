@@ -1,6 +1,7 @@
 export interface Country {
   name: string,
-  countryCode: string,
+  nameEN: string,
+  langCode: string,
   capital: string,
   animalName: string,
   language: string,
