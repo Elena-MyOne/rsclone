@@ -16,7 +16,7 @@ export function generateHomePage() {
   <div class="container py-2 text-center">
     <div class="home-page__container container">
       <div class="row ">
-        <div class="col-2 button_container">
+        <div class="col-2 country-buttons_container">
         </div>
         <div class="col-7">
           <h4 class="home-page__title display-2 fw-semibold" data-18i="titleChoice">
@@ -62,7 +62,7 @@ export const addCountriesButtons = (lang: string) => {
       div.append(button);
     }
     // console.log(div)
-    const column = document.querySelector('.col-2') as HTMLElement;
+    const column = document.querySelector('.country-buttons_container') as HTMLElement;
     column.innerHTML = `${getString(div)}`;
 
     handlers();
