@@ -347,6 +347,7 @@ export function sceneInitHomePage() {
       new THREE.SphereGeometry(0.035, 10, 10),
       new THREE.MeshBasicMaterial({ color: 0x00ff00 })
     )
+    // console.log(cityCoordinates)
     pin.name = city.name;
     arrOfPins.push(pin);
     pin.position.set(cityCoordinates.x, cityCoordinates.y, cityCoordinates.z);
@@ -385,21 +386,7 @@ export function sceneInitHomePage() {
     }
   }
 
-
   //animation
-
-
-  //camera position
-  earth.rotation.x = arrOfPins[0].position.x;
-  earth.rotation.y = arrOfPins[0].position.y;
-  earth.rotation.z = arrOfPins[0].position.z;
-
-  // camera.lookAt(
-  //   arrOfPins[0].position.x,
-  //   arrOfPins[0].position.y,
-  //   arrOfPins[0].position.z
-  // )
-
   const clock = new THREE.Clock();
   const tick = () =>
   {
@@ -407,7 +394,7 @@ export function sceneInitHomePage() {
 
 
     galaxy.rotation.y -= 0.002;
-    // earth.rotation.y -= 0.002;
+    earth.rotation.y -= 0.002;
 
     // Update controls
     controls.update()
