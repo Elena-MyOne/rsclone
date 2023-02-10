@@ -2,10 +2,11 @@ import { getCountry } from "../../api/requests";
 import { content } from "../../constants/i18n";
 import { Country } from "../../models/interfaces";
 
+const photoNumbers = new Array(15).fill(1); // массив для рендера фотографий в галерее
 
 export function generateCountryPage(id: number) {
   let lang = localStorage.getItem('language') || 'en';
-  getCountry(id, lang).then((res: Country) => {
+  setTimeout(() => getCountry(id, lang).then((res: Country) => {
     const { name, nameEN, language, animalName, capital, cities, phrases, places, langCode, comments } = res;
     const main = document.querySelector('.root') as HTMLElement;
     main.innerHTML = `
@@ -44,35 +45,23 @@ export function generateCountryPage(id: number) {
           </div>
           <div class="info__cities cities col">
             <h4 class="cities__title" data-i18="countryCities">Cities</h4>
-            <span class="cities__item">${cities[0].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[1].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[2].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[3].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[4].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+            ${cities.map((item) => `<span class="cities__item">${item.city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>`).join('')}
           </div>
         </div>
         <div class="row">
           <div class="info__language language col">
-            <div><h5 data-i18="countryLanguage">Official language</h5><h3 class="language__country">-  ${language}</h3></div>
+            <div class="language__lang"><h5 class="language__text" data-i18="countryLanguage">Official language  </h5><h3 class="language__country">${language}</h3></div>
             <div class="language__lesson">
               <h4 data-i18="countryLesson">Language lessons</h4>
               <div class="phrases">
-                 <div class="phrases__item"><span class="phrases__text">${phrases[0]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span class="phrases__text">${phrases[1]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span class="phrases__text">${phrases[2]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span class="phrases__text">${phrases[3]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span class="phrases__text">${phrases[4]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+              ${phrases.map((item) => `<div class="phrases__item"><span class="phrases__text">${item}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>`).join('')}
               </div>
             </div>
           </div>
           <div class="info__places col">
             <h4 data-i18="countryPlaces">Interesting places to visit</h4>
             <div class="places-list">
-              <button type="button" class="btn btn-outline-info btn-sm">${places[0].name}</button>
-              <button type="button" class="btn btn-outline-info btn-sm">${places[1].name}</button>
-              <button type="button" class="btn btn-outline-info btn-sm">${places[2].name}</button>
-              <button type="button" class="btn btn-outline-info btn-sm">${places[3].name}</button>
-              <button type="button" class="btn btn-outline-info btn-sm">${places[4].name}</button>
+            ${places.map((item) => `<button type="button" class="btn btn-outline-info btn-sm">${item.name}</button>`).join('')}
             </div>
           </div>
         </div>
@@ -83,31 +72,16 @@ export function generateCountryPage(id: number) {
           ${generateSvgArrowDown()}
         </div>
         <div class="country__photos">
-          ${generatePhoto(nameEN, 1)}
-          ${generatePhoto(nameEN, 2)}
-          ${generatePhoto(nameEN, 3)}
-          ${generatePhoto(nameEN, 4)}
-          ${generatePhoto(nameEN, 5)}
-          ${generatePhoto(nameEN, 6)}
-          ${generatePhoto(nameEN, 7)}
-          ${generatePhoto(nameEN, 8)}
-          ${generatePhoto(nameEN, 9)}
-          ${generatePhoto(nameEN, 10)}
-          ${generatePhoto(nameEN, 11)}
-          ${generatePhoto(nameEN, 12)}
-          ${generatePhoto(nameEN, 13)}
-          ${generatePhoto(nameEN, 14)}
-          ${generatePhoto(nameEN, 15)}
+        ${photoNumbers.map((_, i) => generatePhoto(nameEN, i + 1)).join('')}
         </div>
       </div>
     </section>`;
     translation();
     openPopup();
-  })
+  }), 1300)
   const loading = document.createElement('div');
-  loading.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane-fill" viewBox="0 0 16 16">
-  <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Z"/>
-</svg> <span> Летим на самолете...</span>`;
+  loading.className = 'loading';
+  loading.innerHTML = `<img src="./assets/images/fly.gif" alt="Plane">`;
   return loading;
 }
 
