@@ -9,7 +9,7 @@ export function generateCountryPage(id: number) {
     const { name, nameEN, language, animalName, capital, cities, phrases, places, langCode, comments } = res;
     const main = document.querySelector('.root') as HTMLElement;
     main.innerHTML = `
-    <section class="country container">
+    <section class="country">
       <div class="country__info info container text-center">
         <div class="info__header row">
           <h1 class="country__name col">${name}</h1>
