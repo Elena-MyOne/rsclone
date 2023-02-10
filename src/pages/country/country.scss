@@ -21,6 +21,11 @@
 
   &__header {
     align-items: center;
+    margin: 20px 0 50px;
+  }
+
+  &__map-cities {
+    margin-bottom: 70px;
   }
 
   &__map {
@@ -39,10 +44,15 @@
   &__cities {
     display: grid;
     grid-template-columns: 0.5fr 0.7fr;
+    padding-left: 30px;
   }
 
   &__flag {
     width: 11vw;
+  }
+
+  &__places {
+    padding-left: 30px;
   }
 }
 
@@ -92,14 +102,11 @@
 
 }
 
-.row {
-  margin-top: 40px;
-}
-
 .places-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 30px;
 }
 
 .volume-hymn {
@@ -131,4 +138,26 @@
   &__title {
     color: $cyan-900;
   }
+}
+
+.phrases {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-top: 20px;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__player {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.language__lesson {
+  margin-top: 20px;
 }

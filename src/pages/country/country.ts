@@ -31,7 +31,7 @@ export function generateCountryPage(id: number) {
           </div>
           <div class="col"><img src="./assets/images/country_flags/${nameEN}_flag.jpg" alt="Flag" class="info__flag"></div>
         </div>
-        <div class="row">
+        <div class="row info__map-cities">
           <div class="info__map col">
             <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
             <div class="info__animal">
@@ -43,7 +43,7 @@ export function generateCountryPage(id: number) {
             </div>
           </div>
           <div class="info__cities cities col">
-            <h2 class="cities__title" data-18i="countryCities">Cities</h2>
+            <h4 class="cities__title" data-18i="countryCities">Cities</h4>
             <span class="cities__item">${cities[0].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
             <span class="cities__item">${cities[1].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
             <span class="cities__item">${cities[2].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
@@ -53,26 +53,26 @@ export function generateCountryPage(id: number) {
         </div>
         <div class="row">
           <div class="info__language language col">
-            <h2 data-18i="countryLanguage">Official language <strong class="language__country">${language}</strong></h2>
+            <h4 data-18i="countryLanguage">Official language <strong class="language__country">${language}</strong></h4>
             <div class="language__lesson">
-              <h2 data-18i="countryLesson">Language lessons</h2>
+              <h4 data-18i="countryLesson">Language lessons</h4>
               <div class="phrases">
-                <p class="phrases__item">${phrases[0]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
-                <p class="phrases__item">${phrases[1]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
-                <p class="phrases__item">${phrases[2]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
-                <p class="phrases__item">${phrases[3]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
-                <p class="phrases__item">${phrases[4]}</p> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}
+                 <div class="phrases__item"><span>${phrases[0]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span>${phrases[1]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span>${phrases[2]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span>${phrases[3]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span>${phrases[4]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
               </div>
             </div>
           </div>
           <div class="info__places col">
-            <h2 data-18i="countryPlaces">Interesting places to visit</h2>
+            <h4 data-18i="countryPlaces">Interesting places to visit</h4>
             <div class="places-list">
-              ${generatePlacesDesc(`./assets/images/places/${nameEN}/1.jpg`, places[0].name, places[0].description)} 
-              ${generatePlacesDesc(`./assets/images/places/${nameEN}/2.jpg`, places[1].name, places[1].description)}
-              ${generatePlacesDesc(`./assets/images/places/${nameEN}/3.jpg`, places[2].name, places[2].description)}
-              ${generatePlacesDesc(`./assets/images/places/${nameEN}/4.jpg`, places[3].name, places[3].description)}
-              ${generatePlacesDesc(`./assets/images/places/${nameEN}/5.jpg`, places[4].name, places[4].description)}
+              <button type="button" class="btn btn-outline-info btn-sm">${places[0].name}</button>
+              <button type="button" class="btn btn-outline-info btn-sm">${places[1].name}</button>
+              <button type="button" class="btn btn-outline-info btn-sm">${places[2].name}</button>
+              <button type="button" class="btn btn-outline-info btn-sm">${places[3].name}</button>
+              <button type="button" class="btn btn-outline-info btn-sm">${places[4].name}</button>
             </div>
           </div>
         </div>
