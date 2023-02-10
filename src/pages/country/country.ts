@@ -57,11 +57,11 @@ export function generateCountryPage(id: number) {
             <div class="language__lesson">
               <h4 data-18i="countryLesson">Language lessons</h4>
               <div class="phrases">
-                 <div class="phrases__item"><span>${phrases[0]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span>${phrases[1]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span>${phrases[2]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span>${phrases[3]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
-                 <div class="phrases__item"><span>${phrases[4]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span class="phrases__text">${phrases[0]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span class="phrases__text">${phrases[1]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span class="phrases__text">${phrases[2]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span class="phrases__text">${phrases[3]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
+                 <div class="phrases__item"><span class="phrases__text">${phrases[4]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
               </div>
             </div>
           </div>
