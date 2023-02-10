@@ -1,10 +1,10 @@
 import { getCountry } from "../../api/requests";
-import { generatePlacesDesc } from "../../components/places/places";
+import { content } from "../../constants/i18n";
 import { Country } from "../../models/interfaces";
 
 
 export function generateCountryPage(id: number) {
-  let lang = localStorage.getItem('language') || 'ru';
+  let lang = localStorage.getItem('language') || 'en';
   getCountry(id, lang).then((res: Country) => {
     const { name, nameEN, language, animalName, capital, cities, phrases, places, langCode, comments } = res;
     const main = document.querySelector('.root') as HTMLElement;
@@ -13,9 +13,9 @@ export function generateCountryPage(id: number) {
       <div class="country__info info container text-center">
         <div class="info__header row">
           <h1 class="country__name col">${name}</h1>
-          <h4 class="col" data-18i="countryCapital">capital<strong class="country__capital">  ${capital}</strong></h4>
+          <div class="col"><h5 class="col" data-i18="countryCapital">capital</h5><h3 class="country__capital">${capital}</h3></div>
           <div class="country__player player col">
-            <h6 data-18i="countryHymn">National Anthem</h6>
+            <h6 data-i18="countryHymn">National Anthem</h6>
             <audio controls onended="hymnEnd()" class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
             <div class="player__controls"> 
               <div class="btn-play" onclick="playCountryHymn()">
@@ -35,7 +35,7 @@ export function generateCountryPage(id: number) {
           <div class="info__map col">
             <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
             <div class="info__animal">
-              <span data-18i="countryAnimal">National symbol</span>
+              <span data-i18="countryAnimal">National symbol</span>
               <button type="button" class="country__animal btn btn-outline-info">${animalName}</button>
               <div class="animal">
               ${generateAnimalsPopup(`./assets/images/country_animals/${nameEN}.jpg`, animalName)}
@@ -43,19 +43,19 @@ export function generateCountryPage(id: number) {
             </div>
           </div>
           <div class="info__cities cities col">
-            <h4 class="cities__title" data-18i="countryCities">Cities</h4>
-            <span class="cities__item">${cities[0].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[1].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[2].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[3].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
-            <span class="cities__item">${cities[4].city}</span> <button data-18i="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+            <h4 class="cities__title" data-i18="countryCities">Cities</h4>
+            <span class="cities__item">${cities[0].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+            <span class="cities__item">${cities[1].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+            <span class="cities__item">${cities[2].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+            <span class="cities__item">${cities[3].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
+            <span class="cities__item">${cities[4].city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>
           </div>
         </div>
         <div class="row">
           <div class="info__language language col">
-            <h4 data-18i="countryLanguage">Official language <strong class="language__country">${language}</strong></h4>
+            <div><h5 data-i18="countryLanguage">Official language</h5><h3 class="language__country">-  ${language}</h3></div>
             <div class="language__lesson">
-              <h4 data-18i="countryLesson">Language lessons</h4>
+              <h4 data-i18="countryLesson">Language lessons</h4>
               <div class="phrases">
                  <div class="phrases__item"><span class="phrases__text">${phrases[0]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
                  <div class="phrases__item"><span class="phrases__text">${phrases[1]}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>
@@ -66,7 +66,7 @@ export function generateCountryPage(id: number) {
             </div>
           </div>
           <div class="info__places col">
-            <h4 data-18i="countryPlaces">Interesting places to visit</h4>
+            <h4 data-i18="countryPlaces">Interesting places to visit</h4>
             <div class="places-list">
               <button type="button" class="btn btn-outline-info btn-sm">${places[0].name}</button>
               <button type="button" class="btn btn-outline-info btn-sm">${places[1].name}</button>
@@ -101,7 +101,8 @@ export function generateCountryPage(id: number) {
         </div>
       </div>
     </section>`;
-   openPopup();
+    translation();
+    openPopup();
   })
   const loading = document.createElement('div');
   loading.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane-fill" viewBox="0 0 16 16">
@@ -189,9 +190,9 @@ function openPopup() {
   animal.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (target.classList.contains('animal')) {
-        animal.classList.remove('active');
+      animal.classList.remove('active');
     }
-})
+  })
 }
 
 //генерация SVG
@@ -230,6 +231,16 @@ export function generateSvgArrowDown() {
 function generatePhoto(country: string, n: number) {
   return `<figure class="figure">
       <img src="./assets/./images/gallery/${country}/img_${n}.jpg" class="figure-img img-fluid rounded" alt="Nice place">
-      <figcaption class="figure-caption">click to enlarge</figcaption>
+      <figcaption data-i18 ="galleryText" class="figure-caption">click to expand</figcaption>
     </figure>`;
+}
+
+// функция перевода контента на всей странице с учетов выбранного пользователем языка
+export function translation() {
+  const lang = localStorage.getItem('language') || 'en';
+  document.querySelectorAll('[data-i18]').forEach((element) => {
+    const contentLang = content[lang as keyof typeof content];
+    const value = element.getAttribute('data-i18') as keyof typeof contentLang;
+    (element as HTMLElement).innerText = contentLang[value];
+  });
 }

@@ -20,7 +20,7 @@ export function generateHomePage() {
         <div class="col-2 country-buttons_container">
         </div>
         <div class="col-7">
-          <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-18i="titleChoice">
+          <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-i18="titleChoice">
             Choose the country
           </h4>
         </div>

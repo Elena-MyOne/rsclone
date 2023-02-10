@@ -1,6 +1,8 @@
 import { sceneInitHomePage } from "../../components/canvas/SceneInit";
 
 
+import { translation } from "../country/country";
+
 export function handlers() {
   const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
   // console.log(countryButtons);
@@ -19,8 +21,13 @@ export function handlers() {
   langSelect.addEventListener('change', () => {
     // console.log(langSelect.value)
     localStorage.setItem("language", langSelect.value.toLowerCase())
+    translation(); // переводит контент
     const lang = localStorage.getItem("language") as string
-    // console.log(lang)
+
+    // TODO изменять язык на кнопках в списке стран, отправляя новый запрос на бек.
+    // сохранять в селекте после перезагрузке выбранный ранее язык.
+
+    console.log(lang)
   })
 
   const themeSwitch = document.getElementById("themeSwitch") as HTMLButtonElement;

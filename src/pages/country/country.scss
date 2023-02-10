@@ -136,6 +136,10 @@
   &__title {
     color: $cyan-900;
   }
+
+  &__close {
+    align-self: flex-end;
+  }
 }
 
 .phrases {

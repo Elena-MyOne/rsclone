@@ -1,10 +1,9 @@
 export function generateHelpPage(): HTMLElement {
   const helpBlock = document.createElement('section');
-  helpBlock.className = 'help container';
-  helpBlock.innerHTML = `
-  
-  <h1 class="help__title" data-18i="helpTitle">Welcome to app Amazing Trip!</h1>
-  <p data-18i="helpAdvice">We recommend that you go through the registration, consisting of the "Sign up" on the top bar. So the progress of our journey will be saved and you can participate in discussion with other users.</p>
+  helpBlock.className = 'help';
+  helpBlock.innerHTML = `  
+  <h1 class="help__title" data-i18="helpTitle">Welcome to app Amazing Trip!</h1>
+  <p data-i18="helpAdvice">We recommend that you go through the registration, consisting of the "Sign up" on the top bar. So the progress of our journey will be saved and you can participate in discussion with other users.</p>
   <div class="accordion" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
@@ -13,7 +12,7 @@ export function generateHelpPage(): HTMLElement {
         </button>
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-        <div data-18i="helpStartText" class="accordion-body">
+        <div data-i18="helpStartText" class="accordion-body">
         Here you can see the beauty and perfection of our planet. Rotate it as you like, zoom in and out. Don't worry, it's not dangerous and has no effect on the real planet 😉 To start the journey, press the Enter key.
         </div>
       </div>
@@ -87,7 +86,7 @@ export function generateHelpPage(): HTMLElement {
         <a class="tooltips" href="https://github.com/shipu4ka" target="_blank"><img class="creators__link " title="shipu4ka" src="./assets/icons/github_logo_black.svg" alt="github logo"><span class="tooltiptext">shipu4ka</span></a>
       </div>
       <div class="rsschool">
-        <span data-18i="helpSchool">Has gathered everyone together:</span>
+        <span data-i18="helpSchool">Has gathered everyone together:</span>
         <a href="https://rs.school/js/"><img class="rsschool__link" src="./assets/icons/rs_logo_white.svg" alt="RSSchool logo"></a>
       </div>
       </div>`;
