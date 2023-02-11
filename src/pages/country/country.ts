@@ -1,12 +1,13 @@
 import { getCountry } from "../../api/requests";
 import { content } from "../../constants/i18n";
 import { Country } from "../../models/interfaces";
-import { Swiper, Navigation, Autoplay } from 'swiper';
+import { Swiper, Navigation, Autoplay, Keyboard, Mousewheel } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const photoNumbers = new Array(15).fill(1); // массив для рендера фотографий в галерее
+const audioNumber = new Array(5).fill(1); // массив для функции воспроизведения фраз
 
 export function generateCountryPage(id: number) {
   let lang = localStorage.getItem('language') || 'en';
@@ -21,20 +22,15 @@ export function generateCountryPage(id: number) {
           <div class="col"><h5 class="col" data-i18="countryCapital">capital</h5><h3 class="country__capital">${capital}</h3></div>
           <div class="country__player player col">
             <h6 data-i18="countryHymn">National Anthem</h6>
-            <audio controls onended="hymnEnd()" class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
+            <audio controls class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
             <div class="player__controls"> 
-              <div class="btn-play" onclick="playCountryHymn()">
-              ${generateSvgPlay()}
-              ${generateSvgPause()}
-              </div>
-              <div class="time-bar ">
-                <div class="time-bar__progress progress-hymn"></div>
-                <div class="time-bar__progress circle-hymn"></div>
+              <div class="btn-play">
+              ${generateSvgPlay('hymn__play')}
+              ${generateSvgPause('hymn__pause')}
               </div>
             </div>
-            <input type="range" class="volume-hymn" min="0" step="any" max="1" value="1">
           </div>
-          <div class="col"><img src="./assets/images/country_flags/${nameEN}_flag.jpg" alt="Flag" class="info__flag"></div>
+          <div class="col"><img src="./assets/images/country_flags/${nameEN}_flag.gif" alt="Flag" class="info__flag"></div>
         </div>
         <div class="row info__map-cities">
           <div class="info__map col">
@@ -58,7 +54,7 @@ export function generateCountryPage(id: number) {
             <div class="language__lesson">
               <h4 data-i18="countryLesson">Language lessons</h4>
               <div class="phrases">
-              ${phrases.map((item) => `<div class="phrases__item"><span class="phrases__text">${item}</span><div class="phrases__player"> ${generateSvgPlay()} ${generateSvgPause()} ${generateSvgMicro()}</div></div>`).join('')}
+              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i +1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)} ${generateSvgMicro()}</div></div>`).join('')}
               </div>
             </div>
           </div>
@@ -81,10 +77,14 @@ export function generateCountryPage(id: number) {
       </div>
     </section>`;
     translation();
-    openPopup();
+    openClosePopup();
+    playAudio('hymn__play', 'hymn__pause', '.country__hymn');
+    audioEnd('hymn__play', 'hymn__pause', '.country__hymn');
+    playPhrases();
+    endPhrases();
     const swiper = new Swiper('.swiper', {
-      modules: [Navigation, Autoplay],
-      speed: 500,
+      modules: [Navigation, Autoplay, Keyboard, Mousewheel],
+      speed: 800,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -92,71 +92,65 @@ export function generateCountryPage(id: number) {
       direction: 'vertical',
       loop: true,
       autoplay: {
-        delay: 1000,
+        delay: 2300,
+        disableOnIteration: true,
       },
-      slidesPerView: 'auto'
+      slidesPerView: 'auto',
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+      },
+      mousewheel: {
+        forceToAxis: true,
+        sensitivity: 1
+      },
+      grabCursor: true,
     });
-  }), 0)
+  }), 1500)
   const loading = document.createElement('div');
   loading.className = 'loading';
   loading.innerHTML = `<img src="./assets/images/fly.gif" alt="Plane">`;
   return loading;
 }
 
-const countryHymn = document.querySelector('.country__hymn') as HTMLAudioElement;
-const hymnDuration = document.querySelector('.hymn-duration') as HTMLElement;
-const countHymn = document.querySelector('.hymn-countdown') as HTMLElement;
 const lineProgressHymn = document.querySelector('.progress-hymn') as HTMLElement;
 const circleHymn = document.querySelector('.circle-hymn') as HTMLElement;
 const volumeHymn = document.querySelector('.volume-hymn') as HTMLInputElement;
-const btnPlayHymn = document.querySelector('.btn-play') as HTMLElement;
-let isHymnPlay = false;
 let timeHymn = 0;
-const gradientBlue = 'linear-gradient(to right, rgb(61 115 186) 0%, rgb(105 159 190)';
-const gradientGrey = ' rgb(115, 115, 115) 0%, rgb(115, 115, 115) 100%';
 const initialColor = 'linear-gradient(to right, rgb(61, 115, 186) 0%, rgb(105, 159, 190) 0%, rgb(115, 115, 115) 0%, rgb(115, 115, 115) 100%)';
 
-// регулировка звука
-// volumeHymn.onchange = function (e) {
-//   const target = e.target as HTMLInputElement
-//   countryHymn.volume = Number(target.value);
-// };
-
-setInterval(() => {
-  if (isHymnPlay) {
-    timeHymn++;
-    const s = timeHymn % 60;
-    const m = Math.floor(timeHymn / 60);
-    countHymn.innerHTML = `${m}:${s}`;
-    const duration = hymnDuration.innerHTML.split(':')[1];
-    circleHymn.style.left = `${100 / Number(duration) * s}%`;
-    lineProgressHymn.style.background = `${gradientBlue} ${100 / Number(duration) * s}%, ${gradientGrey}`;
-  }
-}, 1000);
-
 // обработка кликов play/pause
-// export function playCountryHymn() {
-//   if (!isHymnPlay) {
-//     countryHymn.play();
-//     btnPlayHymn.innerHTML = generateSvgPause();
-//     isHymnPlay = true;
-//   } else {
-//     countryHymn.pause();
-//     btnPlayHymn.innerHTML = generateSvgPlay();
-//     isHymnPlay = false;
-//   }
-// }
+
+function playAudio(idPlay: string, idPause: string, classAudio: string) {
+  const btnPlay = document.getElementById(idPlay) as HTMLElement;
+  const btnPause = document.getElementById(idPause) as HTMLElement;
+  const audio = document.querySelector(classAudio) as HTMLAudioElement;
+  btnPlay.addEventListener('click', () => {
+    audio.play();
+      btnPlay.classList.add('bi__active');
+    })
+    btnPause.addEventListener('click', () => {
+      audio.pause();
+      btnPlay.classList.remove('bi__active');
+    })
+  }
+  function playPhrases() {
+    audioNumber.map((_, i) => playAudio(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
+  }
 
 // обработка окончания audio
-export function hymnEnd() {
-  btnPlayHymn.innerHTML = generateSvgPause();
-  isHymnPlay = false;
-  circleHymn.style.left = '0px';
-  countHymn.innerHTML = '0:0';
-  timeHymn = 0;
-  lineProgressHymn.style.background = `${initialColor}`;
-};
-
+function audioEnd(idPlay: string, idPause: string, classAudio: string) {  
+  const audio = document.querySelector(classAudio) as HTMLAudioElement;
+  const btnPlay = document.getElementById(idPlay) as HTMLElement;
+  const btnPause = document.getElementById(idPause) as HTMLElement;
+  audio.addEventListener('ended', () => {
+    btnPause.classList.remove('bi__active');
+    btnPlay.classList.remove('bi__active');
+  })
+}
+  function endPhrases() {
+    audioNumber.map((_, i) => audioEnd(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
+  }
 
 // popup с животным
 function generateAnimalsPopup(img: string, animal: string) {
@@ -169,7 +163,7 @@ function generateAnimalsPopup(img: string, animal: string) {
               </div>`;
 }
 
-function openPopup() {
+function openClosePopup() {
   const btnAnimal = document.querySelector('.country__animal') as HTMLButtonElement;
   const btnClose = document.querySelector('.animal__close') as HTMLButtonElement;
   const animal = document.querySelector('.animal') as HTMLElement;
@@ -188,32 +182,32 @@ function openPopup() {
 }
 
 //генерация SVG
-export function generateSvgPlay() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+function generateSvgPlay(className: string): string {
+  return `<svg id="${className}" xmlns="http://www.w3.org/2000/svg" class="bi bi-play-fill" viewBox="0 0 16 16">
     <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
   </svg>`;
 }
 
-export function generateSvgPause() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+function generateSvgPause(className: string): string {
+  return `<svg id="${className}" xmlns="http://www.w3.org/2000/svg" class="bi bi-pause-fill" viewBox="0 0 16 16">
   <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
 </svg>`;
 }
 
-export function generateSvgMicro() {
+function generateSvgMicro() {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
   <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
   <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
 </svg>`;
 }
 
-export function generateSvgArrowUp() {
+function generateSvgArrowUp() {
   return `<svg class="arrow__up swiper-button-prev" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
 </svg>`;
 }
 
-export function generateSvgArrowDown() {
+function generateSvgArrowDown() {
   return `<svg class="arrow__down swiper-button-next" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
 </svg>`;
