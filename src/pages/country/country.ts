@@ -54,14 +54,15 @@ export function generateCountryPage(id: number) {
             <div class="language__lesson">
               <h4 data-i18="countryLesson">Language lessons</h4>
               <div class="phrases">
-              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i +1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)} ${generateSvgMicro()}</div></div>`).join('')}
+              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)} ${generateSvgMicro()}</div></div>`).join('')}
               </div>
             </div>
           </div>
           <div class="info__places col">
             <h4 data-i18="countryPlaces">Interesting places to visit</h4>
             <div class="places-list">
-            ${places.map((item) => `<button type="button" class="btn btn-outline-info btn-sm">${item.name}</button>`).join('')}
+            ${places.map((item, i) => `<button type="button" class="btn btn-outline-info btn-sm places-list__item place_${i + 1}">${item.name}</button>`).join('')}
+            ${places.map((item, i) => generatePlacesPopup(`./assets/images/places/${nameEN}/${i + 1}.jpg`, item.name, item.description, i + 1, item.location)).join('')}
             </div>
           </div>
         </div>
@@ -77,7 +78,8 @@ export function generateCountryPage(id: number) {
       </div>
     </section>`;
     translation();
-    openClosePopup();
+    openClosePopupAnimal();
+    openClosePopupPlaces();
     playAudio('hymn__play', 'hymn__pause', '.country__hymn');
     audioEnd('hymn__play', 'hymn__pause', '.country__hymn');
     playPhrases();
@@ -85,6 +87,7 @@ export function generateCountryPage(id: number) {
     const swiper = new Swiper('.swiper', {
       modules: [Navigation, Autoplay, Keyboard, Mousewheel],
       speed: 800,
+      slidesPerGroup: 3,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -113,12 +116,6 @@ export function generateCountryPage(id: number) {
   return loading;
 }
 
-const lineProgressHymn = document.querySelector('.progress-hymn') as HTMLElement;
-const circleHymn = document.querySelector('.circle-hymn') as HTMLElement;
-const volumeHymn = document.querySelector('.volume-hymn') as HTMLInputElement;
-let timeHymn = 0;
-const initialColor = 'linear-gradient(to right, rgb(61, 115, 186) 0%, rgb(105, 159, 190) 0%, rgb(115, 115, 115) 0%, rgb(115, 115, 115) 100%)';
-
 // обработка кликов play/pause
 
 function playAudio(idPlay: string, idPause: string, classAudio: string) {
@@ -127,19 +124,20 @@ function playAudio(idPlay: string, idPause: string, classAudio: string) {
   const audio = document.querySelector(classAudio) as HTMLAudioElement;
   btnPlay.addEventListener('click', () => {
     audio.play();
-      btnPlay.classList.add('bi__active');
-    })
-    btnPause.addEventListener('click', () => {
-      audio.pause();
-      btnPlay.classList.remove('bi__active');
-    })
-  }
-  function playPhrases() {
-    audioNumber.map((_, i) => playAudio(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
-  }
+    btnPlay.classList.add('bi__active');
+  })
+  btnPause.addEventListener('click', () => {
+    audio.pause();
+    btnPlay.classList.remove('bi__active');
+  })
+}
+function playPhrases() {
+  audioNumber.map((_, i) => playAudio(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
+}
 
 // обработка окончания audio
-function audioEnd(idPlay: string, idPause: string, classAudio: string) {  
+
+function audioEnd(idPlay: string, idPause: string, classAudio: string) {
   const audio = document.querySelector(classAudio) as HTMLAudioElement;
   const btnPlay = document.getElementById(idPlay) as HTMLElement;
   const btnPause = document.getElementById(idPause) as HTMLElement;
@@ -148,11 +146,12 @@ function audioEnd(idPlay: string, idPause: string, classAudio: string) {
     btnPlay.classList.remove('bi__active');
   })
 }
-  function endPhrases() {
-    audioNumber.map((_, i) => audioEnd(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
-  }
+function endPhrases() {
+  audioNumber.map((_, i) => audioEnd(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
+}
 
 // popup с животным
+
 function generateAnimalsPopup(img: string, animal: string) {
   return `<div class="card animal__card">
   <button type="button" class="btn-close animal__close" aria-label="Close"></button>
@@ -163,25 +162,69 @@ function generateAnimalsPopup(img: string, animal: string) {
               </div>`;
 }
 
-function openClosePopup() {
+function openClosePopupAnimal() {
   const btnAnimal = document.querySelector('.country__animal') as HTMLButtonElement;
   const btnClose = document.querySelector('.animal__close') as HTMLButtonElement;
   const animal = document.querySelector('.animal') as HTMLElement;
   btnAnimal.addEventListener('click', () => {
-    animal.classList.add('active');
+    animal.classList.add('animal_active');
   })
   btnClose.addEventListener('click', () => {
-    animal.classList.remove('active');
+    animal.classList.remove('animal_active');
   })
   animal.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (target.classList.contains('animal')) {
-      animal.classList.remove('active');
+      animal.classList.remove('animal_active');
     }
   })
 }
 
+// popup с интересными местами
+
+function generatePlacesPopup(img: string, name: string, description: string, id: number, location: string) {
+  return `<div class="place${id} place">
+  <div class="card place__card">
+  <button type="button" class="btn-close place__close" aria-label="Close"></button>
+                <h3 class="place__title">${name}</h3>
+                <img src="${img}" class="card-img-top places__img" alt="Place">
+                <div class="card-body place__desc">
+                  <span class="place__location">${location}</span>
+                  <p class="place__info card-text">${description}</p>
+                </div>
+              </div>
+              </div>`;
+}
+
+function openClosePopupPlaces() {
+  const btnsPlaces = document.querySelectorAll('.places-list__item') as NodeListOf<HTMLButtonElement>;
+  const btnsClose = document.querySelectorAll('.place__close') as NodeListOf<HTMLButtonElement>;
+  const placesList = document.querySelectorAll('.place') as NodeListOf<HTMLElement>;
+
+  btnsPlaces.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      placesList[i].classList.add('place_active');
+    })
+  })
+
+  btnsClose.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      placesList[i].classList.remove('place_active');
+    })
+  })
+
+  placesList.forEach((place) => {
+    place.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('place')) {
+        place.classList.remove('place_active');
+      }
+    })
+  })
+}
+
 //генерация SVG
+
 function generateSvgPlay(className: string): string {
   return `<svg id="${className}" xmlns="http://www.w3.org/2000/svg" class="bi bi-play-fill" viewBox="0 0 16 16">
     <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
@@ -214,6 +257,7 @@ function generateSvgArrowDown() {
 }
 
 // генерация фото для галереи
+
 function generatePhoto(country: string, n: number) {
   return `<figure class="figure swiper-slide photo__slide">
       <img src="./assets/./images/gallery/${country}/img_${n}.jpg" class="figure-img img-fluid rounded" alt="Nice place">
@@ -222,6 +266,7 @@ function generatePhoto(country: string, n: number) {
 }
 
 // функция перевода контента на всей странице с учетов выбранного пользователем языка
+
 export function translation() {
   const lang = localStorage.getItem('language') || 'en';
   document.querySelectorAll('[data-i18]').forEach((element) => {
