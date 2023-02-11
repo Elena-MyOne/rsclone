@@ -239,13 +239,8 @@ export function sceneInitHomePage() {
     canvas: canvas,
     antialias: true,
   })
-  console.log(renderer.getContext())
-  // renderer.setClearColor(0x000000);
+  // console.log(renderer.getContext())
   renderer.clear(true);
-  // const renderer = new THREE.WebGLRenderer();
-  // renderer.para
-  // renderer.autoClearColor = true;
-  // renderer.clear()
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.autoClear = true;
@@ -357,7 +352,7 @@ export function sceneInitHomePage() {
   //handlers
   const mouse = new THREE.Vector2();
 
-  console.log(canvas.style)
+  // console.log(canvas.style)
 
   canvas.addEventListener('click', onCanvasMouseClick, false);
   function onCanvasMouseClick(event: MouseEvent) {
