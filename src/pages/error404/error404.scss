@@ -1,3 +1,12 @@
+html[data-bs-theme="dark"] .error-page {
+
+  &__link {
+    color: $yellow-300;
+    &:hover{
+      color: $yellow-600;
+    }
+  }
+}
 .error-page {
   &__body {
     display: flex;

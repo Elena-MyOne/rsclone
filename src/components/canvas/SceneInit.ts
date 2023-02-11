@@ -1,5 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
+import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader'
+import { VerticalBlurShader  } from 'three/examples/jsm/shaders/VerticalBlurShader'
 
 
 
@@ -53,6 +58,15 @@ export function sceneInitStartPage() {
   renderer.setClearColor(0x000000, 0.0);
 
 
+  // BLUR
+  // const composer = new EffectComposer( renderer );
+  // composer.addPass( new RenderPass( scene, camera ) );
+  // const hblur = new ShaderPass( HorizontalBlurShader );
+  // composer.addPass( hblur );
+  // const vblur = new ShaderPass( VerticalBlurShader );
+  // vblur.renderToScreen = true;
+  // composer.addPass( vblur );
+  
   //loading console.log - debug
   const loadingManager = new THREE.LoadingManager()
   loadingManager.onStart = () =>
@@ -167,6 +181,7 @@ scene.add(galaxy);
 
       // Render
       renderer.render(scene, camera)
+      // composer.render();
 
       // Call tick again on the next frame
       window.requestAnimationFrame(tick)
@@ -179,7 +194,9 @@ scene.add(galaxy);
 export function sceneInitHomePage() {
   
   //Canvas
-  const canvas = document.querySelector('canvas.home-page') as HTMLElement;
+  const canvas = document.querySelector('canvas.home-page') as HTMLCanvasElement;
+  // const context = canvas.getContext('3d');
+  // console.log(context);
   let topOffset = Number(canvas.offsetTop);
   
   // Scene
@@ -222,9 +239,16 @@ export function sceneInitHomePage() {
     canvas: canvas,
     antialias: true,
   })
+  console.log(renderer.getContext())
+  // renderer.setClearColor(0x000000);
+  renderer.clear(true);
+  // const renderer = new THREE.WebGLRenderer();
+  // renderer.para
+  // renderer.autoClearColor = true;
+  // renderer.clear()
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  renderer.autoClear = false;
+  renderer.autoClear = true;
   renderer.setClearColor(0x000000, 0.0);
   
   
@@ -428,11 +452,12 @@ const createDarkPlanet = (bumpTexture: THREE.Texture, borderTexture: THREE.Textu
   const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
   const earthMaterial = new THREE.MeshStandardMaterial({
     color: 0xFFC489,
-    metalness: 1,
+    emissiveIntensity: 0.3,
+    emissive: 0xFFC489,
     map: colorTexture,
     bumpMap: bumpTexture,
     bumpScale: 0.005,
-    metalnessMap: borderTexture,
+    emissiveMap: borderTexture,
   });
   return new THREE.Mesh(earthGeometry, earthMaterial);
   
@@ -485,7 +510,7 @@ const createPin = () => {
     default:
       pin = new THREE.Mesh(
           new THREE.SphereGeometry(0.035, 10, 10),
-          new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+          new THREE.MeshBasicMaterial({ color: 0x0dcaf0 })
         )
       break;
   }

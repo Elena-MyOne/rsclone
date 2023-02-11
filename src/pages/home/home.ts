@@ -9,7 +9,7 @@ export function generateHomePage() {
  
   const root = document.querySelector('.root') as HTMLElement;
   root.classList.add('main_home-page');
-  root.dataset.dsTheme = 'dark';
+  // root.dataset.dsTheme = 'dark';
   const content = document.createElement("div");
   // content.className = "position-relative";
   content.innerHTML = `
@@ -17,7 +17,7 @@ export function generateHomePage() {
   <div class="container py-2 text-center">
     <div class="home-page__container container">
       <div class="row">
-        <div class="col-2 country-buttons_container" data-bs-theme="dark">
+        <div class="col-2 country-buttons_container">
         </div>
         <div class="col-7">
           <h4 class="home-page__title display-2 fw-semibold" data-18i="titleChoice">
@@ -35,6 +35,9 @@ export function generateHomePage() {
           <button type="button" class="button theme-button">
             <img src="./assets/icons/light_theme_white.svg" alt="help">
           </button>
+          <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input text-center" id="themeSwitch" />
+          </div>
         </div>
       </div>
     </div>
