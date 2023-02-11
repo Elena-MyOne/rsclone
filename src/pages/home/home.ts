@@ -20,7 +20,7 @@ export function generateHomePage() {
         <div class="col-2 country-buttons_container">
         </div>
         <div class="col-7">
-          <h4 class="home-page__title display-2 fw-semibold" data-18i="titleChoice">
+          <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-18i="titleChoice">
             Choose the country
           </h4>
         </div>
@@ -32,12 +32,8 @@ export function generateHomePage() {
           </select>
         </div>
         <div class="col-1 theme_container">
-          <button type="button" class="button theme-button">
-            <img src="./assets/icons/light_theme_white.svg" alt="help">
+          <button type="button" class="button theme-button" id="themeSwitch">
           </button>
-          <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input text-center" id="themeSwitch" />
-          </div>
         </div>
       </div>
     </div>

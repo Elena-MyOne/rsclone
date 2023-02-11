@@ -1,6 +1,6 @@
 export function generateHelpPage(): HTMLElement {
   const helpBlock = document.createElement('div');
-  helpBlock.className = 'help';
+  helpBlock.className = 'help container';
   helpBlock.innerHTML = `
   
   <h1 class="help__title" data-18i="helpTitle">Welcome to app Amazing Trip!</h1>

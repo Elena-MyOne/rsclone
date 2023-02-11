@@ -503,7 +503,7 @@ const createPin = () => {
     case "dark":
       pin = pin = new THREE.Mesh(
           new THREE.SphereGeometry(0.035, 10, 10),
-          new THREE.MeshBasicMaterial({ color: 0xFFC489 })
+          new THREE.MeshBasicMaterial({ color: 0xfecd39 })
         );
       break;
 
