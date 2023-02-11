@@ -6,6 +6,7 @@ import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/Scene
 import { generateHeader } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
+import { generateRegistrationPage } from "./pages/registration/registration";
 
 export function router() {
   generateContentByHash();
@@ -30,7 +31,7 @@ function generateContentByHash() {
       break;
     case ROUTER_PATH.PROFILE: contentMain = 'Profile'; // Вставить функцию генерации профиля пользователя
       break;
-    case ROUTER_PATH.REGISTRATION: contentMain = 'Registration'; // Вставить функцию генерации страницы регистрации
+    case ROUTER_PATH.REGISTRATION: contentMain = generateRegistrationPage(); // Вставить функцию генерации страницы регистрации
       break;
     case '':
     case ROUTER_PATH.START: {

@@ -5,7 +5,7 @@ export function generateQuiz(): HTMLElement {
   quizBody.classList.add('quiz__body');
 
   const quizForm = document.createElement('form') as HTMLFormElement;
-  quizForm.classList.add('uiz__form', 'row', 'g-4', 'needs-validation');
+  quizForm.classList.add('quiz__form', 'row', 'g-4', 'needs-validation');
   quizForm.setAttribute('novalidate', '');
 
   quizForm.innerHTML = `
