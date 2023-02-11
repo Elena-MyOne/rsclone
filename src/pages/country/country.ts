@@ -45,7 +45,8 @@ export function generateCountryPage(id: number) {
           </div>
           <div class="info__cities cities col">
             <h4 class="cities__title" data-i18="countryCities">Cities</h4>
-            ${cities.map((item) => `<span class="cities__item">${item.city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn">Show on the map</button>`).join('')}
+            ${cities.map((item, i) => `<span class="cities__item">${item.city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn city_${i + 1}">Show on the map</button>`).join('')}
+            ${cities.map((item, i) => generateMapPopup(item.city, i + 1)).join('')}
           </div>
         </div>
         <div class="row">
@@ -80,10 +81,12 @@ export function generateCountryPage(id: number) {
     translation();
     openClosePopupAnimal();
     openClosePopupPlaces();
+    openClosePopupMap();
     playAudio('hymn__play', 'hymn__pause', '.country__hymn');
     audioEnd('hymn__play', 'hymn__pause', '.country__hymn');
     playPhrases();
     endPhrases();
+    cities.map((item, i) => getMap(item.coordinates.split(',').map(Number), i + 1));
     const swiper = new Swiper('.swiper', {
       modules: [Navigation, Autoplay, Keyboard, Mousewheel],
       speed: 800,
@@ -222,6 +225,59 @@ function openClosePopupPlaces() {
     })
   })
 }
+
+// popup с картой города
+
+function generateMapPopup(city: string, id: number) {
+  return `
+  <div class="city${id} city">
+    <div class="card city__card">
+      <button type="button" class="btn-close city__close" aria-label="Close"></button>
+      <h3 class="city__title">${city}</h3>
+      <div id="map_${id}" style="width: 100%; height: 300px"></div>
+      <div class="card-body place__desc"></div>
+    </div>
+  </div>`;
+}
+
+function openClosePopupMap() {
+  const btnsCity = document.querySelectorAll('.cities__btn') as NodeListOf<HTMLButtonElement>;
+  const btnsClose = document.querySelectorAll('.city__close') as NodeListOf<HTMLButtonElement>;
+  const citiesList = document.querySelectorAll('.city') as NodeListOf<HTMLElement>;
+
+  btnsCity.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      citiesList[i].classList.add('city_active');
+    })
+  })
+
+  btnsClose.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      citiesList[i].classList.remove('city_active');
+    })
+  })
+
+  citiesList.forEach((city) => {
+    city.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('city')) {
+        city.classList.remove('city_active');
+      }
+    })
+  })
+}
+
+// получение Яндекс карты
+
+function getMap(coordinates: number[], id: number) {
+  ymaps.ready().then(() => {
+    let myMap = new ymaps.Map(`map_${id}`, {
+      center: coordinates,
+      zoom: 12,
+    });
+  });
+}
+
 
 //генерация SVG
 
