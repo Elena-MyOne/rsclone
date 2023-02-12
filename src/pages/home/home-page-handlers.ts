@@ -1,14 +1,15 @@
 import { sceneInitHomePage } from "../../components/canvas/SceneInit";
+import { addCountriesButtons } from "./home";
 
 
 import { translation } from "../country/country";
 
 export function handlers() {
+  const currentLang = localStorage.getItem('language') || 'EN'
+  setSelected(currentLang);
   const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
-  // console.log(countryButtons);
   countryButtons.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
-    // console.log(target)
     const countryButton = target.closest(".btn");
     if (countryButton) {
       //popUp
@@ -17,22 +18,16 @@ export function handlers() {
   })
 
   const langSelect = document.querySelector(".lang_select") as HTMLSelectElement;
-  // console.log(langSelect)
   langSelect.addEventListener('change', () => {
-    // console.log(langSelect.value)
-    localStorage.setItem("language", langSelect.value.toLowerCase())
+    const currentLang = langSelect.value as string;
+    localStorage.setItem("language", currentLang.toLowerCase())
     translation(); // переводит контент
-    const lang = localStorage.getItem("language") as string
+    addCountriesButtons(currentLang.toLowerCase());
 
-    // TODO изменять язык на кнопках в списке стран, отправляя новый запрос на бек.
-    // сохранять в селекте после перезагрузке выбранный ранее язык.
-
-    console.log(lang)
   })
 
   const themeSwitch = document.getElementById("themeSwitch") as HTMLButtonElement;
     if (themeSwitch) {
-      // console.log('есть')
       initTheme();
       initIcon();
       themeSwitch.addEventListener("click", function () {
@@ -87,5 +82,13 @@ export function handlers() {
       <path fill-rule="evenodd" clip-rule="evenodd" d="M6.36888 5.01722C5.99568 4.64402 5.3906 4.64402 5.01739 5.01722C4.64419 5.39043 4.64419 5.99551 5.01739 6.36871L6.82776 8.17908C7.0154 7.92574 7.22403 7.68306 7.45366 7.45342C7.68327 7.22381 7.92593 7.0152 8.17924 6.82758L6.36888 5.01722ZM17.1727 15.821C16.9851 16.0743 16.7764 16.317 16.5468 16.5466C16.3172 16.7762 16.0745 16.9849 15.8212 17.1725L17.6313 18.9826C18.0045 19.3558 18.6095 19.3558 18.9828 18.9826C19.356 18.6094 19.356 18.0043 18.9828 17.6311L17.1727 15.821Z" fill="#ffffff"/>
       </svg>`
     }
+  }
+
+  function setSelected(lang: string) {
+    ((document.querySelectorAll('.lang-option')) as NodeListOf<HTMLOptionElement>).forEach((element) => {
+      if (element.innerHTML === lang.toUpperCase()) {
+        element.selected = true;
+      }
+    });
   }
 }

@@ -8,6 +8,8 @@ html[data-bs-theme="dark"] .error-page {
   }
 }
 .error-page {
+  margin-top: 56px;
+
   &__body {
     display: flex;
     justify-content: center;

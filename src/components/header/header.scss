@@ -1,4 +1,8 @@
 .header {
+  position: fixed; 
+  z-index: 5;
+  width: 100vw;
+
   &__logo {
     font-family: 'Kalam', cursive;
   }
@@ -6,12 +10,34 @@
 
 .navbar {
   background-color: $cyan-700;
-  z-index: 1;
 }
-html[data-bs-theme="dark"] .navbar {
-  background-color: $yellow-700;
+
+.offcanvas-header {
+  padding-left: 36px;
+  background-color: $cyan-700;
+}
+
+.offcanvas-body {
+  padding-left: 36px;
+  background-color: $cyan-700;
+  overflow-y: visible;
 }
 
 .navbar-brand {
   margin-right: 50px;
+}
+html[data-bs-theme="dark"] {
+  .navbar {
+    background-color: $yellow-700;
+  }
+  .offcanvas-header {
+    background-color: $yellow-700;
+  }
+  .offcanvas-body {
+    background-color: $yellow-700;
+    overflow-y: visible;
+  }
+  .btn-close {
+    filter: none;
+  }
 }
