@@ -1,7 +1,7 @@
 import { getCountry } from "../../api/requests";
 import { content } from "../../constants/i18n";
 import { Country } from "../../models/interfaces";
-import { Swiper, Navigation, Autoplay, Keyboard, Mousewheel } from 'swiper';
+import { Swiper, Navigation, Autoplay, Keyboard, Mousewheel, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -21,7 +21,7 @@ export function generateCountryPage(id: number) {
           <h1 class="country__name col">${name}</h1>
           <div class="col"><h5 class="col" data-i18="countryCapital">capital</h5><h3 class="country__capital">${capital}</h3></div>
           <div class="country__player player col">
-            <h6 data-i18="countryHymn">National Anthem</h6>
+            <h3 data-i18="countryHymn">National Anthem</h3>
             <audio controls class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
             <div class="player__controls"> 
               <div class="btn-play">
@@ -49,6 +49,7 @@ export function generateCountryPage(id: number) {
             ${cities.map((item, i) => generateMapPopup(item.city, i + 1)).join('')}
           </div>
         </div>
+        <div class="row row-gallery"><button class="open-gallery btn btn-info" type="button" data-i18="openGallery">Open Gallery</button></div>
         <div class="row">
           <div class="info__language language col">
             <div class="language__lang"><h5 class="language__text" data-i18="countryLanguage">Official language  </h5><h3 class="language__country">${language}</h3></div>
@@ -77,23 +78,37 @@ export function generateCountryPage(id: number) {
           ${generateSvgArrowDown()}
         </div>
       </div>
+      <div class="big-gallery">
+        <div class="big-gallery__swiper swiper">
+        <div data-bs-theme="dark"><button type="button" class="btn-close big-gallery__close" aria-label="Close"></button></div>
+          <div class="country__big-photos swiper-wrapper">
+            ${photoNumbers.map((_, i) => `<img class="swiper-slide" src="./assets/./images/gallery/${nameEN}/img_${i + 1}.jpg" alt="Nice place">`).join('')}
+          </div>
+          <div class="big-arrow">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
     </section>`;
     translation();
     openClosePopupAnimal();
     openClosePopupPlaces();
     openClosePopupMap();
+    openGallery();
     playAudio('hymn__play', 'hymn__pause', '.country__hymn');
     audioEnd('hymn__play', 'hymn__pause', '.country__hymn');
     playPhrases();
     endPhrases();
     cities.map((item, i) => getMap(item.coordinates.split(',').map(Number), i + 1));
-    const swiper = new Swiper('.swiper', {
+    const swiper = new Swiper('.country__gallery', {
       modules: [Navigation, Autoplay, Keyboard, Mousewheel],
       speed: 800,
-      slidesPerGroup: 3,
+      slidesPerGroup: 2,
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.arrow__down',
+        prevEl: '.arrow__up',
       },
       direction: 'vertical',
       loop: true,
@@ -110,6 +125,27 @@ export function generateCountryPage(id: number) {
         forceToAxis: true,
         sensitivity: 1
       },
+      grabCursor: true,
+    });
+    const swiper2 = new Swiper('.big-gallery__swiper', {
+      modules: [Navigation, Keyboard, Pagination],
+      speed: 800,
+      slidesPerGroup: 1,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      loop: true,
+      slidesPerView: 1,
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      autoHeight: true,
       grabCursor: true,
     });
   }), 1500)
@@ -226,6 +262,33 @@ function openClosePopupPlaces() {
   })
 }
 
+// открытие большой галереи
+
+function openGallery() {
+  const images = document.querySelectorAll('.gallery__img') as NodeListOf<HTMLImageElement>;
+  const btnClose = document.querySelector('.big-gallery__close') as HTMLButtonElement;
+  const bigGallery = document.querySelector('.big-gallery') as HTMLElement;
+
+  images.forEach((img, i) => {
+    img.addEventListener('click', () => {
+      bigGallery.classList.add('big-gallery_active');
+    })
+  })
+
+  btnClose.addEventListener('click', () => {
+    bigGallery.classList.remove('big-gallery_active');
+  })
+
+  bigGallery.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('big-gallery')) {
+      bigGallery.classList.remove('big-gallery_active');
+    }
+  })
+}
+
+
+
 // popup с картой города
 
 function generateMapPopup(city: string, id: number) {
@@ -278,7 +341,6 @@ function getMap(coordinates: number[], id: number) {
   });
 }
 
-
 //генерация SVG
 
 export function generateSvgPlay(className: string): string {
@@ -301,13 +363,13 @@ function generateSvgMicro() {
 }
 
 function generateSvgArrowUp() {
-  return `<svg class="arrow__up swiper-button-prev" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+  return `<svg class="arrow__up swiper-button-prev" xmlns="http://www.w3.org/2000/svg"  class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
 </svg>`;
 }
 
 function generateSvgArrowDown() {
-  return `<svg class="arrow__down swiper-button-next" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+  return `<svg class="arrow__down swiper-button-next" xmlns="http://www.w3.org/2000/svg"  class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
 </svg>`;
 }
@@ -316,7 +378,7 @@ function generateSvgArrowDown() {
 
 function generatePhoto(country: string, n: number) {
   return `<figure class="figure swiper-slide photo__slide">
-      <img src="./assets/./images/gallery/${country}/img_${n}.jpg" class="figure-img img-fluid rounded" alt="Nice place">
+      <img src="./assets/./images/gallery/${country}/img_${n}.jpg" class="figure-img img-fluid rounded gallery__img" alt="Nice place">
       <figcaption data-i18 ="galleryText" class="figure-caption">click to expand</figcaption>
     </figure>`;
 }
