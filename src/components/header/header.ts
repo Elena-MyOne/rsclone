@@ -17,6 +17,8 @@ export function generateHeader(): string {
           <div class="offcanvas offcanvas-top" id="navbarNav">
             <div class="offcanvas-header">
               <a class="header__logo navbar-brand" href="#home">Amazing Trip</a>
+              <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+              </button>
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav">

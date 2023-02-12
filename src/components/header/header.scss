@@ -33,9 +33,11 @@ html[data-bs-theme="dark"] {
   .offcanvas-header {
     background-color: $yellow-700;
   }
-  
   .offcanvas-body {
     background-color: $yellow-700;
     overflow-y: visible;
+  }
+  .btn-close {
+    filter: none;
   }
 }
