@@ -1,6 +1,6 @@
 export function generateHelpPage(): HTMLElement {
   const helpBlock = document.createElement('section');
-  helpBlock.className = 'help';
+  helpBlock.className = 'help container';
   helpBlock.innerHTML = `  
   <h1 class="help__title" data-i18="helpTitle">Welcome to app Amazing Trip!</h1>
   <p data-i18="helpAdvice">We recommend that you go through the registration, consisting of the "Sign up" on the top bar. So the progress of our journey will be saved and you can participate in discussion with other users.</p>

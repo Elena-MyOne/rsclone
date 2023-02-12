@@ -4,14 +4,13 @@ import { handlers } from "./home-page-handlers";
 export function generateHomePage() {
 
   //get coutries
-  let lang = localStorage.getItem("language") || "en"
+  const lang = localStorage.getItem("language") || "en"
   addCountriesButtons(lang);
- 
+
   const root = document.querySelector('.root') as HTMLElement;
   root.classList.add('main_home-page');
-  // root.dataset.dsTheme = 'dark';
   const content = document.createElement("div");
-  // content.className = "position-relative";
+
   content.innerHTML = `
   <canvas class="home-page"></canvas>
   <div class="container py-2 text-center">
@@ -25,10 +24,10 @@ export function generateHomePage() {
           </h4>
         </div>
         <div class="col-2 select_container">
-          <select class="form-select lang_select" aria-label="Default select example">
-            <option value="EN">EN</option>
-            <option value="RU">RU</option>
-            <option value="BE">BE</option>
+          <select class="form-select lang_select">
+            <option class="lang-option" value="EN">EN</option>
+            <option class="lang-option" value="BE">BE</option>
+            <option class="lang-option" value="RU">RU</option>
           </select>
         </div>
         <div class="col-1 theme_container">
@@ -39,8 +38,6 @@ export function generateHomePage() {
     </div>
   </div>
   `;
-  //add handlers
-  // document.body.scrollHeight = document.body.clientHeight
 
   return content;
 }
@@ -63,6 +60,7 @@ export const addCountriesButtons = (lang: string) => {
     }
     // console.log(div)
     const column = document.querySelector('.country-buttons_container') as HTMLElement;
+    column.innerHTML = ``;
     column.innerHTML = `${getString(div)}`;
 
     handlers();
