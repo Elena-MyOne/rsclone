@@ -18,16 +18,16 @@ export function generateHeader(): string {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a data-18i="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
+                <a data-i18="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
               </li>
               <li class="nav-item">
-                <a data-18i="btnSignUp" class="nav-link" href="#registration">Sign up</a>
+                <a data-i18="btnSignUp" class="nav-link" href="#registration">Sign up</a>
               </li>
               <li class="nav-item">
-                <a data-18i="btnLogIn" class="nav-link" href="#profile">Log in</a>
+                <a data-i18="btnLogIn" class="nav-link" href="#profile">Log in</a>
               </li>
               <li class="nav-item">
-                <a data-18i="btnHelp" class="nav-link" href="#help">Help</a>
+                <a data-i18="btnHelp" class="nav-link" href="#help">Help</a>
               </li>
             </ul>
           </div>

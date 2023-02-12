@@ -1,0 +1,340 @@
+.loading {
+  width: 20vw;
+  position: absolute;
+  left: calc(50% - 20vw/2);
+  top: calc(50% - 20vw/2);
+}
+
+.country {
+  display: flex;
+
+  &__gallery {
+    position: relative;
+    height: calc(100vh - 56px);
+    border-left: 2px solid $cyan-900;
+    padding: 0 20px;
+    background-color: $cyan-700;
+  }
+
+  &__photos {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.bi {
+  fill: $colorWhite;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  transition: all 0.1;
+
+  &:active {
+    transform: scale(1.4);
+  }
+
+  &__active {
+    fill: $cyan-500;
+  }
+}
+
+.photo__slide {
+  height: auto;
+}
+
+.info {
+  padding: 0 20px;
+
+  &__header {
+    align-items: center;
+    margin: 10px 0 30px;
+  }
+
+  &__map-cities {
+    margin-bottom: 40px;
+  }
+
+  &__map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__animal {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__cities {
+    display: grid;
+    grid-template-columns: 0.5fr 0.7fr;
+    padding-left: 30px;
+  }
+
+  &__flag {
+    width: 11vw;
+  }
+
+  &__places {
+    padding-left: 30px;
+  }
+}
+
+.cities {
+
+  align-items: center;
+
+  &__title {
+    grid-column: 1/3;
+  }
+
+  &__item {
+    text-align: left;
+    font-size: 1.5vw;
+  }
+
+  &__btn {
+    @include button-outline-variant($colorWhite, $cyan-100, $cyan-700, $cyan-700);
+    @include button-size(3px, 10px, 1.2vw, 0.25rem);
+    width: max-content;
+  }
+}
+
+.city {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+
+  &__card {
+    position: fixed;
+    width: 40vw;
+    height: auto;
+    left: calc(50% - 40vw/2);
+    top: 50px;
+  }
+
+  &__title {
+    color: $cyan-900;
+  }
+
+  &__close {
+    align-self: flex-end;
+  }
+
+}
+
+.city_active {
+  display: block;
+}
+
+.map {
+  width: 18vw;
+}
+
+.img-fluid {
+  width: 15vw;
+  margin-bottom: 2px;
+}
+
+.figure-caption {
+  color: $colorWhite;
+}
+
+.arrow {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  top: 50%;
+  right: 10px;
+  z-index: 10;
+
+  &__up,
+  &__down {
+    position: unset;
+  }
+}
+
+.places-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.place {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+
+  &__card {
+    position: fixed;
+    width: 40vw;
+    height: auto;
+    left: calc(50% - 40vw/2);
+    top: 50px;
+  }
+
+  &__title {
+    color: $cyan-900;
+  }
+
+  &__close {
+    align-self: flex-end;
+  }
+
+  &__location {
+    color: $cyan-500;
+  }
+
+  &__info {
+    color: $colorBlack;
+  }
+
+  &__desc {
+    text-align: left;
+    padding: 2px 16px 16px;
+  }
+}
+
+.place_active {
+  display: block;
+}
+
+.volume-hymn {
+  mix-blend-mode: plus-lighter;
+}
+
+.animal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+
+  &_active {
+    display: block;
+  }
+
+  &__card {
+    position: fixed;
+    width: 40vw;
+    height: auto;
+    left: calc(50% - 40vw/2);
+    top: 50px;
+  }
+
+  &__title {
+    color: $cyan-900;
+  }
+
+  &__close {
+    align-self: flex-end;
+  }
+}
+
+.phrases {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__player {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.language {
+
+  &__lesson {
+    margin-top: 10px;
+  }
+
+  &__lang {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  &__text {
+    align-self: flex-end;
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: $colorWhite;
+}
+
+@media (max-width: 1500px) {
+  .map {
+    width: 20vw;
+  }
+}
+
+@media (max-width: 1400px) {
+  .map {
+    width: 26vw;
+  }
+}
+
+@media (max-width: 1100px) {
+  .map {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .phrases {
+    margin-top: 10px;
+    gap: 5px;
+
+    &__text {
+      font-size: 1.8vw;
+    }
+  }
+
+  .img-fluid {
+    width: 20vw;
+  }
+
+  .country__gallery {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .img-fluid {
+    width: 30vw;
+  }
+
+  .figure-caption {
+    font-size: 2vw;
+  }
+
+  .info__flag {
+    width: 26vw;
+  }
+}
