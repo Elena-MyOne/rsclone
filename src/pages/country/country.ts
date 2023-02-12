@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const photoNumbers = new Array(15).fill(1); // массив для рендера фотографий в галерее
-const audioNumber = new Array(5).fill(1); // массив для функции воспроизведения фраз
+const phraseNumber = new Array(5).fill(1); // массив для функции воспроизведения фраз
 
 export function generateCountryPage(id: number) {
   let lang = localStorage.getItem('language') || 'en';
@@ -52,11 +52,11 @@ export function generateCountryPage(id: number) {
         <div class="row row-gallery"><button class="open-gallery btn btn-info" type="button" data-i18="openGallery">Open Gallery</button></div>
         <div class="row">
           <div class="info__language language col">
-            <div class="language__lang"><h5 class="language__text" data-i18="countryLanguage">Official language  </h5><h3 class="language__country">${language}</h3></div>
+            <div class="language__lang"><h3 class="language__text" data-i18="countryLanguage">Official language</h3><h3 class="language__country">${language}</h3></div>
             <div class="language__lesson">
               <h4 data-i18="countryLesson">Language lessons</h4>
               <div class="phrases">
-              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)} ${generateSvgMicro()}</div></div>`).join('')}
+              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)} ${generateSvgMicro(`phrase__micro${i + 1}`)}</div></div>`).join('')}
               </div>
             </div>
           </div>
@@ -171,7 +171,7 @@ export function playAudio(idPlay: string, idPause: string, classAudio: string) {
   })
 }
 function playPhrases() {
-  audioNumber.map((_, i) => playAudio(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
+  phraseNumber.map((_, i) => playAudio(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
 }
 
 // обработка окончания audio
@@ -186,7 +186,7 @@ export function audioEnd(idPlay: string, idPause: string, classAudio: string) {
   })
 }
 function endPhrases() {
-  audioNumber.map((_, i) => audioEnd(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
+  phraseNumber.map((_, i) => audioEnd(`phrase__play${i + 1}`, `phrase__pause${i + 1}`, `.country__phrases${i + 1}`));
 }
 
 // popup с животным
@@ -287,8 +287,6 @@ function openGallery() {
   })
 }
 
-
-
 // popup с картой города
 
 function generateMapPopup(city: string, id: number) {
@@ -355,8 +353,8 @@ export function generateSvgPause(className: string): string {
 </svg>`;
 }
 
-function generateSvgMicro() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
+function generateSvgMicro(className: string) {
+  return `<svg id="${className}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
   <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
   <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
 </svg>`;
@@ -393,3 +391,28 @@ export function translation() {
     (element as HTMLElement).innerText = contentLang[value];
   });
 }
+
+// функция распознавания голоса
+
+// function microHandler() {
+// const microphones = document.querySelectorAll('.bi-mic-fill');
+// microphones.forEach((micro) => {
+//   micro.addEventListener('click', voice());
+// })
+// }
+
+// function voice() {
+//   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+//   const recognition = new SpeechRecognition();
+//   recognition.interimResults = true;
+//   recognition.start();
+//   recognition.addEventListener("result", (e) => { 
+//     const transcript = Array.from(e.results) 
+//       .map(result => result[0]) 
+//       .map(result => result.transcript) 
+//       .join("");
+//     if (e.results[0].isFinal) { 
+//       search.value = transcript; 
+//     }
+//   })
+// }

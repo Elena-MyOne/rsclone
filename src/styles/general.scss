@@ -23,6 +23,8 @@ body {
 
 //врапер, который отцентрует приложение по середине
 .root {
+  background: url(../assets/images/textures/galaxy.png) no-repeat;
+  background-size: cover;
   height: 100%;
   width: 100%;
   margin: 0 auto;

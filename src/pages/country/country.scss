@@ -216,10 +216,12 @@
     text-align: left;
     padding: 2px 16px 16px;
   }
-}
 
-.place_active {
-  display: block;
+  &_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .volume-hymn {
@@ -237,7 +239,9 @@
   z-index: 2;
 
   &_active {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__card {
@@ -289,6 +293,11 @@
 
   &__text {
     align-self: flex-end;
+    margin-bottom: 0;
+  }
+
+  &__country {
+    margin-bottom: 0;
   }
 }
 
