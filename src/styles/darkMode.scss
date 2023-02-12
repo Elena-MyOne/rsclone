@@ -46,3 +46,19 @@
   // }
   // I couldnt find this form into our pages
 }
+
+html[data-bs-theme="dark"] {
+  & .modal-title {
+      color: $yellow-800;
+  }
+  & .modal-desc {
+      color: $yellow-900;
+  }
+  & .modal-header {
+      background-color: $yellow-100;
+  }
+  & .places__btn {
+      @include button-variant($yellow-200, $yellow-300, $yellow-900);
+  }
+
+}
