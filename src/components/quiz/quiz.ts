@@ -9,9 +9,9 @@ export function generateQuiz(): HTMLElement {
   quizForm.setAttribute('novalidate', '');
 
   quizForm.innerHTML = `
-    <h4 data-18i="titleTest" class="quiz__title">Country Quiz</h4>
+    <h4 data-i18="titleTest" class="quiz__title">Country Quiz</h4>
       <div class="quiz__item">
-      <label data-18i="testCountry" class="quiz__label text form-label" for="country">Country name</label>
+      <label data-i18="testCountry" class="quiz__label text form-label" for="country">Country name</label>
       <input class="quiz__input form-control" id="country" type="text" required>
       <div class="invalid-feedback quiz__feedback">
         Please enter country name
@@ -21,7 +21,7 @@ export function generateQuiz(): HTMLElement {
       </div>
     </div>
     <div class="quiz__item">
-      <label data-18i="countryCapital" class="quiz__label text form-label" for="capital">Capital</label>
+      <label data-i18="countryCapital" class="quiz__label text form-label" for="capital">Capital</label>
       <input class="quiz__input form-control" id="capital" type="text" required>
       <div class="invalid-feedback quiz__feedback">
         Please enter country capital
@@ -31,7 +31,7 @@ export function generateQuiz(): HTMLElement {
       </div>
     </div>
     <div class="quiz__item">
-      <span data-18i="testFlag" class="text">Choose country flag</span>
+      <span data-i18="testFlag" class="text">Choose country flag</span>
       <div class="quiz__flag form-check">
         <input class="quiz__radio form-check-input" id="flag-one" type="radio" name="flag">
         <label for="flag-one" class="quiz__label quiz__label-flag quiz__label-flag-one form-check-label"></label>
@@ -46,7 +46,7 @@ export function generateQuiz(): HTMLElement {
       </div>
     </div>
     <div class="quiz__item">
-      <span data-18i="countryAnimal" class="text">National symbol</span>
+      <span data-i18="countryAnimal" class="text">National symbol</span>
       <span class="quiz__symbol">
         <input class="quiz__radio form-check-input" id="symbol-one" type="radio" name="symbol">
         <label for="symbol-one" class="quiz__label quiz__label-symbol quiz__label-symbol-one"></label>
@@ -61,7 +61,7 @@ export function generateQuiz(): HTMLElement {
       </span>
     </div>
     <div class="quiz__item">
-      <label data-18i="countryLanguage" class="quiz__label text form-label" for="language">Official language</label>
+      <label data-i18="countryLanguage" class="quiz__label text form-label" for="language">Official language</label>
       <input class="quiz__input form-control" id="language" type="text" required>
       <div class="invalid-feedback quiz__feedback">
         Please enter language
@@ -71,7 +71,7 @@ export function generateQuiz(): HTMLElement {
       </div>
     </div>
     <div class="quiz__buttons">
-      <button data-18i="btnCheck" class="quiz__button btn" type="submit">Check</button>
+      <button data-i18="btnCheck" class="quiz__button btn" type="submit">Check</button>
     </div>
   `;
 
@@ -89,3 +89,5 @@ export function generateQuiz(): HTMLElement {
 
   return quizBlock;
 }
+
+  // TODO для перевода вставить функцию translation()

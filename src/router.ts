@@ -1,5 +1,5 @@
 import { ROUTER_PATH } from "./constants/enums";
-import { generateCountryPage } from "./pages/country/country";
+import { generateCountryPage, translation } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/SceneInit";
@@ -21,13 +21,13 @@ function generateContentByHash() {
   let contentHeader = generateHeader();
   main.innerHTML = '';
   let contentMain = null;
-  const [hash, id] = window.location.hash.slice(1).split('/');
+  const [hash, id] = window.location.hash.slice(1).split('/');  
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
       break;
-    case ROUTER_PATH.COUNTRY: contentMain = generateCountryPage(Number(id));
+    case ROUTER_PATH.COUNTRY: contentMain = generateCountryPage(Number(id[0]));
       break;
-    case ROUTER_PATH.HOME: contentMain = generateHomePage(); // Вставить функцию генерации домашней страницы
+    case ROUTER_PATH.HOME: contentMain = generateHomePage();
       break;
     case ROUTER_PATH.PROFILE: contentMain = 'Profile'; // Вставить функцию генерации профиля пользователя
       break;
@@ -43,6 +43,7 @@ function generateContentByHash() {
   }
   header.innerHTML = contentHeader;
   main.append(contentMain);
+  translation();
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();

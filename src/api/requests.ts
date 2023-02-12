@@ -1,3 +1,5 @@
+import { Country } from "../models/interfaces";
+
 const baseUrl = 'https://backend-rs-clone-production.up.railway.app';
 
 //get the right country in the right language

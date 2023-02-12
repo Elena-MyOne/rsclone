@@ -4,6 +4,7 @@
 @import './variables.scss';
 @import 'reset.scss';
 @import "~bootstrap/scss/bootstrap";
+@import './darkMode.scss';
 
 html {
   scroll-behavior: smooth;
@@ -15,6 +16,8 @@ body {
   font-family: $fontFamily;
 }
 
+
+
 //ддя контентаб будет прижимать footer к низу
 .content {
   flex: 1 1 auto;
@@ -22,7 +25,7 @@ body {
 
 //врапер, который отцентрует приложение по середине
 .root {
-  min-height: 100%;
+  min-height: calc(100% - 56px);
   width: 100%;
   overflow: hidden;
   margin: 0 auto;
@@ -32,13 +35,6 @@ body {
   flex-direction: column;
 }
 
-
-//для выравнивания контента внутри root
-// .container {
-//   z-index: 1;
-// }
-
-
 @import '../pages/start/start.scss';
 @import '../components/header/header.scss';
 @import '../pages/home/home.scss';
@@ -47,5 +43,4 @@ body {
 @import '../pages/help/help.scss';
 @import '../pages/profile/profile.scss';
 @import '../pages/registration/registration.scss';
-@import '../components/places/places.scss';
 @import '../pages/error404/error404.scss';

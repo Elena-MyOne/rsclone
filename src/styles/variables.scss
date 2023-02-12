@@ -1,3 +1,4 @@
+
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/maps";
@@ -17,6 +18,7 @@ $colorWhite: #ffffff;
 $colorWhite75: rgba(255, 255, 255, 0.75);
 $colorGray: #4a4a4a;
 $colorBlack: #000000;
+$colorBlack75: rgba(0, 0, 0, 0.75);
 
 //color help
 $accordion-color: $colorBlack;
@@ -44,5 +46,6 @@ $navbar-toggler-focus-width: none;
 
 //color forms
 $form-check-input-checked-bg-color: $cyan-700;
+
 $input-focus-border-color: $cyan-500;
 $input-focus-box-shadow: none;

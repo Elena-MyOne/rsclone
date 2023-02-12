@@ -17,7 +17,7 @@ export function generateStartPage() {
           </button>
         </div>
         <div class="col">
-          <span data-18i="titleStart" class="blink">Press Enter to start the journey</span>
+          <span data-i18="titleStart" class="blink">Press Enter to start the journey</span>
         </div>
       </div>
     </div>
