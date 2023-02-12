@@ -6,6 +6,10 @@
 
 .navbar {
   background-color: $cyan-700;
+  z-index: 1;
+}
+html[data-bs-theme="dark"] .navbar {
+  background-color: $yellow-700;
 }
 
 .navbar-brand {

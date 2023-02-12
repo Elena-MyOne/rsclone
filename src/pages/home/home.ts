@@ -9,17 +9,18 @@ export function generateHomePage() {
  
   const root = document.querySelector('.root') as HTMLElement;
   root.classList.add('main_home-page');
+  // root.dataset.dsTheme = 'dark';
   const content = document.createElement("div");
   // content.className = "position-relative";
   content.innerHTML = `
   <canvas class="home-page"></canvas>
   <div class="container py-2 text-center">
     <div class="home-page__container container">
-      <div class="row ">
+      <div class="row">
         <div class="col-2 country-buttons_container">
         </div>
         <div class="col-7">
-          <h4 class="home-page__title display-2 fw-semibold" data-18i="titleChoice">
+          <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-18i="titleChoice">
             Choose the country
           </h4>
         </div>
@@ -31,8 +32,7 @@ export function generateHomePage() {
           </select>
         </div>
         <div class="col-1 theme_container">
-          <button type="button" class="button theme-button">
-            <img src="./assets/icons/light_theme_white.svg" alt="help">
+          <button type="button" class="button theme-button" id="themeSwitch">
           </button>
         </div>
       </div>

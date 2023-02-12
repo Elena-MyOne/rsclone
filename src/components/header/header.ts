@@ -1,7 +1,7 @@
 export function generateHeader(): string {
   return `
       <header class="header">
-      <nav class="header__nav navbar navbar-expand-lg navbar-dark" data-bs-theme="dark">
+      <nav class="header__nav navbar navbar-expand-lg navbar-dark">
         <div class="header__container container">
           <a class="header__logo navbar-brand" href="#home">Amazing Trip</a>
           <button
