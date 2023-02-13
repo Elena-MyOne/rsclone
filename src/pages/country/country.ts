@@ -55,8 +55,9 @@ export function generateCountryPage(id: number) {
             <div class="language__lang"><h3 class="language__text" data-i18="countryLanguage">Official language</h3><h3 class="language__country">${language}</h3></div>
             <div class="language__lesson">
               <h4 data-i18="countryLesson">Language lessons</h4>
+              <div class="tooltips" target="_blank">${generateSvgMicro(`phrase__micro`)}<span class="tooltiptext micro">Прослушай запись и попробуй повторить, нажав на микрофон.</span></div>
               <div class="phrases">
-              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)} ${generateSvgMicro(`phrase__micro${i + 1}`)}</div></div>`).join('')}
+              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)}</div></div>`).join('')}
               </div>
             </div>
           </div>
@@ -396,10 +397,8 @@ export function translation() {
 // функция распознавания голоса
 
 function microHandler() {
-  const microphones = document.querySelectorAll('.bi-mic-fill');
-  microphones.forEach((micro) => {
-    micro.addEventListener('click', voice);
-  })
+  const microphone = document.querySelector('.bi-mic-fill') as HTMLElement;
+  microphone.addEventListener('click', voice);
 }
 
 function voice() {
@@ -414,16 +413,11 @@ function voice() {
   recognition.addEventListener("result", (e) => {
     const transcript = Array.from(e.results)
       // @ts-ignore
-      .map(result => {
-        console.log(result);
-      // @ts-ignore        
-        return result[0]})
+      .map(result => {return result[0]})
       .map(result => result.transcript)
       .join("");
     if (e.results[0].isFinal) {
-      console.log(transcript)
-      // @ts-ignore
-      // search.value = transcript;
+      alert(`Вы сказали "${transcript}" Если это не то, что Вы хотели сказать, попробуйте еще раз.`);
     }
   })
 }

@@ -42,18 +42,6 @@ export function generateHelpPage(): HTMLElement {
       </div>
     </div>
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingFour">
-        <button data-i18="helpProgress" class="accordion-button help__btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Progress
-        </button>
-      </h2>
-      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-        <div data-i18="helpProgressText" class="accordion-body">
-        Here you will see a complete country's list, opposite the visited country there is a button “Test” (be sure to click it!). If you haven't visited any of the countries yet, you can go there by clicking on the name of the country. However, already visited countries are also available for visiting again, you can click on them 🙂
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
       <h2 class="accordion-header" id="headingFive">
         <button data-i18="helpTest" class="accordion-button help__btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
           Test
@@ -73,7 +61,7 @@ export function generateHelpPage(): HTMLElement {
       </h2>
       <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
         <div data-i18="helpProfileText" class="accordion-body">
-        Everything is simple here. There is your avatar (if you chose one), your name (if you wrote one), and your travel progress (if you “traveled” somewhere). Here you can learn a few phrases in the official language of the countries. You can change the time of day and interface language.
+        Everything is simple here. There is your avatar (if you chose one), your name (if you wrote one), and your travel progress (if you “traveled” somewhere). Here you will see a complete country's list, opposite the visited country there is a button “Test” (be sure to click it!). If you haven't visited any of the countries yet, you can go there by clicking on the name of the country. However, already visited countries are also available for visiting again, you can click on them 🙂 You can change the time of day and interface language.
         </div>
       </div>
     </div>

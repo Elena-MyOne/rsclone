@@ -349,6 +349,20 @@
   }
 }
 
+.tooltips .micro {
+  visibility: hidden;
+  width: 15vw;
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px 0;
+  top: -27px;
+  left: 31px;
+  position: absolute;
+  z-index: 1;
+  background-color: $cyan-100;
+  color: $cyan-900;
+}
+
 @media (max-width: 1500px) {
   .map {
     width: 20vw;
