@@ -1,6 +1,6 @@
 export function generateHeader(): string {
   return `
-      <nav class="header__nav navbar navbar-expand-lg">
+      <nav class="header__nav navbar navbar-expand-lg navbar-dark">
         <div class="header__container container">
           <a class="header__logo navbar-brand" href="#home">Amazing Trip</a>
           <button
@@ -17,7 +17,7 @@ export function generateHeader(): string {
           <div class="offcanvas offcanvas-top" id="navbarNav">
             <div class="offcanvas-header">
               <a class="header__logo navbar-brand" href="#home">Amazing Trip</a>
-              <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close">
               </button>
             </div>
             <div class="offcanvas-body">
