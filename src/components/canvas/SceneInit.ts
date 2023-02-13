@@ -1,11 +1,14 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
-import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader'
-import { VerticalBlurShader  } from 'three/examples/jsm/shaders/VerticalBlurShader'
+import { generatePopUp } from '../../pages/home/home-page-handlers';
 
+const noCloudsBg = require('../../assets/images/textures/2_no_clouds_8k-min.jpg')
+const nightBg = require('../../assets/images/textures/earth_nightlights_10K.jpg')
+const bumpBg = require('../../assets/images/textures/elev_bump_8k-min.jpg')
+const specularBg = require('../../assets/images/textures/water_8k-min.png')
+const cloudBg = require('../../assets/images/textures/earthCloud-min.png')
+const borderBg = require('../../assets/images/textures/boundaries_8k.png')
+const galaxyBg = require('../../assets/images/textures/galaxy.png')
 
 
 export function sceneInitStartPage() {
@@ -57,16 +60,6 @@ export function sceneInitStartPage() {
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
 
-
-  // BLUR
-  // const composer = new EffectComposer( renderer );
-  // composer.addPass( new RenderPass( scene, camera ) );
-  // const hblur = new ShaderPass( HorizontalBlurShader );
-  // composer.addPass( hblur );
-  // const vblur = new ShaderPass( VerticalBlurShader );
-  // vblur.renderToScreen = true;
-  // composer.addPass( vblur );
-  
   //loading console.log - debug
   const loadingManager = new THREE.LoadingManager()
   loadingManager.onStart = () =>
@@ -86,34 +79,19 @@ export function sceneInitStartPage() {
       console.log('loadingManager: loading error')
   }
   const textureLoader = new THREE.TextureLoader(loadingManager);
-  const colorTexture = textureLoader.load(
-    '../../assets/images/textures/2_no_clouds_8k-min.jpg'
-  )
-  const bumpTexture = textureLoader.load(
-    '../../assets/images/textures/elev_bump_8k-min.jpg'
-    )
-  const specularTexture = textureLoader.load(
-    '../../assets/images/textures/water_8k-min.png'
-  )
-  const cloudTexture = textureLoader.load(
-    '../../assets/images/textures/earthCloud-min.png'
-  )
-  const galaxyTexture = textureLoader.load(
-    '../../assets/images/textures/galaxy.png'
-  )
+  const colorTexture = textureLoader.load(noCloudsBg)
+  const bumpTexture = textureLoader.load(bumpBg)
+  const specularTexture = textureLoader.load(specularBg)
+  const cloudTexture = textureLoader.load(cloudBg)
+  const galaxyTexture = textureLoader.load(galaxyBg)
   function createEarth(colorTexture: THREE.Texture, bumpTexture: THREE.Texture) {
     const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
     const earthMaterial = new THREE.MeshPhongMaterial({
-        // color: null,
-        // roughness: 0.6,
-        // metalness: 1,
         map: colorTexture,
         bumpMap: bumpTexture,
         bumpScale: 0.0007,
         specularMap: specularTexture,
         specular: new THREE.Color('grey'),
-        // metalnessMap: borderTexture,
-        // envMapIntensity: 2
     });
     return new THREE.Mesh(earthGeometry, earthMaterial);
   }
@@ -160,12 +138,6 @@ scene.add(galaxy);
   pointLight.position.set(5, 3, 5);
   scene.add(pointLight);
 
-//   const helper = new THREE.PointLightHelper(pointLight);
-// helper.geometry.setDrawRange(0, 38); //excludes the last few lines from being drawn
-
-// scene.add(helper);
-
-
   //animation
   const clock = new THREE.Clock()
 
@@ -181,7 +153,6 @@ scene.add(galaxy);
 
       // Render
       renderer.render(scene, camera)
-      // composer.render();
 
       // Call tick again on the next frame
       window.requestAnimationFrame(tick)
@@ -192,13 +163,11 @@ scene.add(galaxy);
 }
 
 export function sceneInitHomePage() {
-  
+
   //Canvas
   const canvas = document.querySelector('canvas.home-page') as HTMLCanvasElement;
-  // const context = canvas.getContext('3d');
-  // console.log(context);
   let topOffset = Number(canvas.offsetTop);
-  
+
   // Scene
   const scene = new THREE.Scene();
 
@@ -245,8 +214,7 @@ export function sceneInitHomePage() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.autoClear = true;
   renderer.setClearColor(0x000000, 0.0);
-  
-  
+
   // loading
   const loadingManager = new THREE.LoadingManager()
   loadingManager.onStart = () =>
@@ -275,9 +243,7 @@ export function sceneInitHomePage() {
   const starGeometry = new THREE.SphereGeometry(80, 64, 64);
 
   // galaxy material
-  const galaxyTexture = textureLoader.load(
-    '../../assets/images/textures/galaxy.png'
-  )
+  const galaxyTexture = textureLoader.load(galaxyBg)
   const starMaterial = new THREE.MeshBasicMaterial({
       map : galaxyTexture,
       side: THREE.BackSide
@@ -300,26 +266,31 @@ export function sceneInitHomePage() {
   const cities = [
     {
       name: 'Canberra',
+      id: '1',
       lat: -35.282001,
       lon: 149.128998
     },
     {
       name: 'Brasilia',
+      id: '2',
       lat: -15.749997,
       lon: -47.9499962
     },
     {
       name: 'Beijing',
+      id: '3',
       lat: 39.916668,
       lon: 116.383331
     },
     {
       name: 'Moscow',
+      id: '4',
       lat: 55.751244,
       lon: 37.618423
     },
     {
       name: 'Washington',
+      id: '5',
       lat: 38.8951100,
       lon: -77.0363700
     },
@@ -338,7 +309,8 @@ export function sceneInitHomePage() {
   for (let city of cities) {
     const cityCoordinates = calcPosFromLatLonRad(city.lat, city.lon);
     const pin = createPin();
-    pin.name = city.name;
+    pin.userData.name = city.name;
+    pin.userData.id = city.id;
     arrOfPins.push(pin);
     pin.position.set(cityCoordinates.x, cityCoordinates.y, cityCoordinates.z);
     earth.add(pin);
@@ -348,11 +320,8 @@ export function sceneInitHomePage() {
   const raycaster = new THREE.Raycaster();
   let intersectedObject: THREE.Object3D | null;
 
-
   //handlers
   const mouse = new THREE.Vector2();
-
-  // console.log(canvas.style)
 
   canvas.addEventListener('click', onCanvasMouseClick, false);
   function onCanvasMouseClick(event: MouseEvent) {
@@ -365,7 +334,8 @@ export function sceneInitHomePage() {
 
     if (intersects.length > 0) {
       intersectedObject = intersects[0].object;
-      alert(intersectedObject.name)
+      // alert(`${intersectedObject.userData.name}, ${intersectedObject.userData.id}`)
+      generatePopUp(Number(intersectedObject.userData.id))
     }
   }
 
@@ -375,7 +345,6 @@ export function sceneInitHomePage() {
   {
     const elapsedTime = clock.getElapsedTime();
 
-
     galaxy.rotation.y -= 0.002;
     earth.rotation.y -= 0.002;
 
@@ -384,9 +353,6 @@ export function sceneInitHomePage() {
 
     // Render
     renderer.render(scene, camera)
-
-    //raycaster
-    // raycaster.setFromCamera(mouse, camera)
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
@@ -414,15 +380,9 @@ const createPlanet = () => {
       console.log('loadingManager: loading error')
   }
   const textureLoader = new THREE.TextureLoader(loadingManager);
-  const bumpTexture = textureLoader.load(
-    '../../assets/images/textures/elev_bump_8k-min.jpg'
-  );
-  const borderTexture = textureLoader.load(
-    '../../assets/images/textures/boundaries_8k.png'
-  );
-  const galaxyTexture = textureLoader.load(
-    '../../assets/images/textures/galaxy.png'
-  );
+  const bumpTexture = textureLoader.load(bumpBg);
+  const borderTexture = textureLoader.load(borderBg);
+
   let earth: THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial>;
   const theme = localStorage.getItem("theme") as string;
   switch (theme) {
@@ -441,9 +401,7 @@ const createDarkPlanet = (bumpTexture: THREE.Texture, borderTexture: THREE.Textu
   const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
-  const colorTexture = textureLoader.load(
-    '../../assets/images/textures/earth_nightlights_10K.jpg'
-  )
+  const colorTexture = textureLoader.load(nightBg)
   const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
   const earthMaterial = new THREE.MeshStandardMaterial({
     color: 0xFFC489,
@@ -462,9 +420,7 @@ const createLightPlanet = (bumpTexture: THREE.Texture, borderTexture: THREE.Text
   const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
-  const colorTexture = textureLoader.load(
-    '../../assets/images/textures/2_no_clouds_8k-min.jpg'
-  )
+  const colorTexture = textureLoader.load(noCloudsBg)
   const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
   const earthMaterial = new THREE.MeshStandardMaterial({
     metalness: 1,
