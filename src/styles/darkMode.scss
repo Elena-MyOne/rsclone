@@ -40,11 +40,6 @@
     --bs-navbar-brand-hover-color: #{$yellow-100};
     --bs-navbar-toggler-focus-width: none;
   }
-
-  //   //color forms
-  //   $form-check-input-checked-bg-color: $cyan-700;
-  // }
-  // I couldnt find this form into our pages
 }
 
 html[data-bs-theme="dark"] {
@@ -59,6 +54,35 @@ html[data-bs-theme="dark"] {
   }
   & .places__btn {
       @include button-variant($yellow-200, $yellow-300, $yellow-900);
+  }
+
+  //forms
+  & .form-control {
+    border: 1px solid $yellow-500;
+  }
+
+  & .registration__form, .registration__logout {
+    background-color: $yellow-100;
+  }
+
+  & .form__buttons > .btn {
+    color:  $yellow-100;
+    background-color: $yellow-600;
+    &:hover{
+      background-color: $yellow-700;
+      color: $yellow-200; 
+    }
+  }
+
+  & .form__github-text {
+    &:hover{
+      background: url(../assets/icons/github_logo_yellow800.svg) center right /22px 22px no-repeat;
+      color: $yellow-800; 
+    }
+  }
+
+  & .form__title {
+    color: $colorBlack;
   }
 
 }
