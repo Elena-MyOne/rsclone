@@ -73,7 +73,9 @@
 }
 
 .welcome {
-  height: var(--height);
+  transform: scale(1.2);
+  padding: 20px;
+  color: $colorWhite;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,6 +85,5 @@
   border-radius: var(--border-radius);
   &__text {
     padding:  10px 0px;
-    font-size: 1.2rem;
   }
 }

@@ -87,7 +87,7 @@ function showLogOutMessage(): string {
   return `
   <div class="logout__body">
     <p data-18i="regLogOut" class="logout__text">Are you sure you want to log out?</p>
-    <button data-18i="btnLogOut" class="logout__button form__button">Log out</button>
+    <button data-18i="btnLogOut" class="logout__button form__button btn">Log out</button>
   </div>
   `
 }
@@ -99,7 +99,7 @@ function showWelcomeMessage(signUp: boolean): string {
 
   return `
     <div class="registration__welcome welcome">
-      <h2 class="welcome__title">Welcome ${userName}</h2>
+      <h5 class="welcome__title">Welcome ${userName}</h5>
       <div class="welcome__body">
         <p class="welcome__text">We are happy to have you on board</p>
         <img class="welcome__image" src="../../assets/images/registration/planet.png">

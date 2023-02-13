@@ -74,6 +74,15 @@ html[data-bs-theme="dark"] {
     }
   }
 
+  & .form__button.btn {
+    color:  $yellow-100;
+    background-color: $yellow-600;
+    &:hover{
+      background-color: $yellow-700;
+      color: $yellow-200; 
+    }
+  }
+
   & .form__github-text {
     &:hover{
       background: url(../assets/icons/github_logo_yellow800.svg) center right /22px 22px no-repeat;
@@ -83,6 +92,11 @@ html[data-bs-theme="dark"] {
 
   & .form__title {
     color: $colorBlack;
+  }
+
+  & .welcome {
+    background-color: $gray-900;
+    color: $colorWhite;
   }
 
 }
