@@ -101,6 +101,7 @@ export function generateCountryPage(id: number) {
     audioEnd('hymn__play', 'hymn__pause', '.country__hymn');
     playPhrases();
     endPhrases();
+    microHandler();
     cities.map((item, i) => getMap(item.coordinates.split(',').map(Number), i + 1));
     const swiper = new Swiper('.country__gallery', {
       modules: [Navigation, Autoplay, Keyboard, Mousewheel],
@@ -394,25 +395,35 @@ export function translation() {
 
 // функция распознавания голоса
 
-// function microHandler() {
-// const microphones = document.querySelectorAll('.bi-mic-fill');
-// microphones.forEach((micro) => {
-//   micro.addEventListener('click', voice());
-// })
-// }
+function microHandler() {
+  const microphones = document.querySelectorAll('.bi-mic-fill');
+  microphones.forEach((micro) => {
+    micro.addEventListener('click', voice);
+  })
+}
 
-// function voice() {
-//   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-//   const recognition = new SpeechRecognition();
-//   recognition.interimResults = true;
-//   recognition.start();
-//   recognition.addEventListener("result", (e) => { 
-//     const transcript = Array.from(e.results) 
-//       .map(result => result[0]) 
-//       .map(result => result.transcript) 
-//       .join("");
-//     if (e.results[0].isFinal) { 
-//       search.value = transcript; 
-//     }
-//   })
-// }
+function voice() {
+  // @ts-ignore
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  // @ts-ignore
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'ru-RU';
+  recognition.interimResults = true;
+  recognition.start();
+  // @ts-ignore
+  recognition.addEventListener("result", (e) => {
+    const transcript = Array.from(e.results)
+      // @ts-ignore
+      .map(result => {
+        console.log(result);
+      // @ts-ignore        
+        return result[0]})
+      .map(result => result.transcript)
+      .join("");
+    if (e.results[0].isFinal) {
+      console.log(transcript)
+      // @ts-ignore
+      // search.value = transcript;
+    }
+  })
+}
