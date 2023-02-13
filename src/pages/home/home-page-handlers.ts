@@ -2,6 +2,8 @@ import { sceneInitHomePage } from "../../components/canvas/SceneInit";
 import { addCountriesButtons } from "./home";
 import { getCountry } from "../../api/requests";
 import { Country } from "../../models/interfaces";
+import { ROUTER_PATH } from "../../constants/enums";
+import { generateSvgPlay, generateSvgPause } from "../country/country";
 
 
 import { translation } from "../country/country";
@@ -107,43 +109,92 @@ function clickOnCountryButton(event: MouseEvent) {
 
 export function generatePopUp(id: number) {
   // console.log(id)
-  let currentDiv = document.querySelector('.country__wrapper') as HTMLDivElement;
+  let currentDiv = document.querySelector('.cntry') as HTMLDivElement;
   if (currentDiv) { 
     currentDiv.remove();
   } 
   const homePage = document.querySelector('.home-page') as HTMLDivElement;
   currentDiv = document.createElement('div');
-  currentDiv.className = 'country__wrapper country_active';
+  currentDiv.className = 'cntry cntry_active';
   homePage.append(currentDiv)
   
   const lang = localStorage.getItem('language') || 'en';
   getCountry(id, lang).then((res: Country) => {
-    const { name, nameEN, capital } = res;
+    const { name, nameEN, capital, places } = res;
     const countryDiv = document.createElement('div') as HTMLElement;
-    countryDiv.className = 'country__card card'
+    countryDiv.className = 'cntry__card card'
     countryDiv.innerHTML = `
-      <button type="button" class="btn-close country__close" aria-label="Close"></button>
-      <h5 class="country__title">Hello ${name}, ${capital}</h5>
+      <button type="button" class="btn-close cntry__close" aria-label="Close"></button>
+      <div class="cntry__info info container text-center">
+        <div class="info__header row">
+          <h1 class="country__name col">${name}</h1>
+          <div class="col">
+            <h5 class="col" data-i18="countryCapital">capital</h5>
+            <h3 class="country__capital">${capital}</h3>
+          </div>
+          <div class="country__player player col">
+            <h6 data-i18="countryHymn">National Anthem</h6>
+            <audio controls class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
+            <div class="player__controls">
+              <div class="btn-play">
+                ${generateSvgPlay('hymn__play')}
+                ${generateSvgPause('hymn__pause')}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <img src="./assets/images/country_flags/${nameEN}_flag.gif" alt="Flag" class="info__flag">
+          </div>
+        </div>
+        <div class="country__adv row">
+          <div class="col-5 img__container">
+            <img class="character" src="./assets/images/country_characters/${nameEN}.png" alt="Country Caracter">
+          </div>
+          <div class="col-7 grid">
+            ${places.map((item, i) => `
+            <div class="grid__item">
+              <div class="img" style="background-image: url('./assets/images/places/${nameEN}/${i + 1}.jpg');">
+              </div>
+              <div class="photo-container">
+                <h5 class="photo__title">${item.name}</h5>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="d-grid gap-2 col-4 mx-auto">
+        <button type="button" class="button_visit btn btn-info">
+          <span data-i18="btnVisit">Visitor</span>
+        </button>
+      </div>
     `;
 
     currentDiv.append(countryDiv);
     closePopUp();
+    visitCountry(id);
   })
   
   function closePopUp() {
-    const countryWrapper = document.querySelector('.country__wrapper') as HTMLElement;
-    const btnClose = document.querySelector('.country__close') as HTMLButtonElement;
+    const countryWrapper = document.querySelector('.cntry') as HTMLElement;
+    const btnClose = document.querySelector('.cntry__close') as HTMLButtonElement;
     btnClose.addEventListener('click', () => {
-      countryWrapper.classList.remove('country_active');
+      countryWrapper.classList.remove('cntry_active');
     })
     countryWrapper.addEventListener('click', (e) => {
       console.log(1)
       const target = e.target as HTMLElement;
-      if (target.classList.contains('country__wrapper')) {
-        countryWrapper.classList.remove('country_active');
+      if (target.classList.contains('cntry')) {
+        countryWrapper.classList.remove('cntry_active');
       }
     })
   }
-  
+
+  function visitCountry(id: number) {
+    const buttonVisit = document.querySelector('.button_visit') as HTMLButtonElement;
+    buttonVisit.addEventListener('click', () => {
+      window.location.hash = ROUTER_PATH.COUNTRY + `/${id}`;
+    })
+  }
+
 
 }
