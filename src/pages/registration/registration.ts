@@ -41,12 +41,12 @@ export function generateRegistrationPage(): HTMLElement {
 
 function createRegistrationForm(): string {
   return `
-  <h4 data-18i="titleRegistration" class="form__title">Registration</h4>
+  <h5 data-18i="titleRegistration" class="form__title">Registration</h5>
   <div class="form__item">
     <label data-18i="regName" class="form__label text form-label" for="name">Name</label>
     <input class="form__input form-control" id="name" type="text" required>
     <div class="invalid-feedback form__feedback">
-      Please enter your name
+      Name is required
     </div>
     <div class="valid-feedback form__feedback">
       Looks good!
@@ -54,9 +54,9 @@ function createRegistrationForm(): string {
   </div>
   <div class="form__item">
     <label data-18i="regEmail" class="form__label text form-label" for="email">Email</label>
-    <input class="form__input form-control" id="email" type="email" placeholder="name@example.com" required>
+    <input class="form__input form-control" id="email" type="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
     <div class="invalid-feedback form__feedback">
-      Please enter your email
+      Please input valid email
     </div>
     <div class="valid-feedback form__feedback">
       Looks good!
@@ -73,8 +73,8 @@ function createRegistrationForm(): string {
     </div>
   </div>
   <div class="form__buttons">
-    <button data-18i="btnRegistration" class="form__button btn" type="submit">Sign up</button>
-    <button data-18i="btnIncognito" class="form__button btn">Travel incognito</button>
+    <button data-18i="btnRegistration" class="form__button btn sbmt-btn" type="submit">Sign up</button>
+    <span data-18i="btnIncognito" class="form__button btn">Travel incognito</span>
   </div>
   <a class="form__github" href="#">
     <span data-18i="regGit" class="form__github-text">Log in with</span>
