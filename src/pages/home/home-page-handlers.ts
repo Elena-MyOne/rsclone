@@ -3,7 +3,7 @@ import { addCountriesButtons } from "./home";
 import { getCountry } from "../../api/requests";
 import { Country } from "../../models/interfaces";
 import { ROUTER_PATH } from "../../constants/enums";
-import { generateSvgPlay, generateSvgPause } from "../country/country";
+import { generateSvgPlay, generateSvgPause, playAudio, audioEnd } from "../country/country";
 
 
 import { translation } from "../country/country";
@@ -170,6 +170,9 @@ export function generatePopUp(id: number) {
     `;
 
     currentDiv.append(countryDiv);
+    translation();
+    playAudio('hymn__play', 'hymn__pause', '.country__hymn');
+    audioEnd('hymn__play', 'hymn__pause', '.country__hymn');
     closePopUp();
     visitCountry(id);
   })

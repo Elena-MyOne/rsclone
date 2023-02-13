@@ -121,7 +121,7 @@ export function generateCountryPage(id: number) {
 
 // обработка кликов play/pause
 
-function playAudio(idPlay: string, idPause: string, classAudio: string) {
+export function playAudio(idPlay: string, idPause: string, classAudio: string) {
   const btnPlay = document.getElementById(idPlay) as HTMLElement;
   const btnPause = document.getElementById(idPause) as HTMLElement;
   const audio = document.querySelector(classAudio) as HTMLAudioElement;
@@ -140,7 +140,7 @@ function playPhrases() {
 
 // обработка окончания audio
 
-function audioEnd(idPlay: string, idPause: string, classAudio: string) {
+export function audioEnd(idPlay: string, idPause: string, classAudio: string) {
   const audio = document.querySelector(classAudio) as HTMLAudioElement;
   const btnPlay = document.getElementById(idPlay) as HTMLElement;
   const btnPause = document.getElementById(idPause) as HTMLElement;

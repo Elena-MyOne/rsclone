@@ -49,6 +49,7 @@ canvas.home-page
     height: auto;
     left: calc(50% - 70vw/2);
     top: 80px;
+    padding: 20px;
   }
   &__info {
     color: $cyan-900;
@@ -84,7 +85,7 @@ canvas.home-page
     50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
   );
 	
-	-webkit-shape-outside:   polygon(
+	-webkit-shape-outside: polygon(
     50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
   );
 	
