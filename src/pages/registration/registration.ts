@@ -13,6 +13,7 @@ export function generateRegistrationPage(): HTMLElement {
     const regForm = document.createElement('form') as HTMLFormElement;
     regForm.classList.add('registration__form', 'form', 'row', 'g-2', 'needs-validation');
     regForm.setAttribute('novalidate', '');
+    // regForm.innerHTML = createRegistrationForm();
     regForm.innerHTML = createRegistrationForm();
     regBody.append(regForm);
 
@@ -41,43 +42,43 @@ export function generateRegistrationPage(): HTMLElement {
 
 function createRegistrationForm(): string {
   return `
-  <h5 data-18i="titleRegistration" class="form__title">Registration</h5>
+  <h5 data-i18="titleRegistration" class="form__title">Registration</h5>
   <div class="form__item">
-    <label data-18i="regName" class="form__label text form-label" for="name">Name</label>
+    <label data-i18="regName" class="form__label text form-label" for="name">Name</label>
     <input class="form__input form-control" id="name" type="text" required>
-    <div class="invalid-feedback form__feedback">
+    <div data-i18="regFormValidName" class="invalid-feedback form__feedback">
       Name is required
     </div>
-    <div class="valid-feedback form__feedback">
+    <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
       Looks good!
     </div>
   </div>
   <div class="form__item">
-    <label data-18i="regEmail" class="form__label text form-label" for="email">Email</label>
+    <label data-i18="regEmail" class="form__label text form-label" for="email">Email</label>
     <input class="form__input form-control" id="email" type="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
-    <div class="invalid-feedback form__feedback">
+    <div data-i18="regFormValidEmail" class="invalid-feedback form__feedback">
       Please input valid email
     </div>
-    <div class="valid-feedback form__feedback">
+    <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
       Looks good!
     </div>
   </div>
   <div class="form__item">
-    <label data-18i="regPassword" class="form__label text form-label" for="password">Password</label>
+    <label data-i18="regPassword" class="form__label text form-label" for="password">Password</label>
     <input class="form__input form-control" id="password" type="password" required>
-    <div class="invalid-feedback form__feedback">
+    <div data-i18="regFormValidPassword" class="invalid-feedback form__feedback">
       Please enter a password
     </div>
-    <div class="valid-feedback form__feedback">
+    <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
       Looks good!
     </div>
   </div>
   <div class="form__buttons">
-    <button data-18i="btnRegistration" class="form__button btn sbmt-btn" type="submit">Sign up</button>
-    <span data-18i="btnIncognito" class="form__button btn">Travel incognito</span>
+    <button data-i18="btnRegistration" class="form__button btn sbmt-btn" type="submit">Sign up</button>
+    <span data-i18="btnIncognito" class="form__button btn">Travel incognito</span>
   </div>
   <a class="form__github" href="#">
-    <span data-18i="regGit" class="form__github-text">Log in with</span>
+    <span data-i18="regGit" class="form__github-text">Log in with</span>
   </a>
   `
 }
@@ -86,8 +87,8 @@ function createRegistrationForm(): string {
 function showLogOutMessage(): string {
   return `
   <div class="logout__body">
-    <p data-18i="regLogOut" class="logout__text">Are you sure you want to log out?</p>
-    <button data-18i="btnLogOut" class="logout__button form__button btn">Log out</button>
+    <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
+    <button data-i18="btnLogOut" class="logout__button form__button btn">Log out</button>
   </div>
   `
 }
@@ -99,9 +100,9 @@ function showWelcomeMessage(signUp: boolean): string {
 
   return `
     <div class="registration__welcome welcome">
-      <h5 class="welcome__title">Welcome ${userName}</h5>
+      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> <span data-i18="regWelcomeTitleName">${userName}</span></h5>
       <div class="welcome__body">
-        <p class="welcome__text">We are happy to have you on board</p>
+        <p data-i18="regWelcomeText" class="welcome__text">We are happy to have you on board</p>
         <img class="welcome__image" src="../../assets/images/registration/planet.png">
       </div>
       

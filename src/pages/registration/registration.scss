@@ -54,8 +54,9 @@
     text-decoration: none;
     color: inherit;
     &-text {
-      margin-right: 10px;
-      width: 150px;
+      padding-right: 30px;
+      width: 200px;
+      text-align: right;
       min-height: 30px;
       background: url(../assets/icons/github_logo_black.svg) center right /22px 22px no-repeat;
       transition: var(--transition);
