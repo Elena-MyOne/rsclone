@@ -10,6 +10,7 @@ export function generateHomePage() {
   const root = document.querySelector('.root') as HTMLElement;
   root.classList.add('main_home-page');
   const content = document.createElement("div");
+  content.className = 'home-page';
 
   content.innerHTML = `
   <canvas class="home-page"></canvas>
@@ -43,19 +44,22 @@ export function generateHomePage() {
 }
 
 const getString = (el:HTMLElement) => el.outerHTML;
+
 export const addCountriesButtons = (lang: string) => {
   getCountriesNames(lang).then((res) => {
+    // console.log(res);
     const div: HTMLElement = document.createElement("div");
     div.className = "d-grid gap-2";
     div.role = "group";
     div.ariaLabel = "Vertical button group";
-    let prop: keyof typeof res
-    for (prop in res) {
-      // console.log(`db.${prop} = ${db[prop]}`);
+    // let prop: keyof typeof res
+    // for (prop in res) {
+    for (let i= 0; i < res.length; i++) {
       const button: HTMLButtonElement = document.createElement("button");
       button.type = "button";
       button.className = "btn btn-info";
-      button.innerText = res[prop];
+      button.innerText = res[i];
+      button.id = `${i + 1}`
       div.append(button);
     }
     // console.log(div)

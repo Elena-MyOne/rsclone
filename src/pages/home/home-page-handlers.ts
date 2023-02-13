@@ -1,8 +1,12 @@
 import { sceneInitHomePage } from "../../components/canvas/SceneInit";
 import { addCountriesButtons } from "./home";
+import { getCountry } from "../../api/requests";
+import { Country } from "../../models/interfaces";
 
 
 import { translation } from "../country/country";
+
+
 
 export function handlers() {
   const currentLang = localStorage.getItem('language') || 'EN'
@@ -96,6 +100,50 @@ function clickOnCountryButton(event: MouseEvent) {
   const countryButton = target.closest(".btn");
   if (countryButton) {
     //popUp
-    alert(countryButton.innerHTML)
+    generatePopUp(Number(countryButton.id));
+    // alert(countryButton.innerHTML)
   }
+}
+
+export function generatePopUp(id: number) {
+  // console.log(id)
+  let currentDiv = document.querySelector('.country__wrapper') as HTMLDivElement;
+  if (currentDiv) { 
+    currentDiv.remove();
+  } 
+  const homePage = document.querySelector('.home-page') as HTMLDivElement;
+  currentDiv = document.createElement('div');
+  currentDiv.className = 'country__wrapper country_active';
+  homePage.append(currentDiv)
+  
+  const lang = localStorage.getItem('language') || 'en';
+  getCountry(id, lang).then((res: Country) => {
+    const { name, nameEN, capital } = res;
+    const countryDiv = document.createElement('div') as HTMLElement;
+    countryDiv.className = 'country__card card'
+    countryDiv.innerHTML = `
+      <button type="button" class="btn-close country__close" aria-label="Close"></button>
+      <h5 class="country__title">Hello ${name}, ${capital}</h5>
+    `;
+
+    currentDiv.append(countryDiv);
+    closePopUp();
+  })
+  
+  function closePopUp() {
+    const countryWrapper = document.querySelector('.country__wrapper') as HTMLElement;
+    const btnClose = document.querySelector('.country__close') as HTMLButtonElement;
+    btnClose.addEventListener('click', () => {
+      countryWrapper.classList.remove('country_active');
+    })
+    countryWrapper.addEventListener('click', (e) => {
+      console.log(1)
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('country__wrapper')) {
+        countryWrapper.classList.remove('country_active');
+      }
+    })
+  }
+  
+
 }

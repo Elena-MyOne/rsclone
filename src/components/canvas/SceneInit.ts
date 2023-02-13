@@ -1,10 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
-import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader'
-import { VerticalBlurShader  } from 'three/examples/jsm/shaders/VerticalBlurShader'
+import { generatePopUp } from '../../pages/home/home-page-handlers';
 
 const noCloudsBg = require('../../assets/images/textures/2_no_clouds_8k-min.jpg')
 const nightBg = require('../../assets/images/textures/earth_nightlights_10K.jpg')
@@ -270,26 +266,31 @@ export function sceneInitHomePage() {
   const cities = [
     {
       name: 'Canberra',
+      id: '1',
       lat: -35.282001,
       lon: 149.128998
     },
     {
       name: 'Brasilia',
+      id: '2',
       lat: -15.749997,
       lon: -47.9499962
     },
     {
       name: 'Beijing',
+      id: '3',
       lat: 39.916668,
       lon: 116.383331
     },
     {
       name: 'Moscow',
+      id: '4',
       lat: 55.751244,
       lon: 37.618423
     },
     {
       name: 'Washington',
+      id: '5',
       lat: 38.8951100,
       lon: -77.0363700
     },
@@ -308,7 +309,8 @@ export function sceneInitHomePage() {
   for (let city of cities) {
     const cityCoordinates = calcPosFromLatLonRad(city.lat, city.lon);
     const pin = createPin();
-    pin.name = city.name;
+    pin.userData.name = city.name;
+    pin.userData.id = city.id;
     arrOfPins.push(pin);
     pin.position.set(cityCoordinates.x, cityCoordinates.y, cityCoordinates.z);
     earth.add(pin);
@@ -332,7 +334,8 @@ export function sceneInitHomePage() {
 
     if (intersects.length > 0) {
       intersectedObject = intersects[0].object;
-      alert(intersectedObject.name)
+      // alert(`${intersectedObject.userData.name}, ${intersectedObject.userData.id}`)
+      generatePopUp(Number(intersectedObject.userData.id))
     }
   }
 
