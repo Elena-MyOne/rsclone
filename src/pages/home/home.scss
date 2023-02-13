@@ -55,6 +55,9 @@ canvas.home-page
     color: $cyan-900;
   }
 }
+.cntry__info .bi {
+  fill: $colorBlack
+}
 .character {
   width: 100%;
 }
@@ -139,7 +142,7 @@ canvas.home-page
 	}
 	
 	&:after {
-		background: linear-gradient(to top, transparent, rgba(black, 0.5), transparent);
+		background: linear-gradient(to top, transparent, rgba($colorBlack, 0.5), transparent);
 	}
 }
 .photo-container { 
@@ -192,6 +195,8 @@ canvas.home-page
 	.photo-container { transform: translate(-50%, -50%) scale(1); }
 }
 
+
+
 [data-bs-theme="dark"] {
   .cntry {
     &__title {
@@ -199,6 +204,20 @@ canvas.home-page
     }
     &__info {
       color: $yellow-100;
+    }
+  }
+  .cntry__info .bi {
+    fill: $colorWhite;
+  }
+  .img {
+    &:before {
+      background: rgba($yellow-300, 0.25);
+    }
+  }
+  .photo__title {
+    &:before,
+    &:after {
+      background: $yellow-300;
     }
   }
   
