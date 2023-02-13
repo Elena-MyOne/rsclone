@@ -270,6 +270,11 @@ function openGallery() {
   const images = document.querySelectorAll('.gallery__img') as NodeListOf<HTMLImageElement>;
   const btnClose = document.querySelector('.big-gallery__close') as HTMLButtonElement;
   const bigGallery = document.querySelector('.big-gallery') as HTMLElement;
+  const btnOpenGallery = document.querySelector('.open-gallery') as HTMLButtonElement;
+
+  btnOpenGallery.addEventListener('click', () => {
+    bigGallery.classList.add('big-gallery_active');
+  })
 
   images.forEach((img, i) => {
     img.addEventListener('click', () => {
@@ -402,6 +407,7 @@ function microHandler() {
 }
 
 function voice() {
+  let lang = localStorage.getItem('language') || 'en';
   // @ts-ignore
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   // @ts-ignore
@@ -411,13 +417,31 @@ function voice() {
   recognition.start();
   // @ts-ignore
   recognition.addEventListener("result", (e) => {
-    const transcript = Array.from(e.results)
-      // @ts-ignore
-      .map(result => {return result[0]})
-      .map(result => result.transcript)
-      .join("");
-    if (e.results[0].isFinal) {
-      alert(`Вы сказали "${transcript}" Если это не то, что Вы хотели сказать, попробуйте еще раз.`);
+    try {
+      const transcript = Array.from(e.results)
+        // @ts-ignore
+        .map(result => { return result[0] })
+        .map(result => result.transcript)
+        .join("");
+      if (e.results[0].isFinal) {
+        switch (lang) {
+          case 'en': alert(`You said "${transcript}" If that's not what you wanted to say, try again.`);
+            break;
+          case 'ru': alert(`Вы сказали "${transcript}" Если это не то, что Вы хотели сказать, попробуйте еще раз.`);
+            break;
+          case 'be': alert(`Вы нясеце "${transcript}" Калі ты не думаеш, што вы хочаце, старайцеся.`);
+            break;
+        }
+      }
+    } catch {
+      switch (lang) {
+        case 'en': alert(`It's hard to understand you. Can you repeat again?`);
+          break;
+        case 'ru': alert(`Получилось неразборчиво. Пожалуйста, повторите.`);
+          break;
+        case 'be': alert(`Атрымалася неразборлiва. Калi ласка паўторыце.`);
+          break;
+      }
     }
   })
 }
