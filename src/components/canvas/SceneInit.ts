@@ -62,22 +62,22 @@ export function sceneInitStartPage() {
 
   //loading console.log - debug
   const loadingManager = new THREE.LoadingManager()
-  loadingManager.onStart = () =>
-  {
-      console.log('loadingManager: loading started')
-  }
-  loadingManager.onLoad = () =>
-  {
-      console.log('loadingManager: loading finished')
-  }
-  loadingManager.onProgress = () =>
-  {
-      console.log('loadingManager: loading progressing')
-  }
-  loadingManager.onError = () =>
-  {
-      console.log('loadingManager: loading error')
-  }
+  // loadingManager.onStart = () =>
+  // {
+  //     console.log('loadingManager: loading started')
+  // }
+  // loadingManager.onLoad = () =>
+  // {
+  //     console.log('loadingManager: loading finished')
+  // }
+  // loadingManager.onProgress = () =>
+  // {
+  //     console.log('loadingManager: loading progressing')
+  // }
+  // loadingManager.onError = () =>
+  // {
+  //     console.log('loadingManager: loading error')
+  // }
   const textureLoader = new THREE.TextureLoader(loadingManager);
   const colorTexture = textureLoader.load(noCloudsBg)
   const bumpTexture = textureLoader.load(bumpBg)
@@ -217,22 +217,22 @@ export function sceneInitHomePage() {
 
   // loading
   const loadingManager = new THREE.LoadingManager()
-  loadingManager.onStart = () =>
-  {
-      console.log('loadingManager: loading started')
-  }
-  loadingManager.onLoad = () =>
-  {
-      console.log('loadingManager: loading finished')
-  }
-  loadingManager.onProgress = () =>
-  {
-      console.log('loadingManager: loading progressing')
-  }
-  loadingManager.onError = () =>
-  {
-      console.log('loadingManager: loading error')
-  }
+  // loadingManager.onStart = () =>
+  // {
+  //     console.log('loadingManager: loading started')
+  // }
+  // loadingManager.onLoad = () =>
+  // {
+  //     console.log('loadingManager: loading finished')
+  // }
+  // loadingManager.onProgress = () =>
+  // {
+  //     console.log('loadingManager: loading progressing')
+  // }
+  // loadingManager.onError = () =>
+  // {
+  //     console.log('loadingManager: loading error')
+  // }
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
   const earth = createPlanet();
@@ -363,22 +363,22 @@ export function sceneInitHomePage() {
 
 const createPlanet = () => {
   const loadingManager = new THREE.LoadingManager()
-  loadingManager.onStart = () =>
-  {
-      console.log('loadingManager: loading started')
-  }
-  loadingManager.onLoad = () =>
-  {
-      console.log('loadingManager: loading finished')
-  }
-  loadingManager.onProgress = () =>
-  {
-      console.log('loadingManager: loading progressing')
-  }
-  loadingManager.onError = () =>
-  {
-      console.log('loadingManager: loading error')
-  }
+  // loadingManager.onStart = () =>
+  // {
+  //     console.log('loadingManager: loading started')
+  // }
+  // loadingManager.onLoad = () =>
+  // {
+  //     console.log('loadingManager: loading finished')
+  // }
+  // loadingManager.onProgress = () =>
+  // {
+  //     console.log('loadingManager: loading progressing')
+  // }
+  // loadingManager.onError = () =>
+  // {
+  //     console.log('loadingManager: loading error')
+  // }
   const textureLoader = new THREE.TextureLoader(loadingManager);
   const bumpTexture = textureLoader.load(bumpBg);
   const borderTexture = textureLoader.load(borderBg);

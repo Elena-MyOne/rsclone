@@ -10,20 +10,27 @@ import { translation } from "../country/country";
 
 
 
-export function handlers() {
+export function buttonHandlers() {
+  // console.log(123)
   const currentLang = localStorage.getItem('language') || 'EN'
   setSelected(currentLang);
+  // console.log(localStorage.getItem('language'))
   const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
   countryButtons.addEventListener('click', clickOnCountryButton);
+}
 
+export function handlers() {
 
   const langSelect = document.querySelector(".lang_select") as HTMLSelectElement;
   langSelect.addEventListener('change', () => {
     const currentLang = langSelect.value as string;
     localStorage.setItem("language", currentLang.toLowerCase())
+    // console.log(localStorage.getItem('language'))
+
     translation(); // переводит контент
 
     //remove eventListener
+    const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
     countryButtons.removeEventListener('click', clickOnCountryButton);
 
     addCountriesButtons(currentLang.toLowerCase());
@@ -31,31 +38,31 @@ export function handlers() {
   })
 
   const themeSwitch = document.getElementById("themeSwitch") as HTMLButtonElement;
-  if (themeSwitch) {
+    initStorage();
     initTheme();
     initIcon();
+    sceneInitHomePage();
     themeSwitch.addEventListener("click", function () {
       changeStorage();
       initTheme();
       initIcon();
       sceneInitHomePage();
     });
-  };
+  
+}
+function initStorage() {
+  if (!localStorage.getItem("theme")) {
+    localStorage.setItem("theme", "light")
+  }
 }
 
 function initTheme() {
   const darkThemeSelected =
-    localStorage.getItem("theme") !== null &&
     localStorage.getItem("theme") === "dark";
+  // console.log(localStorage.getItem("theme"))
   darkThemeSelected
     ? document.documentElement.setAttribute("data-bs-theme", "dark")
     : document.documentElement.setAttribute("data-bs-theme", "light");
-}
-
-function changeStorage() {
-  localStorage.getItem("theme") === 'dark'
-    ? localStorage.setItem("theme", "light")
-    : localStorage.setItem("theme", "dark")
 }
 
 function initIcon() {
@@ -63,8 +70,8 @@ function initIcon() {
   button.innerHTML = '';
 
   const darkThemeSelected =
-    localStorage.getItem("theme") !== null &&
     localStorage.getItem("theme") === "dark";
+    // console.log(localStorage.getItem("theme"))
 
   if (darkThemeSelected) {
     button.classList.add("darkMode")
@@ -88,6 +95,29 @@ function initIcon() {
     </svg>`
   }
 }
+
+function changeStorage() {
+  const darkThemeSelected =
+    localStorage.getItem("theme") === "dark";
+
+  darkThemeSelected
+    ? localStorage.setItem("theme", "light")
+    : localStorage.setItem("theme", "dark");
+
+  // if (darkThemeSelected) {
+  //   localStorage.setItem("theme", "light")
+  // } else {
+  //   localStorage.setItem("theme", "dark")
+  // }
+
+  // localStorage.getItem("theme") === 'dark'
+  //   ? localStorage.setItem("theme", "light")
+  //   : localStorage.setItem("theme", "dark")
+  //   console.log(localStorage.getItem("theme"))
+
+}
+
+
 
 function setSelected(lang: string) {
   ((document.querySelectorAll('.lang-option')) as NodeListOf<HTMLOptionElement>).forEach((element) => {
@@ -184,7 +214,7 @@ export function generatePopUp(id: number) {
       countryWrapper.classList.remove('cntry_active');
     })
     countryWrapper.addEventListener('click', (e) => {
-      console.log(1)
+      // console.log(1)
       const target = e.target as HTMLElement;
       if (target.classList.contains('cntry')) {
         countryWrapper.classList.remove('cntry_active');
