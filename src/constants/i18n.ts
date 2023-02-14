@@ -27,6 +27,7 @@ export const content = {
     countryLanguage: 'язык:',
     countryLesson: 'Уроки языка',
     galleryText: 'нажми для увеличения',
+    openGallery: 'Открыть галерею',
     tooltipMicro: 'Нажми и произнеси услышанную фразу для проверки',
     countryComments: 'Комментарии',
     btnSend: 'Отправить',
@@ -73,8 +74,7 @@ export const content = {
     autGit: 'Авторизация через',
     autLogin: 'Войти',
     helpTitle: 'Добро пожаловать в приложение Amazing Trip!',
-    helpAdvice: `Мы рекомендуем пройти регистрацию, нажав кнопку "Регистрация"
-                 на верхней панели. Так прогресс вашего путешествия сохранится и
+    helpAdvice: `Мы рекомендуем пройти регистрацию. Так прогресс вашего путешествия сохранится и
                  вы сможете обсуждать страны с другими пользователями.`,
     helpStart: 'Стартовая страница',
     helpStartText: `Здесь Вы можете полюбоваться красотой и совершенством нашей планеты.
@@ -92,18 +92,16 @@ export const content = {
                       какое животное является символом страны (потом пригодится).А еще тут вы можете выучить
                       несколько фраз на официальном языке страны!И не забудьте оставить комментарий о стране
                       (только для зарегистрированных пользователей).`,
-    helpProgress: 'Прогресс',
-    helpProgressText: `Тут Вы увидите полный список стран, напротив посещенной страны есть кнопка “Тест” (обязательно нажмите!).
-                      Если какую-то из стран Вы еще не посетили, можете отправиться туда, кликнув на названии страны.
-                      Впрочем, уже посещенные страны, также доступны для повторного посещения, можете и по ним кликать 🙂`,
     helpTest: 'Тест',
     helpTestText: `Это очень простой тест, пройдите его и узнайте как хорошо Вы запомнили все
-                   увиденное в каждой стране. После прохождения на странице прогресса и в личном 
+                   увиденное в каждой стране. После прохождения в личном 
                    кабинете напротив каждый страны отобразится процент знаний об этой стране.`,
     helpProfile: 'Личный кабинет',
     helpProfileText: `Тут все просто. Есть Ваша аватарка (если Вы ее выбрали),
                       Ваше имя (если Вы его написали) и Ваш прогресс путешествий (если Вы куда-то “съездили”).
-                      Здесь можно выучить несколько фраз на официальном языке стран.
+                      Тут Вы увидите полный список стран, напротив посещенной страны есть кнопка “Тест” (обязательно нажмите!).
+                      Если какую-то из стран Вы еще не посетили, можете отправиться туда, кликнув на названии страны.
+                      Впрочем, уже посещенные страны, также доступны для повторного посещения, можете и по ним кликать 🙂.
                       Можно поменять время суток и язык интерфейса.`,
     helpWish: 'Удачного путешествия!',
     helpCreators: 'Над приложением работали котики',
@@ -139,6 +137,7 @@ export const content = {
     countryLanguage: 'language:',
     countryLesson: 'Language lessons',
     galleryText: 'click to expand',
+    openGallery: 'Open Gallery',
     tooltipMicro: 'Press to hear the phrase to check',
     countryComments: 'Comments',
     btnSend: 'Send',
@@ -184,19 +183,32 @@ export const content = {
     autGit: 'Log in with',
     autLogin: 'Log in',
     helpTitle: 'Welcome to app Amazing Trip!',
-    helpAdvice: `We recommend that you go through the registration, consisting of the "Sign up" on the top bar. So the progress of our journey will be saved and you can participate in discussion with other users.`,
+    helpAdvice: `We recommend that you go through the registration. So the progress of our journey will be saved and you can participate in discussion with other users.`,
     helpStart: 'Start page',
-    helpStartText: `Here you can see the beauty and perfection of our planet. Rotate it as you like, zoom in and out. Don't worry, it's not dangerous and has no effect on the real planet 😉 To start the journey, press the Enter key.`,
+    helpStartText: `Here you can see the beauty and perfection of our planet. Rotate it as you like,
+     zoom in and out. Don't worry, it's not dangerous and has no effect on the real planet 😉
+      To start the journey, press the Enter key.`,
     helpMain: 'Home',
-    helpMainText: `Rotate the planet by holding the left mouse button. Choose the country you want to go to and click on it. You will see brief information about the country, to visit it, click the “Visit” button. Also on the Home page you can change the time of day (not really 😉) and change the interface language.`,
+    helpMainText: `Rotate the planet by holding the left mouse button. Choose the country you
+     want to go to and click on it. You will see brief information about the country, to visit it,
+      click the “Visit” button. Also on the Home page you can change the time of day (not really 😉)
+       and change the interface language.`,
     helpCountry: 'Country page',
-    helpCountryText: `Here are collected all the most important and beautiful about countries! You can enjoy stunning views in the gallery, and find out about the country's interesting places. Be sure you remember the national symbol (you will need it later). Also here you can learn a few phrases in the official language! And do not forget to leave a comment about the country (only for registered users).`,
-    helpProgress: 'Progress',
-    helpProgressText: `Here you will see a complete country's list, opposite the visited country there is a button “Test” (be sure to click it!). If you haven't visited any of the countries yet, you can go there by clicking on the name of the country. However, already visited countries are also available for visiting again, you can click on them 🙂`,
+    helpCountryText: `Here are collected all the most important and beautiful about countries!
+     You can enjoy stunning views in the gallery, and find out about the country's interesting places.
+      Be sure you remember the national symbol (you will need it later). Also here you can learn a few
+       phrases in the official language! And do not forget to leave a comment about the country (only for registered users).`,
     helpTest: 'Test',
-    helpTestText: `This is a very simple test, take it and find out how good is your memory. After you pass it, you can see the percentage bar, both in your profile and progress page, that will display how deep are your knowledge.`,
+    helpTestText: `This is a very simple test, take it and find out how good is your memory.
+     After you pass it, you can see the percentage bar, both in your profile,
+      that will display how deep are your knowledge.`,
     helpProfile: 'Profile',
-    helpProfileText: `Everything is simple here. There is your avatar (if you chose one), your name (if you wrote one), and your travel progress (if you “traveled” somewhere). Here you can learn a few phrases in the official language of the countries. You can change the time of day and interface language.`,
+    helpProfileText: `Everything is simple here. There is your avatar (if you chose one), 
+    your name (if you wrote one), and your travel progress (if you “traveled” somewhere). 
+    Here you will see a complete country's list, opposite the visited country there is a button “Test” 
+    (be sure to click it!). If you haven't visited any of the countries yet, you can go there by clicking 
+    on the name of the country. However, already visited countries are also available for visiting again,
+     you can click on them 🙂 You can change the time of day and interface language.`,
     helpWish: 'Have a nice trip',
     helpCreators: 'These guys teamed up to work on it',
     helpSchool: 'Has gathered everyone together: ',
@@ -231,6 +243,7 @@ export const content = {
     countryLanguage: 'мова:',
     countryLesson: 'Урокі мовы',
     galleryText: 'націсніце для павелічэння',
+    openGallery: 'Адкрыць галерэю',
     tooltipMicro: 'Націсні і вымаві пачутую фразу для праверкі',
     countryComments: 'Каментары',
     btnSend: 'Адправіць',
@@ -276,8 +289,7 @@ export const content = {
     autGit: 'Аўтарызацыя праз',
     autLogin: 'Увайсці',
     helpTitle: 'Сярдэчна запрашаем у дадатак Amazing Trip!',
-    helpAdvice: `Мы рэкамендуем прайсці рэгістрацыю, націснуўшы кнопку "Рэгістрацыя"
-     на верхняй панэлі. Так прагрэс вашага падарожжа захаваецца і вы зможаце абмяркоўваць краіны з іншымі карыстальнікамі.`,
+    helpAdvice: `Мы рэкамендуем прайсці рэгістрацыю. Так прагрэс вашага падарожжа захаваецца і вы зможаце абмяркоўваць краіны з іншымі карыстальнікамі.`,
     helpStart: 'Стартавая старонка',
     helpStartText: `Тут Вы зможаце палюбавацца прыгажосцю і дасканаласцю нашай планеты.
     Круціце яе як Вам хочацца, набліжайце і аддаляйце. Можаце не хвалявацца,
@@ -294,17 +306,15 @@ export const content = {
     якая жывёла з'яўляецца сімвалам краіны (потым спатрэбіцца).А яшчэ тут вы зможаце вывучыць
     некалькі фраз на афіцыйнай мове краіны! І не забывайце пакінуць каментар аб краіне
     (толькі для зарэгістраваных карыстальнікаў).`,
-    helpProgress: 'Прагрэс',
-    helpProgressText: `Тут Вы ўбачыце поўны спіс краін, насупраць наведанай краіны ёсць кнопка "Тэст" (абавязкова націсніце!).
-    Калі якую-небудзь краіну Вы яшчэ не наведалі, можаце адправіцца туды, клікнуўшы на назве краіны.
-    Зрэшты, ужо наведаныя краіны, таксама даступныя для паўторнага наведвання, можаце і па іх клiкаць 🙂`,
     helpTest: 'Тэст',
     helpTestText: `Гэта вельмі просты тэст, прайдзіце яго і зможаце даведацца як добра Вы запомнілі ўсё
-    ўбачанае ў кожнай краіне. Пасля завяршэння яго вы зможаце ўбачыць адсотную шкалу як у сваім профілі, так і на старонцы прагрэсу, якая пакажа, наколькі глыбокія вашы веды`,
+    ўбачанае ў кожнай краіне. Пасля завяршэння яго вы зможаце ўбачыць адсотную шкалу у сваім профілі, якая пакажа, наколькі глыбокія вашы веды`,
     helpProfile: 'Асабісты кабінет',
     helpProfileText: `Тут усё зручна. Ёсць Ваша аватарка (калі Вы яе выбралі),
     Ваша імя (калі Вы яго напісалі) і Ваш прагрэс вандровак (калі Вы кудысьці "з'ездзілі").
-    Тут можна вывучыць некалькі фраз на афіцыйнай мове краін.
+    Тут Вы ўбачыце поўны спіс краін, насупраць наведанай краіны ёсць кнопка "Тэст" (абавязкова націсніце!).
+    Калі якую-небудзь краіну Вы яшчэ не наведалі, можаце адправіцца туды, клікнуўшы на назве краіны.
+    Зрэшты, ужо наведаныя краіны, таксама даступныя для паўторнага наведвання, можаце і па іх клiкаць 🙂
     Можна памяняць час сутак і мову інтэрфейсу.`,
     helpWish: 'Удалага падарожжа!',
     helpCreators: 'Над дадаткам працавалі коцікі',

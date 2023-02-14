@@ -7,14 +7,18 @@
 
 .country {
   margin-top: 56px;
+  height: 100%;
   display: flex;
+  background: url(../assets/images/textures/galaxy.png) no-repeat;
+  background-size: cover;
 
   &__gallery {
     position: relative;
-    height: calc(100vh - 56px);
+    height: 100vh;
     border-left: 2px solid $cyan-900;
     padding: 0 20px;
     background-color: $cyan-700;
+    margin-right: 0;
   }
 
   &__photos {
@@ -25,8 +29,8 @@
 
 .bi {
   fill: $colorWhite;
-  width: 16px;
-  height: 16px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
   transition: all 0.1;
 
@@ -44,7 +48,7 @@
 }
 
 .info {
-  padding: 0 20px;
+  padding: 0 20px 20px;
 
   &__header {
     align-items: center;
@@ -114,11 +118,8 @@
   z-index: 2;
 
   &__card {
-    position: fixed;
     width: 40vw;
     height: auto;
-    left: calc(50% - 40vw/2);
-    top: 50px;
   }
 
   &__title {
@@ -129,10 +130,11 @@
     align-self: flex-end;
   }
 
-}
-
-.city_active {
-  display: block;
+  &_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .map {
@@ -152,14 +154,18 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 80px;
   top: 50%;
-  right: 10px;
+  right: 6px;
   z-index: 10;
 
   &__up,
   &__down {
     position: unset;
+    fill: $colorWhite;
+    opacity: 0.8;
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -181,11 +187,8 @@
   z-index: 2;
 
   &__card {
-    position: fixed;
     width: 40vw;
     height: auto;
-    left: calc(50% - 40vw/2);
-    top: 50px;
   }
 
   &__title {
@@ -208,10 +211,12 @@
     text-align: left;
     padding: 2px 16px 16px;
   }
-}
 
-.place_active {
-  display: block;
+  &_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .volume-hymn {
@@ -229,15 +234,14 @@
   z-index: 2;
 
   &_active {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__card {
-    position: fixed;
     width: 40vw;
     height: auto;
-    left: calc(50% - 40vw/2);
-    top: 50px;
   }
 
   &__title {
@@ -281,12 +285,74 @@
 
   &__text {
     align-self: flex-end;
+    margin-bottom: 0;
+  }
+
+  &__country {
+    margin-bottom: 0;
   }
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: $colorWhite;
+.open-gallery {
+  display: none;
+  margin-bottom: 20px;
+}
+
+.big-gallery {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+
+  &_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__swiper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 30vw;
+    overflow: inherit;
+    overflow-x: clip;
+  }
+
+  &__close {
+    align-self: flex-end;
+    margin-right: 5px;
+  }
+
+  & .swiper-pagination-bullet {
+    width: 15px;
+    height: 15px;
+    background-color: $cyan-400;
+    line-height: 20px;
+  }
+
+  & .swiper-pagination {
+    z-index: 3;
+    bottom: -50px;
+  }
+}
+
+.tooltips .micro {
+  visibility: hidden;
+  width: 15vw;
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px 0;
+  top: -27px;
+  left: 31px;
+  position: absolute;
+  z-index: 1;
+  background-color: $cyan-100;
+  color: $cyan-900;
 }
 
 @media (max-width: 1500px) {
@@ -299,11 +365,19 @@
   .map {
     width: 26vw;
   }
+
+  .big-gallery__swiper {
+    max-width: 50vw;
+  }
 }
 
 @media (max-width: 1100px) {
   .map {
     width: 30vw;
+  }
+
+  .place__card {
+    width: 60vw;
   }
 }
 
@@ -317,6 +391,10 @@
     }
   }
 
+  .big-gallery__swiper {
+    max-width: 70vw;
+  }
+
   .img-fluid {
     width: 20vw;
   }
@@ -327,6 +405,44 @@
 }
 
 @media (max-width: 600px) {
+  .places-list {
+    margin-top: 10px;
+  }
+
+  .place__card {
+    width: 63vw;
+  }
+
+  .country__gallery {
+    display: none;
+  }
+
+  .animal__card {
+    width: 70vw;
+  }
+
+  .info__map-cities {
+    margin-bottom: 20px;
+  }
+
+  .cities__item,
+  .cities__btn {
+    font-size: 13px;
+  }
+
+  .city__card {
+    width: 70vw;
+  }
+
+  .info__cities {
+    padding-left: 15px;
+    grid-template-columns: 1fr 0.7fr;
+  }
+
+  .open-gallery {
+    display: block;
+  }
+
   .img-fluid {
     width: 30vw;
   }
@@ -337,5 +453,28 @@
 
   .info__flag {
     width: 26vw;
+  }
+
+  .big-gallery .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+  }
+
+  .tooltips .micro {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 451px) {
+  .country {
+    height: auto;
+  }
+
+  .place__card {
+    width: 80vw;
+  }
+
+  .place__info {
+    font-size: 14px;
   }
 }

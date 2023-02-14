@@ -6,7 +6,11 @@ import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/Scene
 import { generateHeader, setRegistrationHeaderLink } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
+
 import { generateRegistrationPage } from "./pages/registration/registration";
+
+import { handlers } from "./pages/home/home-page-handlers";
+
 
 export function router() {
   generateContentByHash();
@@ -51,6 +55,6 @@ function generateContentByHash() {
     sceneInitStartPage();
   };
   if (hash === ROUTER_PATH.HOME) {
-    sceneInitHomePage();
+    handlers();
   };
 }

@@ -11,36 +11,34 @@ html {
 }
 
 body {
+  height: 100vh;
   color: $colorWhite;
-  background: $colorGray;
   font-family: $fontFamily;
 }
 
-
-
-//ддя контентаб будет прижимать footer к низу
+//ддя контента, будет прижимать footer к низу
 .content {
   flex: 1 1 auto;
 }
 
 //врапер, который отцентрует приложение по середине
 .root {
-  min-height: calc(100% - 56px);
+  background: url(../assets/images/textures/galaxy.png) no-repeat;
+  background-size: cover;
+  height: 100%;
   width: 100%;
-  overflow: hidden;
   margin: 0 auto;
   font-size: 16px;
-  //для футора, чтобы он всегда был снизу
   display: flex;
   flex-direction: column;
 }
 
 @import '../pages/start/start.scss';
+@import '../pages/help/help.scss';
 @import '../components/header/header.scss';
 @import '../pages/home/home.scss';
 @import '../pages/country/country.scss';
 @import '../components/quiz/quiz.scss';
-@import '../pages/help/help.scss';
 @import '../pages/profile/profile.scss';
 @import '../pages/registration/registration.scss';
 @import '../pages/error404/error404.scss';
