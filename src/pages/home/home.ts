@@ -1,11 +1,9 @@
 import { getCountriesNames } from "../../api/requests";
-import { handlers } from "./home-page-handlers";
+import { buttonHandlers, handlers } from "./home-page-handlers";
 
 export function generateHomePage() {
 
-  //get coutries
-  const lang = localStorage.getItem("language") || "en"
-  addCountriesButtons(lang);
+  
 
   const root = document.querySelector('.root') as HTMLElement;
   root.classList.add('main_home-page');
@@ -39,7 +37,10 @@ export function generateHomePage() {
     </div>
   </div>
   `;
-
+//get coutries
+  const lang = localStorage.getItem("language") || "en"
+  addCountriesButtons(lang);
+  
   return content;
 }
 
@@ -67,6 +68,6 @@ export const addCountriesButtons = (lang: string) => {
     column.innerHTML = ``;
     column.innerHTML = `${getString(div)}`;
 
-    handlers();
+    buttonHandlers();
   });
 }
