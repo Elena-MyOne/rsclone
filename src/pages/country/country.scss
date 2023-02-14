@@ -384,6 +384,7 @@
 @media (max-width: 767px) {
   .phrases {
     margin-top: 10px;
+    text-align: left;
     gap: 5px;
 
     &__text {
@@ -462,6 +463,10 @@
 
   .tooltips .micro {
     width: 30vw;
+  }
+
+  .phrases__text {
+    font-size: 14px;
   }
 }
 
