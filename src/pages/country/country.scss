@@ -118,11 +118,8 @@
   z-index: 2;
 
   &__card {
-    position: fixed;
     width: 40vw;
     height: auto;
-    left: calc(50% - 40vw/2);
-    top: 50px;
   }
 
   &__title {
@@ -133,10 +130,11 @@
     align-self: flex-end;
   }
 
-}
-
-.city_active {
-  display: block;
+  &_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .map {
@@ -189,11 +187,8 @@
   z-index: 2;
 
   &__card {
-    position: fixed;
     width: 40vw;
     height: auto;
-    left: calc(50% - 40vw/2);
-    top: 50px;
   }
 
   &__title {
@@ -245,11 +240,8 @@
   }
 
   &__card {
-    position: fixed;
     width: 40vw;
     height: auto;
-    left: calc(50% - 40vw/2);
-    top: 50px;
   }
 
   &__title {
@@ -383,6 +375,10 @@
   .map {
     width: 30vw;
   }
+
+  .place__card {
+    width: 60vw;
+  }
 }
 
 @media (max-width: 767px) {
@@ -413,13 +409,35 @@
     margin-top: 10px;
   }
 
+  .place__card {
+    width: 63vw;
+  }
+
   .country__gallery {
     display: none;
   }
 
+  .animal__card {
+    width: 70vw;
+  }
+
   .info__map-cities {
     margin-bottom: 20px;
-}
+  }
+
+  .cities__item,
+  .cities__btn {
+    font-size: 13px;
+  }
+
+  .city__card {
+    width: 70vw;
+  }
+
+  .info__cities {
+    padding-left: 15px;
+    grid-template-columns: 1fr 0.7fr;
+  }
 
   .open-gallery {
     display: block;
@@ -441,10 +459,22 @@
     width: 10px;
     height: 10px;
   }
+
+  .tooltips .micro {
+    width: 30vw;
+  }
 }
 
 @media (max-width: 451px) {
   .country {
     height: auto;
+  }
+
+  .place__card {
+    width: 80vw;
+  }
+
+  .place__info {
+    font-size: 14px;
   }
 }
