@@ -4,6 +4,8 @@ import { addCountriesButtons } from "./home";
 
 import { translation } from "../country/country";
 
+import { setRegistrationHeaderLink } from "../../components/header/header";
+
 export function handlers() {
   const currentLang = localStorage.getItem('language') || 'EN'
   setSelected(currentLang);
@@ -21,6 +23,7 @@ export function handlers() {
   langSelect.addEventListener('change', () => {
     const currentLang = langSelect.value as string;
     localStorage.setItem("language", currentLang.toLowerCase())
+    setRegistrationHeaderLink(); //меняет header с "sign up" на "log out" и обратно
     translation(); // переводит контент
     addCountriesButtons(currentLang.toLowerCase());
 

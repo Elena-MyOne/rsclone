@@ -1,4 +1,8 @@
+import { HEADER_PAGES } from "../../constants/enums";
+import { content } from "../../constants/i18n";
+
 export function generateHeader(): string {
+
   return `
       <nav class="header__nav navbar navbar-expand-lg navbar-dark">
         <div class="header__container container">
@@ -26,7 +30,7 @@ export function generateHeader(): string {
                   <a data-i18="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a data-i18="btnSignUp" class="nav-link" href="#registration">Sign up</a>
+                  <a class="nav-link sign-up" href="#registration">Sign up</a>
                 </li>
                 <li class="nav-item">
                   <a data-i18="btnLogIn" class="nav-link" href="#profile">Log in</a>
@@ -40,4 +44,37 @@ export function generateHeader(): string {
         </div>
       </nav>
   `
+}
+
+function checkRegistration(): string {
+  const signUp = localStorage.getItem('signup');
+  const language = localStorage.getItem('language') || 'en';
+  if (signUp) {
+    const isSignUp = JSON.parse(signUp);
+
+    if (isSignUp)
+      switch(language) {
+        case 'ru':
+          return content.ru.btnLogOut
+        case 'be':
+          return content.be.btnLogOut
+        default:
+          return content.en.btnLogOut
+      }
+  }
+  switch(language) {
+    case 'ru':
+      return content.ru.btnSignUp
+    case 'be':
+      return content.be.btnSignUp
+    default:
+      return content.en.btnSignUp
+  }
+}
+
+export function setRegistrationHeaderLink(): void {
+  const link = document.querySelector('.sign-up');
+  if (link) {
+    link.innerHTML = checkRegistration();
+  }
 }

@@ -1,14 +1,25 @@
+import { HEADER_PAGES } from "../../constants/enums";
+
 export function generateRegistrationPage(): HTMLElement {
   //from localStorage (email: name)
   // если есть бэк, отправляем запрос на сервер 
-  let signUp = true;
+  let isSignUp = false;
 
   const regBlog = document.createElement('section');
   regBlog.classList.add('registration');
   const regBody = document.createElement('div');
   regBody.classList.add('registration__body');
 
-  if (signUp) {
+  if (isSignUp) {
+
+    const regLogOut = document.createElement('div') as HTMLElement;
+    regLogOut.classList.add('registration__logout', 'logout');
+    regLogOut.innerHTML = showLogOutMessage();
+    regBody.append(regLogOut);
+
+    localStorage.setItem('signup', 'true');
+
+  } else {
 
     const regForm = document.createElement('form') as HTMLFormElement;
     regForm.classList.add('registration__form', 'form', 'row', 'g-2', 'needs-validation');
@@ -24,15 +35,9 @@ export function generateRegistrationPage(): HTMLElement {
       }
   
       regForm.classList.add('was-validated')
-    }, false)
+    }, false);
 
-  } else {
-
-    const regLogOut = document.createElement('div') as HTMLElement;
-    regLogOut.classList.add('registration__logout', 'logout');
-    regLogOut.innerHTML = showLogOutMessage();
-    regBody.append(regLogOut);
-
+    localStorage.setItem('signup', 'false');
   }
 
   regBlog.append(regBody);
