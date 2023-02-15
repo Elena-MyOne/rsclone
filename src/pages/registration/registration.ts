@@ -1,5 +1,6 @@
 import { setRegistrationHeaderLink } from "../../components/header/header";
 import { translation } from "../country/country";
+import { content } from "../../constants/i18n";
 
 export function generateRegistrationPage(): HTMLElement {
   // если есть бэк, отправляем запрос на сервер 
@@ -133,28 +134,17 @@ function handleFormSubmit(regForm: HTMLFormElement): void {
 //if registration was successful 
 function showWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   //TODO 'Name' comes from localStorage / guthub / maybe backend
-  const userData = localStorage.getItem('userData');
-  let name = 'Stranger';
 
-  if (userData) {
-    const userDataParse: string[] = JSON.parse(userData);
-    const nameDataName = userDataParse.filter((item) => {
-      if (item.includes('name')) {
-        return item;
-      }
-    })
-    name = nameDataName[0][1];
-  }
-  console.log(name);
+  let name = getUserName();
 
   regBody.innerHTML = `
     <div class="registration__welcome welcome">
-      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> <span data-i18="regWelcomeTitleName">${name}</span></h5>
+      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> ${name}</h5>
       <div class="welcome__close">
-        <img class="welcome__close-image" src="../../assets/icons/close.svg"></div>
+        <img class="welcome__close-image" src="../assets/icons/close.svg"></div>
       <div class="welcome__body">
         <p data-i18="regWelcomeText" class="welcome__text">We are happy to have you on board</p>
-        <img class="welcome__image" src="../../assets/images/registration/1.png">
+        <img class="welcome__image" src="../assets/images/registration/1.png">
       </div>
     </div>
   `
@@ -173,6 +163,33 @@ function closeWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, r
   showLogOutMessage();
   setRegistrationHeaderLink();
   translation();
+}
+
+function getUserName(): string {
+  const userData = localStorage.getItem('userData');
+  if (userData) {
+    const userDataParse: string[] = JSON.parse(userData);
+    const nameDataName = userDataParse.filter((item) => {
+      if (item.includes('name')) {
+        return item;
+      }
+    })
+    return nameDataName[0][1];
+  }
+    return translateUserDefaultName();
+
+}
+
+function translateUserDefaultName(): string {
+  const language = localStorage.getItem('language') || 'en';
+  switch(language) {
+    case 'ru':
+      return content.ru.regWelcomeTitleName
+    case 'be':
+      return content.be.regWelcomeTitleName
+    default:
+      return content.en.regWelcomeTitleName
+  }
 }
 
 
