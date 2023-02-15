@@ -1,3 +1,105 @@
 .registration {
   margin-top: 56px;
+  --border-radius: 10px;
+  --width: 600px;
+  --height: 500px;
+  --transition: all 0.3s;
+  &__body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+  }
+  &__form, 
+  &__logout{
+    width: var(--width);
+    border-radius: var(--border-radius);
+    background-color: $gray-200;
+    color: $colorBlack;
+  }
+}
+
+.form {
+  padding: 30px;
+  &__title {
+    text-align: center;
+  }
+  &__input {
+    border: 1px solid $cyan-600;
+  }
+  &__buttons {
+    margin: 30px 0px 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+  }
+  &__button {
+    color:  $cyan-100;
+    min-width: 150px;
+    background-color: $cyan-700;
+    padding: 7px 10px;
+    border-radius: 5px;
+    transition: var(--transition);
+    &:hover{
+      background-color: $cyan-800;
+      color: $cyan-200; 
+    }
+  }
+  &__github {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    &-text {
+      padding-right: 30px;
+      width: 200px;
+      text-align: right;
+      min-height: 30px;
+      background: url(../assets/icons/github_logo_black.svg) center right /22px 22px no-repeat;
+      transition: var(--transition);
+      &:hover{
+        background: url(../assets/icons/github_logo_cyan700.svg) center right /22px 22px no-repeat;
+        color: $cyan-700;
+      }
+    }
+  }
+}
+
+.logout {
+  padding: 30px;
+  text-align: center;
+}
+
+.welcome {
+  position: relative;
+  min-width: 400px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: $gray-200;
+  color: $colorBlack;
+  border-radius: var(--border-radius);
+  &__text {
+    padding:  10px 0px;
+  }
+  &__close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 27px;
+    cursor: pointer;
+    transition: var(--transition);
+    &:hover{
+      opacity: 0.7;
+    }
+    &-image {
+      width: 100%;
+    }
+  }
 }

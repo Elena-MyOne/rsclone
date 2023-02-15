@@ -3,10 +3,14 @@ import { generateCountryPage, translation } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/SceneInit";
-import { generateHeader } from "./components/header/header";
+import { generateHeader, setRegistrationHeaderLink } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
+
+import { generateRegistrationPage } from "./pages/registration/registration";
+
 import { handlers } from "./pages/home/home-page-handlers";
+
 
 export function router() {
   generateContentByHash();
@@ -31,7 +35,7 @@ function generateContentByHash() {
       break;
     case ROUTER_PATH.PROFILE: contentMain = 'Profile'; // Вставить функцию генерации профиля пользователя
       break;
-    case ROUTER_PATH.REGISTRATION: contentMain = 'Registration'; // Вставить функцию генерации страницы регистрации
+    case ROUTER_PATH.REGISTRATION: contentMain = generateRegistrationPage();
       break;
     case '':
     case ROUTER_PATH.START: {
@@ -43,7 +47,9 @@ function generateContentByHash() {
   }
   header.innerHTML = contentHeader;
   main.append(contentMain);
+  setRegistrationHeaderLink();
   translation();
+  
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();

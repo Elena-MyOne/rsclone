@@ -6,3 +6,12 @@ export enum ROUTER_PATH {
   PROFILE = 'profile',
   REGISTRATION = 'registration'
 }
+
+export enum HEADER_PAGES {
+  HOME = 'Home',
+  SIGNUP = 'Sign up',
+  LOGOUT = 'Log out',
+  LOGIN = 'Log in',
+  PROFILE = 'Profile',
+  HELP = 'Help'
+}

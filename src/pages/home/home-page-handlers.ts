@@ -8,6 +8,8 @@ import { generateSvgPlay, generateSvgPause, playAudio, audioEnd } from "../count
 
 import { translation } from "../country/country";
 
+import { setRegistrationHeaderLink } from "../../components/header/header";
+
 
 
 export function buttonHandlers() {
@@ -25,9 +27,8 @@ export function handlers() {
   langSelect.addEventListener('change', () => {
     const currentLang = langSelect.value as string;
     localStorage.setItem("language", currentLang.toLowerCase())
-    // console.log(localStorage.getItem('language'))
-
     translation(); // переводит контент
+    setRegistrationHeaderLink();
 
     //remove eventListener
     const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
