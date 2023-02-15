@@ -69,8 +69,11 @@
 }
 
 .logout {
-  padding: 30px;
-  text-align: center;
+  &__body {
+    padding: 30px;
+    text-align: center;
+  }
+  
 }
 
 .welcome {

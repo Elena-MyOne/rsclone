@@ -23,6 +23,7 @@ export function generateRegistrationPage(): HTMLElement {
 
   if (isSignUp) {
     regBody.append(regLogOut);
+    setLogoutHandler(regForm, regLogOut, regBody);
 
   } else {
     regBody.append(regForm);
@@ -77,7 +78,7 @@ function createRegistrationForm(): string {
 }
 
 function showLogOutMessage(): string {
- return `
+  return `
   <div class="logout__body">
     <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
     <a data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
@@ -134,12 +135,9 @@ function handleFormSubmit(regForm: HTMLFormElement): void {
 //if registration was successful 
 function showWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   //TODO 'Name' comes from localStorage / guthub / maybe backend
-
-  let name = getUserName();
-
   regBody.innerHTML = `
     <div class="registration__welcome welcome">
-      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> ${name}</h5>
+      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> ${getUserName()}</h5>
       <div class="welcome__close">
         <img class="welcome__close-image" src="../assets/icons/close.svg"></div>
       <div class="welcome__body">
@@ -161,8 +159,7 @@ function closeWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, r
   regBody.innerHTML = '';
   regBody.append(regLogOut);
   showLogOutMessage();
-  setRegistrationHeaderLink();
-  translation();
+  setLogoutHandler(regForm, regLogOut, regBody);
 }
 
 function getUserName(): string {
@@ -177,7 +174,6 @@ function getUserName(): string {
     return nameDataName[0][1];
   }
     return translateUserDefaultName();
-
 }
 
 function translateUserDefaultName(): string {
@@ -192,5 +188,20 @@ function translateUserDefaultName(): string {
   }
 }
 
+function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement) {
+  regBody.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      if (target.closest('.logout__button')) {
+        regBody.innerHTML = '';
+        localStorage.setItem('signUp', 'false');
+        regBody.append(regForm);
+        initRegistrationForm(regForm, regLogOut, regBody);
+        setRegistrationHeaderLink();
+        translation();
+      }
+    }
+  })
+}
 
 //регистрация через гитхаб https://vk.com/@webcreature-avtorizaciya-na-saite-cherez-github
