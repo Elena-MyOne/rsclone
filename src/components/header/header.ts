@@ -47,7 +47,7 @@ export function generateHeader(): string {
 }
 
 function checkRegistration(): string {
-  const signUp = localStorage.getItem('signup');
+  const signUp = localStorage.getItem('signUp');
   const language = localStorage.getItem('language') || 'en';
   if (signUp) {
     const isSignUp = JSON.parse(signUp);

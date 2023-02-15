@@ -74,17 +74,32 @@
 }
 
 .welcome {
-  transform: scale(1.2);
+  position: relative;
+  min-width: 400px;
   padding: 20px;
-  color: $colorWhite;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  background-color: $cyan-900;
+  background-color: $gray-200;
+  color: $colorBlack;
   border-radius: var(--border-radius);
   &__text {
     padding:  10px 0px;
+  }
+  &__close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 27px;
+    cursor: pointer;
+    transition: var(--transition);
+    &:hover{
+      opacity: 0.7;
+    }
+    &-image {
+      width: 100%;
+    }
   }
 }

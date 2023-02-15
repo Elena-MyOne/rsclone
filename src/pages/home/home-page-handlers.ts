@@ -28,6 +28,7 @@ export function handlers() {
     const currentLang = langSelect.value as string;
     localStorage.setItem("language", currentLang.toLowerCase())
     translation(); // переводит контент
+    setRegistrationHeaderLink();
 
     //remove eventListener
     const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
