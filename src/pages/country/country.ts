@@ -105,12 +105,12 @@ export function generateCountryPage(id: number) {
         </form>
         <div class="comments__body">
           <div class="comments__item">
-            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/2.jpg"></div>
+            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/avatar2.jpg"></div>
             <div class="comments__name">Victoria</div>
             <div class="comments__text">Wonderful country! Very beautiful!</div>
           </div>
           <div class="comments__item">
-            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/4.jpg"></div>
+            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/avatar4.jpg"></div>
             <div class="comments__name">Martin</div>
             <div class="comments__text">And I didn't like it. It was boring.</div>
           </div>
@@ -127,6 +127,8 @@ export function generateCountryPage(id: number) {
     playPhrases();
     endPhrases();
     microHandler();
+    addComment();
+
     cities.map((item, i) => getMap(item.coordinates.split(',').map(Number), i + 1));
     const swiper = new Swiper('.country__gallery', {
       modules: [Navigation, Autoplay, Keyboard, Mousewheel],
@@ -467,5 +469,36 @@ function voice() {
           break;
       }
     }
+  })
+}
+
+// комментарии
+
+function generateComment(name: string, avatar: string, comment: string) {
+  const commentItem = document.createElement('div');
+  commentItem.classList.add('comments__item');
+  commentItem.innerHTML = `<div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/${avatar}.jpg"></div>
+            <div class="comments__name">${name}</div>
+            <div class="comments__text">${comment}</div>`;
+  return commentItem;
+}
+
+function addComment() {
+  const commentText = document.querySelector('.comments__review') as HTMLTextAreaElement;
+  const btnSend = document.querySelector('.comments__btn') as HTMLButtonElement;
+  const commentsList = document.querySelector('.comments__body') as HTMLElement;
+  const name = localStorage.getItem('name') || 'incognita';
+  const avatar = localStorage.getItem('avatar') || 'avatar7';
+  let value: string = '';
+  commentText.addEventListener('input', () => {
+    value = commentText.value;
+  })
+  btnSend.addEventListener('click', () => {
+    if (value) {
+      const commentContent = generateComment(name, avatar, value);
+      commentsList.append(commentContent);
+    }
+    commentText.value = '';
+    value = '';
   })
 }
