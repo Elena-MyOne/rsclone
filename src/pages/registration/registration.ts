@@ -27,7 +27,10 @@ export function generateRegistrationPage(): HTMLElement {
 
   } else {
     regBody.append(regForm);
-    initRegistrationForm(regForm, regLogOut, regBody)
+    initRegistrationForm(regForm, regLogOut, regBody);
+    //========================================================
+    setIncognitoHandler(regForm, regLogOut, regBody)
+    //========================================================
   }
 
   regBlog.append(regBody);
@@ -69,7 +72,7 @@ function createRegistrationForm(): string {
   </div>
   <div class="form__buttons">
     <button data-i18="btnRegistration" class="form__button btn sbmt-btn" type="submit">Sign up</button>
-    <span data-i18="btnIncognito" class="form__button btn">Travel incognito</span>
+    <span data-i18="btnIncognito" class="form__button form__button-incognito btn">Travel incognito</span>
   </div>
   <a class="form__github" href="#">
     <span data-i18="regGit" class="form__github-text">Log in with</span>
@@ -93,13 +96,13 @@ function initRegistrationForm(regForm: HTMLFormElement, regLogOut: HTMLElement, 
     if (!regForm.checkValidity()) {
       event.stopPropagation();
       localStorage.setItem('signUp', 'false');
-      console.log('error');
     } else {
+      localStorage.setItem('signUp', 'true');
       handleFormSubmit(regForm);
+      setRegistrationHeaderLink();
       showWelcomeMessage(regForm, regLogOut, regBody);
       translation();
-      setRegistrationHeaderLink();
-      localStorage.setItem('signUp', 'true');
+      
     }
     regForm.classList.add('was-validated');
   }, false);
@@ -188,7 +191,7 @@ function translateUserDefaultName(): string {
   }
 }
 
-function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement) {
+function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   regBody.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (target) {
@@ -199,6 +202,18 @@ function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regB
         initRegistrationForm(regForm, regLogOut, regBody);
         setRegistrationHeaderLink();
         translation();
+      }
+    }
+  })
+}
+
+function setIncognitoHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
+  regForm.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      if (target.closest('.form__button-incognito')) {
+        console.log('ok');
+        
       }
     }
   })
