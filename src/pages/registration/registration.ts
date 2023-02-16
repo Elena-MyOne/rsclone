@@ -1,5 +1,6 @@
 import { setRegistrationHeaderLink } from "../../components/header/header";
 import { translation } from "../country/country";
+import { content } from "../../constants/i18n";
 
 export function generateRegistrationPage(): HTMLElement {
   // если есть бэк, отправляем запрос на сервер 
@@ -22,10 +23,12 @@ export function generateRegistrationPage(): HTMLElement {
 
   if (isSignUp) {
     regBody.append(regLogOut);
+    setLogoutHandler(regForm, regLogOut, regBody);
 
   } else {
     regBody.append(regForm);
-    initRegistrationForm(regForm, regLogOut, regBody)
+    initRegistrationForm(regForm, regLogOut, regBody);
+    setIncognitoHandler(regForm, regLogOut, regBody);
   }
 
   regBlog.append(regBody);
@@ -67,7 +70,7 @@ function createRegistrationForm(): string {
   </div>
   <div class="form__buttons">
     <button data-i18="btnRegistration" class="form__button btn sbmt-btn" type="submit">Sign up</button>
-    <span data-i18="btnIncognito" class="form__button btn">Travel incognito</span>
+    <span data-i18="btnIncognito" class="form__button form__button-incognito btn">Travel incognito</span>
   </div>
   <a class="form__github" href="#">
     <span data-i18="regGit" class="form__github-text">Log in with</span>
@@ -76,7 +79,7 @@ function createRegistrationForm(): string {
 }
 
 function showLogOutMessage(): string {
- return `
+  return `
   <div class="logout__body">
     <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
     <a data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
@@ -91,13 +94,12 @@ function initRegistrationForm(regForm: HTMLFormElement, regLogOut: HTMLElement, 
     if (!regForm.checkValidity()) {
       event.stopPropagation();
       localStorage.setItem('signUp', 'false');
-      console.log('error');
     } else {
+      localStorage.setItem('signUp', 'true');
       handleFormSubmit(regForm);
+      setRegistrationHeaderLink();
       showWelcomeMessage(regForm, regLogOut, regBody);
       translation();
-      setRegistrationHeaderLink();
-      localStorage.setItem('signUp', 'true');
     }
     regForm.classList.add('was-validated');
   }, false);
@@ -133,28 +135,14 @@ function handleFormSubmit(regForm: HTMLFormElement): void {
 //if registration was successful 
 function showWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   //TODO 'Name' comes from localStorage / guthub / maybe backend
-  const userData = localStorage.getItem('userData');
-  let name = 'Stranger';
-
-  if (userData) {
-    const userDataParse: string[] = JSON.parse(userData);
-    const nameDataName = userDataParse.filter((item) => {
-      if (item.includes('name')) {
-        return item;
-      }
-    })
-    name = nameDataName[0][1];
-  }
-  console.log(name);
-
   regBody.innerHTML = `
     <div class="registration__welcome welcome">
-      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> <span data-i18="regWelcomeTitleName">${name}</span></h5>
+      <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> ${getUserName()}</h5>
       <div class="welcome__close">
-        <img class="welcome__close-image" src="../../assets/icons/close.svg"></div>
+        <img class="welcome__close-image" src="../assets/icons/close.svg"></div>
       <div class="welcome__body">
         <p data-i18="regWelcomeText" class="welcome__text">We are happy to have you on board</p>
-        <img class="welcome__image" src="../../assets/images/registration/1.png">
+        <img class="welcome__image" src="../assets/images/registration/1.png">
       </div>
     </div>
   `
@@ -171,9 +159,66 @@ function closeWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, r
   regBody.innerHTML = '';
   regBody.append(regLogOut);
   showLogOutMessage();
-  setRegistrationHeaderLink();
+  setLogoutHandler(regForm, regLogOut, regBody);
   translation();
 }
 
+function getUserName(): string {
+  const userData = localStorage.getItem('userData');
+  if (userData) {
+    const userDataParse: string[] = JSON.parse(userData);
+    const nameDataName = userDataParse.filter((item) => {
+      if (item.includes('name')) {
+        return item;
+      }
+    })
+    return nameDataName[0][1];
+  }
+    return translateUserDefaultName();
+}
+
+function translateUserDefaultName(): string {
+  const language = localStorage.getItem('language') || 'en';
+  switch(language) {
+    case 'ru':
+      return content.ru.regWelcomeTitleName
+    case 'be':
+      return content.be.regWelcomeTitleName
+    default:
+      return content.en.regWelcomeTitleName
+  }
+}
+
+function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
+  regBody.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      if (target.closest('.logout__button')) {
+        regBody.innerHTML = '';
+        localStorage.setItem('signUp', 'false');
+        regBody.append(regForm);
+        initRegistrationForm(regForm, regLogOut, regBody);
+        setRegistrationHeaderLink();
+        translation();
+      }
+    }
+  })
+}
+
+function setIncognitoHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
+  regForm.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      if (target.closest('.form__button-incognito')) {
+        console.log('ok');
+        localStorage.setItem('signUp', 'true');
+        regBody.innerHTML = '';
+        showWelcomeMessage(regForm, regLogOut, regBody);
+        translation();
+        setRegistrationHeaderLink();
+      }
+    }
+  })
+}
 
 //регистрация через гитхаб https://vk.com/@webcreature-avtorizaciya-na-saite-cherez-github
