@@ -16,80 +16,104 @@ export function generateCountryPage(id: number) {
     const main = document.querySelector('.root') as HTMLElement;
     main.innerHTML = `
     <section class="country">
-      <div class="country__info info container text-center">
-        <div class="info__header row">
-          <h1 class="country__name col">${name}</h1>
-          <div class="col"><h5 class="col" data-i18="countryCapital">capital</h5><h3 class="country__capital">${capital}</h3></div>
-          <div class="country__player player col">
-            <h3 data-i18="countryHymn">National Anthem</h3>
-            <audio controls class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
-            <div class="player__controls"> 
-              <div class="btn-play">
-              ${generateSvgPlay('hymn__play')}
-              ${generateSvgPause('hymn__pause')}
+      <div class="country__body">
+        <div class="country__info info container text-center">
+          <div class="info__header row">
+            <h1 class="country__name col">${name}</h1>
+            <div class="col"><h5 class="col" data-i18="countryCapital">capital</h5><h3 class="country__capital">${capital}</h3></div>
+            <div class="country__player player col">
+              <h3 data-i18="countryHymn">National Anthem</h3>
+              <audio controls class="country__hymn" src="./assets/audio/hymn_${id}.mp3" hidden></audio>
+              <div class="player__controls"> 
+                <div class="btn-play">
+                ${generateSvgPlay('hymn__play')}
+                ${generateSvgPause('hymn__pause')}
+                </div>
+              </div>
+            </div>
+            <div class="col"><img src="./assets/images/country_flags/${nameEN}_flag.gif" alt="Flag" class="info__flag"></div>
+          </div>
+          <div class="row info__map-cities">
+            <div class="info__map col">
+              <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
+              <div class="info__animal">
+                <span data-i18="countryAnimal">National symbol</span>
+                <button type="button" class="country__animal btn btn-outline-info">${animalName}</button>
+                <div class="animal">
+                ${generateAnimalsPopup(`./assets/images/country_animals/${nameEN}.jpg`, animalName)}
+                </div>
+              </div>
+            </div>
+            <div class="info__cities cities col">
+              <h4 class="cities__title" data-i18="countryCities">Cities</h4>
+              ${cities.map((item, i) => `<span class="cities__item">${item.city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn city_${i + 1}">Show on the map</button>`).join('')}
+              ${cities.map((item, i) => generateMapPopup(item.city, i + 1)).join('')}
+            </div>
+          </div>
+          <div class="row row-gallery"><button class="open-gallery btn btn-info" type="button" data-i18="openGallery">Open Gallery</button></div>
+          <div class="row">
+            <div class="info__language language col">
+              <div class="language__lang"><h3 class="language__text" data-i18="countryLanguage">Official language</h3><h3 class="language__country">${language}</h3></div>
+              <div class="language__lesson">
+                <h4 data-i18="countryLesson">Language lessons</h4>
+                <div class="tooltips" target="_blank">${generateSvgMicro(`phrase__micro`)}<span data-i18="tooltipMicro" class="tooltiptext micro">Прослушай запись и попробуй повторить, нажав на микрофон.</span></div>
+                <div class="phrases">
+                ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)}</div></div>`).join('')}
+                </div>
+              </div>
+            </div>
+            <div class="info__places col">
+              <h4 data-i18="countryPlaces">Interesting places to visit</h4>
+              <div class="places-list">
+              ${places.map((item, i) => `<button type="button" class="btn btn-outline-info btn-sm places-list__item place_${i + 1}">${item.name}</button>`).join('')}
+              ${places.map((item, i) => generatePlacesPopup(`./assets/images/places/${nameEN}/${i + 1}.jpg`, item.name, item.description, i + 1, item.location)).join('')}
               </div>
             </div>
           </div>
-          <div class="col"><img src="./assets/images/country_flags/${nameEN}_flag.gif" alt="Flag" class="info__flag"></div>
         </div>
-        <div class="row info__map-cities">
-          <div class="info__map col">
-            <img class="map" src="./assets/images/country_maps/${id}.png" alt="Country Map">
-            <div class="info__animal">
-              <span data-i18="countryAnimal">National symbol</span>
-              <button type="button" class="country__animal btn btn-outline-info">${animalName}</button>
-              <div class="animal">
-              ${generateAnimalsPopup(`./assets/images/country_animals/${nameEN}.jpg`, animalName)}
-              </div>
-            </div>
+        <div class="country__gallery swiper">
+          <div class="country__photos swiper-wrapper">
+            ${photoNumbers.map((_, i) => generatePhoto(nameEN, i + 1)).join('')}
           </div>
-          <div class="info__cities cities col">
-            <h4 class="cities__title" data-i18="countryCities">Cities</h4>
-            ${cities.map((item, i) => `<span class="cities__item">${item.city}</span> <button data-i18="btnLook" type="button" class="btn btn-outline-info btn-sm cities__btn city_${i + 1}">Show on the map</button>`).join('')}
-            ${cities.map((item, i) => generateMapPopup(item.city, i + 1)).join('')}
+          <div class="arrow">
+            ${generateSvgArrowUp()}
+            ${generateSvgArrowDown()}
           </div>
         </div>
-        <div class="row row-gallery"><button class="open-gallery btn btn-info" type="button" data-i18="openGallery">Open Gallery</button></div>
-        <div class="row">
-          <div class="info__language language col">
-            <div class="language__lang"><h3 class="language__text" data-i18="countryLanguage">Official language</h3><h3 class="language__country">${language}</h3></div>
-            <div class="language__lesson">
-              <h4 data-i18="countryLesson">Language lessons</h4>
-              <div class="tooltips" target="_blank">${generateSvgMicro(`phrase__micro`)}<span class="tooltiptext micro">Прослушай запись и попробуй повторить, нажав на микрофон.</span></div>
-              <div class="phrases">
-              ${phrases.map((item, i) => `<div class="phrases__item"><span class="phrases__text">${item}</span><audio controls class="country__phrases${i + 1}" src="./assets/audio/phrases/${nameEN}_${i + 1}.mp3" hidden></audio><div class="phrases__player"> ${generateSvgPlay(`phrase__play${i + 1}`)} ${generateSvgPause(`phrase__pause${i + 1}`)}</div></div>`).join('')}
-              </div>
+        <div class="big-gallery">
+          <div class="big-gallery__swiper swiper">
+          <div data-bs-theme="dark"><button type="button" class="btn-close big-gallery__close" aria-label="Close"></button></div>
+            <div class="country__big-photos swiper-wrapper">
+              ${photoNumbers.map((_, i) => `<img class="swiper-slide" src="./assets/images/gallery/${nameEN}/img_${i + 1}.jpg" alt="Nice place">`).join('')}
             </div>
-          </div>
-          <div class="info__places col">
-            <h4 data-i18="countryPlaces">Interesting places to visit</h4>
-            <div class="places-list">
-            ${places.map((item, i) => `<button type="button" class="btn btn-outline-info btn-sm places-list__item place_${i + 1}">${item.name}</button>`).join('')}
-            ${places.map((item, i) => generatePlacesPopup(`./assets/images/places/${nameEN}/${i + 1}.jpg`, item.name, item.description, i + 1, item.location)).join('')}
+            <div class="big-arrow">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
             </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
       </div>
-      <div class="country__gallery swiper">
-        <div class="country__photos swiper-wrapper">
-          ${photoNumbers.map((_, i) => generatePhoto(nameEN, i + 1)).join('')}
-        </div>
-        <div class="arrow">
-          ${generateSvgArrowUp()}
-          ${generateSvgArrowDown()}
-        </div>
-      </div>
-      <div class="big-gallery">
-        <div class="big-gallery__swiper swiper">
-        <div data-bs-theme="dark"><button type="button" class="btn-close big-gallery__close" aria-label="Close"></button></div>
-          <div class="country__big-photos swiper-wrapper">
-            ${photoNumbers.map((_, i) => `<img class="swiper-slide" src="./assets/./images/gallery/${nameEN}/img_${i + 1}.jpg" alt="Nice place">`).join('')}
+      <div class="country__comments comments">
+        <h5 data-i18="countryComments" class="comments__title">Comments</h5>
+        <form class="comments__form">
+          <div style="margin-bottom: 0">
+            <label for="formGroupExampleInput" data-i18="commentLabel" class="form-label comments__label">Write your review about the country.</label>
+            <textarea type="text" class="form-control comments__review" id="formGroupExampleInput"></textarea>
           </div>
-          <div class="big-arrow">
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+          <button type="submit" data-i18="buttonComment" class="btn btn-info comments__btn">Leave a comment</button>
+        </form>
+        <div class="comments__body">
+          <div class="comments__item">
+            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/2.jpg"></div>
+            <div class="comments__name">Victoria</div>
+            <div class="comments__text">Wonderful country! Very beautiful!</div>
           </div>
-          <div class="swiper-pagination"></div>
+          <div class="comments__item">
+            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/4.jpg"></div>
+            <div class="comments__name">Martin</div>
+            <div class="comments__text">And I didn't like it. It was boring.</div>
+          </div>
         </div>
       </div>
     </section>`;
