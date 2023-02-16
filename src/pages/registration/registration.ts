@@ -28,9 +28,7 @@ export function generateRegistrationPage(): HTMLElement {
   } else {
     regBody.append(regForm);
     initRegistrationForm(regForm, regLogOut, regBody);
-    //========================================================
-    setIncognitoHandler(regForm, regLogOut, regBody)
-    //========================================================
+    setIncognitoHandler(regForm, regLogOut, regBody);
   }
 
   regBlog.append(regBody);
@@ -102,7 +100,6 @@ function initRegistrationForm(regForm: HTMLFormElement, regLogOut: HTMLElement, 
       setRegistrationHeaderLink();
       showWelcomeMessage(regForm, regLogOut, regBody);
       translation();
-      
     }
     regForm.classList.add('was-validated');
   }, false);
@@ -163,6 +160,7 @@ function closeWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, r
   regBody.append(regLogOut);
   showLogOutMessage();
   setLogoutHandler(regForm, regLogOut, regBody);
+  translation();
 }
 
 function getUserName(): string {
@@ -213,7 +211,11 @@ function setIncognitoHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, r
     if (target) {
       if (target.closest('.form__button-incognito')) {
         console.log('ok');
-        
+        localStorage.setItem('signUp', 'true');
+        regBody.innerHTML = '';
+        showWelcomeMessage(regForm, regLogOut, regBody);
+        translation();
+        setRegistrationHeaderLink();
       }
     }
   })
