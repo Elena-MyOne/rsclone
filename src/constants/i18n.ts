@@ -92,7 +92,7 @@ export const content = {
                       какое животное является символом страны (потом пригодится).А еще тут вы можете выучить
                       несколько фраз на официальном языке страны!И не забудьте оставить комментарий о стране
                       (только для зарегистрированных пользователей).`,
-    helpTest: 'Тест',
+    helpTest: 'Квиз',
     helpTestText: `Это очень простой тест, пройдите его и узнайте как хорошо Вы запомнили все
                    увиденное в каждой стране. После прохождения в личном 
                    кабинете напротив каждый страны отобразится процент знаний об этой стране.`,
@@ -199,7 +199,7 @@ export const content = {
      You can enjoy stunning views in the gallery, and find out about the country's interesting places.
       Be sure you remember the national symbol (you will need it later). Also here you can learn a few
        phrases in the official language! And do not forget to leave a comment about the country (only for registered users).`,
-    helpTest: 'Test',
+    helpTest: 'Quiz',
     helpTestText: `This is a very simple test, take it and find out how good is your memory.
      After you pass it, you can see the percentage bar, both in your profile,
       that will display how deep are your knowledge.`,
@@ -308,7 +308,7 @@ export const content = {
     якая жывёла з'яўляецца сімвалам краіны (потым спатрэбіцца).А яшчэ тут вы зможаце вывучыць
     некалькі фраз на афіцыйнай мове краіны! І не забывайце пакінуць каментар аб краіне
     (толькі для зарэгістраваных карыстальнікаў).`,
-    helpTest: 'Тэст',
+    helpTest: 'Квіз',
     helpTestText: `Гэта вельмі просты тэст, прайдзіце яго і зможаце даведацца як добра Вы запомнілі ўсё
     ўбачанае ў кожнай краіне. Пасля завяршэння яго вы зможаце ўбачыць адсотную шкалу у сваім профілі, якая пакажа, наколькі глыбокія вашы веды`,
     helpProfile: 'Асабісты кабінет',
