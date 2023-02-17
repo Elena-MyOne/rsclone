@@ -9,6 +9,7 @@ import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
 import { handlers } from "./pages/home/home-page-handlers";
 import { generateProfilePage } from "./pages/profile/profile";
+import { generateLoginPage } from "./pages/login/login";
 
 
 export function router() {
@@ -35,6 +36,8 @@ function generateContentByHash() {
     case ROUTER_PATH.PROFILE: contentMain = generateProfilePage();
       break;
     case ROUTER_PATH.REGISTRATION: contentMain = generateRegistrationPage();
+      break;
+    case ROUTER_PATH.LOGIN: contentMain = generateLoginPage();
       break;
     case '':
     case ROUTER_PATH.START: {

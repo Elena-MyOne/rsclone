@@ -4,7 +4,8 @@ export enum ROUTER_PATH {
   HELP = 'help',
   START = 'start',
   PROFILE = 'profile',
-  REGISTRATION = 'registration'
+  REGISTRATION = 'registration',
+  LOGIN = 'login'
 }
 
 export enum HEADER_PAGES {
