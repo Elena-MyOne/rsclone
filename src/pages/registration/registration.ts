@@ -106,7 +106,7 @@ function initRegistrationForm(regForm: HTMLFormElement, regLogOut: HTMLElement, 
 }
 
 //TODO check why data is duplicate
-function handleFormSubmit(regForm: HTMLFormElement): void {
+export function handleFormSubmit(regForm: HTMLFormElement): void {
   if (regForm) {
     // console.log('handleFormSubmit called with form:', regForm);
     const { elements } = regForm
