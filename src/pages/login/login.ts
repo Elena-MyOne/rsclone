@@ -1,3 +1,4 @@
+import { translation } from "../country/country";
 import { setRegistrationHeaderLink } from "../../components/header/header";
 
 export function generateLoginPage(): HTMLElement {
@@ -14,11 +15,16 @@ export function generateLoginPage(): HTMLElement {
   loginForm.setAttribute('novalidate', '');
   loginForm.innerHTML = generateLoginForm();
 
+  const regLogOut = document.createElement('div') as HTMLElement;
+  regLogOut.classList.add('registration__logout', 'logout');
+  regLogOut.innerHTML = showLogOutMessage();
+
   if (isSignUp) {
-    loginBody.innerHTML = `logout`;
+    loginBody.append(regLogOut);
+    setLogoutHandler(loginBody, regLogOut, loginForm)
   } else {
     loginBody.append(loginForm);
-    initLogInForm(loginBody, loginForm);
+    initLogInForm(loginBody, regLogOut, loginForm);
   }
 
   loginBlock.append(loginBody);
@@ -58,7 +64,16 @@ function generateLoginForm(): string {
     `
 }
 
-function initLogInForm(loginBody: HTMLElement, loginForm: HTMLFormElement): void {
+function showLogOutMessage(): string {
+  return `
+  <div class="logout__body">
+    <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
+    <a data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
+  </div>
+  `
+}
+
+function initLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
   loginForm.addEventListener('submit', event => {
     event.preventDefault();
 
@@ -66,14 +81,13 @@ function initLogInForm(loginBody: HTMLElement, loginForm: HTMLFormElement): void
       event.stopPropagation();
       localStorage.setItem('signUp', 'false');
     } else {
-      handleLogInFormSubmit(loginBody, loginForm);
-      console.log('ok');
+      handleLogInFormSubmit(loginBody, regLogOut, loginForm);
     }
     loginForm.classList.add('was-validated');
   }, false)
 }
 
-function handleLogInFormSubmit(loginBody: HTMLElement, loginForm: HTMLFormElement): void {
+function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
   if (loginForm) {
     const { elements } = loginForm
     //================
@@ -102,12 +116,10 @@ function handleLogInFormSubmit(loginBody: HTMLElement, loginForm: HTMLFormElemen
 
       if (loginEmail === userEmail && loginPassword === userPassword) {
         localStorage.setItem('signUp', 'true');
-
-        // loginBody.innerHTML = '';
-        loginBody.innerHTML = `logout`;
+        loginBody.innerHTML = '';
+        loginBody.append(regLogOut);
         showSuccessMessage();
         setRegistrationHeaderLink();
-
       } else {
         localStorage.setItem('signUp', 'false');
         showFailureMessage();
@@ -133,4 +145,20 @@ function showSuccessMessage() {
 function showFailureMessage() {
   console.log('Failure');
   // translation();
+}
+
+function setLogoutHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
+  loginBody.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      if (target.closest('.logout__button')) {
+        loginBody.innerHTML = '';
+        localStorage.setItem('signUp', 'false');
+        loginBody.append(loginForm);
+        initLogInForm(loginBody, regLogOut, loginForm);
+        setRegistrationHeaderLink();
+        translation();
+      }
+    }
+  })
 }
