@@ -1,13 +1,14 @@
-import { handleFormSubmit } from "../registration/registration";
 import { translation } from "../country/country";
+import { generateProfileBlock } from "./profile";
+import { setRegistrationHeaderLink } from "../../components/header/header";
 
-export function generateLogInBlock(): HTMLElement {
-  let logIn = localStorage.getItem('logIn');
-  let isLogIn = logIn ? JSON.parse(logIn) : false;
+export function generateLogInBlock(profilePage: HTMLElement): HTMLElement {
+  let signUp = localStorage.getItem('signUp');
+  let isSignUp = signUp ? JSON.parse(signUp) : false;
   
-  console.log('logIn', isLogIn);
+  console.log('signUp', isSignUp);
 
-  const logInBlock = document.createElement('section');
+  const logInBlock = document.createElement('div');
   logInBlock.classList.add('login', 'container');
 
   const loginBody = document.createElement('div');
@@ -49,29 +50,87 @@ export function generateLogInBlock(): HTMLElement {
   logInBlock.append(loginBody);
   loginBody.append(loginForm);
 
-  initLogInForm(loginForm);
+  initLogInForm(profilePage, loginForm);
 
   return logInBlock
 }
 
-function initLogInForm(loginForm: HTMLFormElement): void {
+function initLogInForm(profilePage: HTMLElement, loginForm: HTMLFormElement): void {
   loginForm.addEventListener('submit', event => {
     event.preventDefault();
 
     if (!loginForm.checkValidity()) {
       event.stopPropagation();
-      localStorage.setItem('logIn', 'false');
+      localStorage.setItem('signUp', 'false');
     } else {
-      localStorage.setItem('logIn', 'true');
-      handleFormSubmit(loginForm);
-      // setRegistrationHeaderLink();
-      showSuccessMessage();
-      translation();
+      handleLogInFormSubmit(profilePage, loginForm);
     }
     loginForm.classList.add('was-validated');
   }, false)
 }
 
-function showSuccessMessage() {
+function handleLogInFormSubmit(profilePage: HTMLElement,loginForm: HTMLFormElement): void {
+  if (loginForm) {
+    const { elements } = loginForm
+    //================
+    //TODO ready to send throw fetch() to the server
+    const formDataLogIn = new FormData(loginForm)
 
+    Array.from(elements).forEach((element: Element) => {
+      if (element instanceof HTMLInputElement) {
+        const { name, value } = element as HTMLInputElement;
+        if (!formDataLogIn.has(name)) {
+          formDataLogIn.append(name, value);
+        }
+      }
+    });
+
+    const dataCompare = Array.from(formDataLogIn.entries());
+    //================
+    const loginEmail = checkUserData(dataCompare, 'email');
+    const loginPassword = checkUserData(dataCompare, 'password');
+
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      const userEmail = checkUserData(userData, 'email');
+      const userPassword = checkUserData(userData, 'password');
+
+      if (loginEmail === userEmail && loginPassword === userPassword) {
+        localStorage.setItem('signUp', 'true');
+
+        profilePage.innerHTML = '';
+        const profile = generateProfileBlock()
+        profilePage.append(profile);
+
+        showSuccessMessage();
+        setRegistrationHeaderLink();
+        //TODO setProfileHeaderLink();
+        // generateProfileBlock();
+      } else {
+        localStorage.setItem('signUp', 'false');
+        showFailureMessage();
+      }
+    }
+  }
+}
+
+function checkUserData(data: [string, FormDataEntryValue][], dataItem: string) {
+  const userDataResult = data.filter((item: [string, FormDataEntryValue]) => {
+    if (item.includes(dataItem)) {
+      return item;
+    }
+  });
+  return userDataResult[0][1];
+}
+
+function showSuccessMessage() {
+  console.log('Ok');
+  // translation();
+}
+
+function showFailureMessage() {
+  console.log('Failure');
+
+  // translation();
 }
