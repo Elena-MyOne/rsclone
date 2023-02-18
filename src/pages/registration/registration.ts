@@ -1,4 +1,4 @@
-import { setRegistrationHeaderLink } from "../../components/header/header";
+// import { setRegistrationHeaderLink } from "../../components/header/header";
 import { translation } from "../country/country";
 import { content } from "../../constants/i18n";
 
@@ -97,7 +97,7 @@ function initRegistrationForm(regForm: HTMLFormElement, regLogOut: HTMLElement, 
     } else {
       localStorage.setItem('signUp', 'true');
       handleFormSubmit(regForm);
-      setRegistrationHeaderLink();
+      // setRegistrationHeaderLink();
       showWelcomeMessage(regForm, regLogOut, regBody);
       translation();
     }
@@ -198,7 +198,7 @@ function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regB
         localStorage.setItem('signUp', 'false');
         regBody.append(regForm);
         initRegistrationForm(regForm, regLogOut, regBody);
-        setRegistrationHeaderLink();
+        // setRegistrationHeaderLink();
         translation();
       }
     }
@@ -215,7 +215,7 @@ function setIncognitoHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, r
         regBody.innerHTML = '';
         showWelcomeMessage(regForm, regLogOut, regBody);
         translation();
-        setRegistrationHeaderLink();
+        // setRegistrationHeaderLink();
       }
     }
   })

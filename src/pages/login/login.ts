@@ -1,5 +1,5 @@
 import { translation } from "../country/country";
-import { setRegistrationHeaderLink } from "../../components/header/header";
+import { changeHeaderOnSignUp } from "../../components/header/header";
 
 export function generateLoginPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -118,8 +118,10 @@ function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, l
         localStorage.setItem('signUp', 'true');
         loginBody.innerHTML = '';
         loginBody.append(regLogOut);
+        setLogoutHandler(loginBody, regLogOut, loginForm);
+        translation();
         showSuccessMessage();
-        setRegistrationHeaderLink();
+        changeHeaderOnSignUp();
       } else {
         localStorage.setItem('signUp', 'false');
         showFailureMessage();
@@ -156,7 +158,7 @@ function setLogoutHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginF
         localStorage.setItem('signUp', 'false');
         loginBody.append(loginForm);
         initLogInForm(loginBody, regLogOut, loginForm);
-        setRegistrationHeaderLink();
+        changeHeaderOnSignUp();
         translation();
       }
     }

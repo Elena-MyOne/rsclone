@@ -1,6 +1,6 @@
 import { translation } from "../country/country";
 import { generateProfileBlock } from "./profile";
-import { setRegistrationHeaderLink } from "../../components/header/header";
+// import { setRegistrationHeaderLink } from "../../components/header/header";
 
 export function generateLogInBlock(profilePage: HTMLElement): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -104,7 +104,7 @@ function handleLogInFormSubmit(profilePage: HTMLElement,loginForm: HTMLFormEleme
         profilePage.append(profile);
 
         showSuccessMessage();
-        setRegistrationHeaderLink();
+        // setRegistrationHeaderLink();
         //TODO setProfileHeaderLink();
         // generateProfileBlock();
       } else {
