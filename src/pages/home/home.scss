@@ -19,9 +19,10 @@ canvas.home-page
   cursor: pointer;
 }
 
-.country-buttons_container,
-.theme_container,
-.select_container {
+.country-buttons_container
+// .theme_container,
+// .select_container 
+{
   padding-top: 1.5rem;
 }
 .cntry {
@@ -69,7 +70,7 @@ canvas.home-page
 }
 .grid__item {
 	position: relative;
-	margin-top: -45px;
+	margin-top: -7%;
 	margin-right: 5px;
 	margin-left: 5px;
 	width: calc(33.33% - 10px);
@@ -102,7 +103,7 @@ canvas.home-page
 	&:nth-child(2) { margin-top: 0; }
 	
 	&:nth-child(1) {
-		margin-left: 100px;
+		margin-left: calc((33.33% + 10px)/2);
 	}
 }
 .img {

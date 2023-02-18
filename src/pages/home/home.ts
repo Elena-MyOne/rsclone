@@ -1,5 +1,5 @@
 import { getCountriesNames } from "../../api/requests";
-import { buttonHandlers, handlers } from "./home-page-handlers";
+import { buttonHandlers } from "./home-page-handlers";
 
 export function generateHomePage() {
 
@@ -22,17 +22,7 @@ export function generateHomePage() {
             Choose the country
           </h4>
         </div>
-        <div class="col-2 select_container">
-          <select class="form-select lang_select">
-            <option class="lang-option" value="EN">EN</option>
-            <option class="lang-option" value="BE">BE</option>
-            <option class="lang-option" value="RU">RU</option>
-          </select>
-        </div>
-        <div class="col-1 theme_container">
-          <button type="button" class="button theme-button" id="themeSwitch">
-          </button>
-        </div>
+        
       </div>
     </div>
   </div>
