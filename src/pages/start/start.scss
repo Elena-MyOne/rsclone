@@ -5,14 +5,26 @@ canvas.start-page
   left: 0;
   outline: none;
 }
+.start-page {
+  .row {
+    margin: 0;
+    padding: 0;
+  }
+  .col {
+    padding: 0;
+  }
+}
 .start-page__title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  max-width: 100%;
 }
 .buttons-container {
   position: absolute;
   bottom: 10px;
+  left: 0;
+  width: calc(100% - 12px * 2);
 }
 .blink {
   color: $colorWhite;
