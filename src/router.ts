@@ -7,8 +7,8 @@ import { generateHeader, setRegistrationHeaderLink } from "./components/header/h
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
-import { handlers } from "./pages/home/home-page-handlers";
-import { generateProfilePage } from "./pages/profile/profile";
+import { handlers, initTheme } from "./pages/home/home-page-handlers";
+import { changeAvatarHandler, generateProfilePage } from "./pages/profile/profile";
 
 
 export function router() {
@@ -48,6 +48,7 @@ function generateContentByHash() {
   main.append(contentMain);
   setRegistrationHeaderLink();
   translation();
+  initTheme();
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
@@ -55,5 +56,9 @@ function generateContentByHash() {
 
   if (hash === ROUTER_PATH.HOME) {
     handlers();
+  }
+  
+  if (hash === ROUTER_PATH.PROFILE) {
+    changeAvatarHandler();
   }
 }

@@ -1,5 +1,4 @@
 import { translation } from "../country/country";
-import { initIcon } from "../home/home-page-handlers";
 
 export function generateProfilePage(): HTMLElement {
   const profileBlock = document.createElement('section');
@@ -11,18 +10,6 @@ export function generateProfilePage(): HTMLElement {
           <button data-i18="btnAvatar" class="btn btn-info photo__select">Выбрать аватар</button>
         </div>
         <h1 class="profile__name">Name</h1>
-      </div>
-      <div class="profile__settings">
-        <div class="select_container">
-          <select class="form-select lang_select">
-            <option class="lang-option" value="EN">EN</option>
-            <option class="lang-option" value="BE">BE</option>
-            <option class="lang-option" value="RU">RU</option>
-          </select>
-        </div>
-        <div class="theme_container">
-          <button type="button" class="button theme-button" id="themeSwitch"></button>
-        </div>
       </div>
     </div>
     <div class="profile__body">
@@ -61,55 +48,27 @@ export function generateProfilePage(): HTMLElement {
       </div>
     </div>
     ${generateAvatarsPopup()}`;
-    
-  // initIcon();
   return profileBlock;
 }
 
 translation();
+
+const numbersAvatar = [1, 2, 3, 4, 5, 6]; // массив для генерации popup с выбором аватарки
+
 
 function generateAvatarsPopup() {
   return `<div class="change-avatar">
     <div class="change-avatar__block">
       <button type="button" class="btn-close change-avatar__close" aria-label="Close"></button>
       <div class="card-img-top change-avatar__list">
-        <div class="change-avatar__item">
-        <input name="avatar" id="avatar1" type="radio">
-        <label for="avatar1">
-        <div class="change-img"><img src="./assets/images/avatars/avatar1.jpg" class="change-img__photo avatar_1" alt="Animal"></div>
+        ${numbersAvatar.map((item) => {
+    return `
+        <div data-avatar="${item}" class="change-avatar__item">
+          <input name="avatar" id="avatar${item}" type="radio">
+          <label for="avatar${item}">
+            <img src="./assets/images/avatars/avatar${item}.jpg" class="change-img" alt="Avatar">
           </label>
-        </div>
-        <div class="change-avatar__item">
-        <input name="avatar" id="avatar2" type="radio">
-        <label for="avatar2">
-        <div class="change-img"><img src="./assets/images/avatars/avatar2.jpg" class="change-img__photo avatar_1" alt="Animal"></div>
-          </label>
-        </div>
-        <div class="change-avatar__item">
-        <input name="avatar" id="avatar3" type="radio">
-        <label for="avatar3">
-        <div class="change-img"><img src="./assets/images/avatars/avatar3.jpg" class="change-img__photo avatar_1" alt="Animal"></div>
-          </label>
-        </div>
-        <div class="change-avatar__item">
-        <input name="avatar" id="avatar4" type="radio">
-        <label for="avatar4">
-        <div class="change-img"><img src="./assets/images/avatars/avatar4.jpg" class="change-img__photo avatar_1" alt="Animal"></div>
-          </label>
-        </div>
-        <div class="change-avatar__item">
-        <input name="avatar" id="avatar5" type="radio">
-        <label for="avatar5">
-        <div class="change-img"><img src="./assets/images/avatars/avatar5.jpg" class="change-img__photo avatar_1" alt="Animal"></div>
-          </label>
-        </div>
-        <div class="change-avatar__item">
-        <input name="avatar" id="avatar6" type="radio">
-        <label for="avatar6">
-        <div class="change-img"><img src="./assets/images/avatars/avatar6.jpg" class="change-img__photo avatar_2" alt="Animal"></div>
-          </label>
-        </div>
-      </div>
+        </div>`}).join('')}
       <div class="card-body avatar__btns">
         <button data-i18="btnAvatarConfirm" class="btn btn-info btn-confirm"></button>
         <button data-i18="btnAvatarCancel" class="btn btn-info btn-cancel"></button>
@@ -118,13 +77,28 @@ function generateAvatarsPopup() {
     </div>`;
 }
 
-function changeAvatar() {
+export function changeAvatarHandler() {
   const btnChangeAvatar = document.querySelector('.photo__select') as HTMLButtonElement;
   const btnClose = document.querySelector('.change-avatar__close') as HTMLButtonElement;
   const avatars = document.querySelector('.change-avatar') as HTMLElement;
   const avatarConfirm = document.querySelector('.btn-confirm') as HTMLButtonElement;
   const avatarCancel = document.querySelector('.btn-cancel') as HTMLButtonElement;
-  const userAvatar = document.querySelector('.user avatar') as HTMLImageElement;
+  const userAvatar = document.querySelector('.photo__img') as HTMLImageElement;
+  const avatarList = document.querySelectorAll('.change-avatar__item') as NodeListOf<HTMLElement>;
+  let numberAvatar: number;
+
+  avatarList.forEach(avatar => {
+    avatar.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      numberAvatar = Number(target.getAttribute('data-avatar'));
+      console.log(numberAvatar);
+    })
+  })
+
+  avatarConfirm.addEventListener('click', () => {
+    userAvatar.src = `./assets/images/avatars/avatar${numberAvatar}.jpg`;
+    avatars.classList.remove('change-avatar_active');
+  })
 
   btnChangeAvatar.addEventListener('click', () => {
     avatars.classList.add('change-avatar_active');
