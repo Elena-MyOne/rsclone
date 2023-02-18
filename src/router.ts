@@ -6,10 +6,9 @@ import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/Scene
 import { generateHeader, setRegistrationHeaderLink } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
-
 import { generateRegistrationPage } from "./pages/registration/registration";
-
-import { handlers } from "./pages/home/home-page-handlers";
+import { handlers, initTheme } from "./pages/home/home-page-handlers";
+import { buttonTestHandler, changeAvatarHandler, generateProfilePage, visitCountryFromProfile } from "./pages/profile/profile";
 
 
 export function router() {
@@ -25,7 +24,7 @@ function generateContentByHash() {
   let contentHeader = generateHeader();
   main.innerHTML = '';
   let contentMain = null;
-  const [hash, id] = window.location.hash.slice(1).split('/');  
+  const [hash, id] = window.location.hash.slice(1).split('/');
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
       break;
@@ -33,7 +32,7 @@ function generateContentByHash() {
       break;
     case ROUTER_PATH.HOME: contentMain = generateHomePage();
       break;
-    case ROUTER_PATH.PROFILE: contentMain = 'Profile'; // Вставить функцию генерации профиля пользователя
+    case ROUTER_PATH.PROFILE: contentMain = generateProfilePage();
       break;
     case ROUTER_PATH.REGISTRATION: contentMain = generateRegistrationPage();
       break;
@@ -49,12 +48,19 @@ function generateContentByHash() {
   main.append(contentMain);
   setRegistrationHeaderLink();
   translation();
-  
+  initTheme();
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
-  };
+  }
+
   if (hash === ROUTER_PATH.HOME) {
     handlers();
-  };
+  }
+  
+  if (hash === ROUTER_PATH.PROFILE) {
+    changeAvatarHandler();
+    buttonTestHandler();
+    visitCountryFromProfile();
+  }
 }

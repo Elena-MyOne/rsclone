@@ -487,7 +487,7 @@ function addComment() {
   const commentText = document.querySelector('.comments__review') as HTMLTextAreaElement;
   const btnSend = document.querySelector('.comments__btn') as HTMLButtonElement;
   const commentsList = document.querySelector('.comments__body') as HTMLElement;
-  const name = localStorage.getItem('name') || 'incognita';
+  const name = localStorage.getItem('name') || 'incognito';
   const avatar = localStorage.getItem('avatar') || 'avatar7';
   let value: string = '';
   commentText.addEventListener('input', () => {

@@ -21,3 +21,19 @@ export function getCountriesNames(lang: string) {
     throw new Error('Error: ' + error);
   }
 }
+
+// отправка комментариев
+
+// export function sendComment(name: string, comment: string, avatar: number) {
+//   try {
+//     return fetch(`${baseUrl}/comment`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({name, comment, avatar})
+//     }).then((res) => res.json());
+//   } catch (error) {
+//     throw new Error('Error: ' + error);
+//   }
+// }

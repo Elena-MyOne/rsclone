@@ -57,7 +57,7 @@ function initStorage() {
   }
 }
 
-function initTheme() {
+export function initTheme() {
   const darkThemeSelected =
     localStorage.getItem("theme") === "dark";
   // console.log(localStorage.getItem("theme"))
@@ -66,7 +66,7 @@ function initTheme() {
     : document.documentElement.setAttribute("data-bs-theme", "light");
 }
 
-function initIcon() {
+export function initIcon() {
   const button = document.querySelector('.theme-button') as HTMLElement;
   button.innerHTML = '';
 
@@ -120,7 +120,7 @@ function changeStorage() {
 
 
 
-function setSelected(lang: string) {
+export function setSelected(lang: string) {
   ((document.querySelectorAll('.lang-option')) as NodeListOf<HTMLOptionElement>).forEach((element) => {
     if (element.innerHTML === lang.toUpperCase()) {
       element.selected = true;
@@ -229,6 +229,4 @@ export function generatePopUp(id: number) {
       window.location.hash = ROUTER_PATH.COUNTRY + `/${id}`;
     })
   }
-
-
 }
