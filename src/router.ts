@@ -53,9 +53,7 @@ function generateContentByHash() {
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
-  }
-
-  if (hash !== ROUTER_PATH.START) {
+  } else {
     header_handlers();
   }
   

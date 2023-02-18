@@ -17,7 +17,7 @@ export function generateHomePage() {
       <div class="row">
         <div class="col-2 country-buttons_container">
         </div>
-        <div class="col-7">
+        <div class="col-9">
           <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-i18="titleChoice">
             Choose the country
           </h4>
@@ -40,7 +40,7 @@ export const addCountriesButtons = (lang: string) => {
   getCountriesNames(lang).then((res) => {
     // console.log(res);
     const div: HTMLElement = document.createElement("div");
-    div.className = "d-grid gap-2";
+    div.className = "d-grid gap-2 position-absolute";
     div.role = "group";
     div.ariaLabel = "Vertical button group";
     // let prop: keyof typeof res

@@ -15,15 +15,14 @@ canvas.home-page
   position: absolute;
 
 }
-.form-select {
-  cursor: pointer;
+
+
+.country-buttons_container {
+  padding-top: 1.5rem;
 }
 
-.country-buttons_container
-// .theme_container,
-// .select_container 
-{
-  padding-top: 1.5rem;
+.d-grid {
+	width: calc(100% / 6);
 }
 .cntry {
   display: none;
