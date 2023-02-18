@@ -8,7 +8,7 @@ import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
 import { handlers, initTheme } from "./pages/home/home-page-handlers";
-import { changeAvatarHandler, generateProfilePage } from "./pages/profile/profile";
+import { buttonTestHandler, changeAvatarHandler, generateProfilePage, visitCountryFromProfile } from "./pages/profile/profile";
 
 
 export function router() {
@@ -60,5 +60,7 @@ function generateContentByHash() {
   
   if (hash === ROUTER_PATH.PROFILE) {
     changeAvatarHandler();
+    buttonTestHandler();
+    visitCountryFromProfile();
   }
 }

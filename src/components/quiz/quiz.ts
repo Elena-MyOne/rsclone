@@ -9,6 +9,7 @@ export function generateQuiz(): HTMLElement {
   quizForm.setAttribute('novalidate', '');
 
   quizForm.innerHTML = `
+  <button type="button" class="btn-close quiz__close" aria-label="Close"></button>
     <h4 data-i18="titleTest" class="quiz__title">Country Quiz</h4>
       <div class="quiz__item">
       <label data-i18="testCountry" class="quiz__label text form-label" for="country">Country name</label>
@@ -75,8 +76,8 @@ export function generateQuiz(): HTMLElement {
     </div>
   `;
 
-  quizBlock.append(quizBody);
   quizBody.append(quizForm);
+  quizBlock.append(quizBody);
 
   quizForm.addEventListener('submit', event => {
     if (!quizForm.checkValidity()) {
@@ -89,5 +90,4 @@ export function generateQuiz(): HTMLElement {
 
   return quizBlock;
 }
-
-  // TODO для перевода вставить функцию translation()
+// TODO для перевода вставить функцию translation()

@@ -39,6 +39,23 @@
   &__progress {
     margin-bottom: 40px;
   }
+
+  &__wrapper-quiz {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    display: none;
+    
+    &_active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
 .country-list {
@@ -94,7 +111,6 @@
 }
 
 .change-avatar {
-  // display: none;
   position: fixed;
   top: 0;
   left: 0;

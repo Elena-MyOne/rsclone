@@ -229,6 +229,4 @@ export function generatePopUp(id: number) {
       window.location.hash = ROUTER_PATH.COUNTRY + `/${id}`;
     })
   }
-
-
 }
