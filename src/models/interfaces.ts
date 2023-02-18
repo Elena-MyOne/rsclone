@@ -7,8 +7,8 @@ export interface Country {
   language: string,
   cities: City[],
   places: Places[],
-  phrases: String[],
-  comments: String[]
+  phrases: string[],
+  comments: string[]
 }
 
 interface City {
@@ -20,4 +20,10 @@ interface Places {
   name: string,
   location: string,
   description: string
+}
+
+export interface CountryComment {
+  name: string,
+  comment: string,
+  avatar: string
 }

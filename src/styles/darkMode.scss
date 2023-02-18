@@ -20,6 +20,10 @@
     &__item {
       border-color: $yellow-400;
     }
+
+    &__title {
+      color: $yellow-800;
+    }
   }
 
   .bi__active {
@@ -161,5 +165,4 @@ html[data-bs-theme="dark"] {
       color: $colorBlack;
     }
   }
-
 }

@@ -9,6 +9,7 @@ import { generateSvgPlay, generateSvgPause, playAudio, audioEnd } from "../count
 import { translation } from "../country/country";
 
 import { setRegistrationHeaderLink } from "../../components/header/header";
+import { AxiosResponse } from "axios";
 
 
 
@@ -150,8 +151,8 @@ export function generatePopUp(id: number) {
   homePage.append(currentDiv)
   
   const lang = localStorage.getItem('language') || 'en';
-  getCountry(id, lang).then((res: Country) => {
-    const { name, nameEN, capital, places } = res;
+  getCountry(id, lang).then((res: AxiosResponse<Country>) => {
+    const { name, nameEN, capital, places } = res.data;
     const countryDiv = document.createElement('div') as HTMLElement;
     countryDiv.className = 'cntry__card card'
     countryDiv.innerHTML = `
