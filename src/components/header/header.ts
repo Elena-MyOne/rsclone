@@ -5,7 +5,7 @@ export function generateHeader(): string {
 
   return `
       <nav class="header__nav navbar navbar-expand-lg navbar-dark">
-        <div class="header__container container">
+        <div class="container-fluid container">
           <a class="header__logo navbar-brand" href="#home">Amazing Trip</a>
           <button
             class="navbar-toggler"
@@ -39,7 +39,17 @@ export function generateHeader(): string {
                   <a data-i18="btnHelp" class="nav-link" href="#help">Help</a>
                 </li>
               </ul>
-            <div>
+              <form class="header-form d-flex">
+                <select class="form-select lang_select">
+                  <option class="lang-option" value="EN">EN</option>
+                  <option class="lang-option" value="BE">BE</option>
+                  <option class="lang-option" value="RU">RU</option>
+                </select>
+                <button type="button" class="button theme-button" id="themeSwitch">
+                  </button>
+              </form>
+            </div>
+            
           </div>
         </div>
       </nav>

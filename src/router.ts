@@ -7,7 +7,7 @@ import { generateHeader, setRegistrationHeaderLink } from "./components/header/h
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
-import { handlers, initTheme } from "./pages/home/home-page-handlers";
+import { header_handlers } from "./components/header/header_handlers";
 import { buttonTestHandler, changeAvatarHandler, generateProfilePage, visitCountryFromProfile } from "./pages/profile/profile";
 
 
@@ -47,15 +47,14 @@ function generateContentByHash() {
   header.innerHTML = contentHeader;
   main.append(contentMain);
   setRegistrationHeaderLink();
+  
   translation();
-  initTheme();
+
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
-  }
-
-  if (hash === ROUTER_PATH.HOME) {
-    handlers();
+  } else {
+    header_handlers();
   }
   
   if (hash === ROUTER_PATH.PROFILE) {
