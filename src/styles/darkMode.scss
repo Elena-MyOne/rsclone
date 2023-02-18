@@ -1,7 +1,52 @@
 [data-bs-theme="dark"] {
-  h4 {
+  
+  .country__gallery {
+    background-color: $yellow-700;
+  }
+
+  .country__comments {
+    background-color: $yellow-100;
+  }
+
+  .comments {
+    &__body {
+      border-color: $yellow-400;
+    }
+
+    &__avatar {
+      border-color: $yellow-400;
+    }
+
+    &__item {
+      border-color: $yellow-400;
+    }
+  }
+
+  .bi__active {
+    fill: $yellow-500;
+  }
+
+  .photo {
+    border-color: $yellow-400;
+  }
+
+  .place{
+    &__location {
+    color: $yellow-400;
+  }
+  &__info {
+    color: $colorWhite;
+  }
+}
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     color: $yellow-100;
   }
+
   .btn-info {
     --bs-btn-bg: #{mix($gray-600, $yellow-400, .5)};
     --bs-btn-border-color: #{rgba($white, .25)};
@@ -12,6 +57,14 @@
     --bs-btn-focus-border-color: #{rgba($white, .5)};
     --bs-btn-focus-box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .2);
   }
+
+  .btn-outline-info {
+    --bs-btn-color: #{mix($gray-600, $yellow-400, .5)};
+    --bs-btn-border-color: #{mix($gray-600, $yellow-400, .5)};
+    --bs-btn-hover-bg: #{mix($gray-600, $yellow-400, .5)};
+    --bs-btn-hover-border-color: #{mix($gray-600, $yellow-400, .5)};
+  }
+
   .accordion {
     --bs-accordion-color: #{$colorBlack};
     --bs-accordion-bg: #{$yellow-100};
@@ -28,9 +81,10 @@
     --bs-accordion-icon-active-color: #{$yellow-600};
     --bs-accordion-active-bg: #{$yellow-300};
     --bs-accordion-active-color: #{$colorBlack};
-    --bs-accordion-btn-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$yellow-600}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");//couldnt fix color here
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$yellow-600}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>"); //couldnt fix color here
   }
-  .navbar  {
+
+  .navbar {
     --bs-navbar-color: #{$colorBlack75};
     --bs-navbar-hover-color: #{$colorBlack};
     --bs-navbar-active-color: #{$colorBlack};
@@ -44,16 +98,19 @@
 
 html[data-bs-theme="dark"] {
   & .modal-title {
-      color: $yellow-800;
+    color: $yellow-800;
   }
+
   & .modal-desc {
-      color: $yellow-900;
+    color: $yellow-900;
   }
+
   & .modal-header {
-      background-color: $yellow-100;
+    background-color: $yellow-100;
   }
+
   & .places__btn {
-      @include button-variant($yellow-200, $yellow-300, $yellow-900);
+    @include button-variant($yellow-200, $yellow-300, $yellow-900);
   }
 
   //forms
@@ -61,32 +118,35 @@ html[data-bs-theme="dark"] {
     border: 1px solid $yellow-500;
   }
 
-  & .registration__form, .registration__logout {
+  & .registration__form,
+  .registration__logout {
     background-color: $yellow-100;
   }
 
-  & .form__buttons > .btn {
-    color:  $yellow-100;
+  & .form__buttons>.btn {
+    color: $yellow-100;
     background-color: $yellow-600;
-    &:hover{
+
+    &:hover {
       background-color: $yellow-700;
-      color: $yellow-200; 
+      color: $yellow-200;
     }
   }
 
   & .form__button.btn {
-    color:  $yellow-100;
+    color: $yellow-100;
     background-color: $yellow-600;
-    &:hover{
+
+    &:hover {
       background-color: $yellow-700;
-      color: $yellow-200; 
+      color: $yellow-200;
     }
   }
 
   & .form__github-text {
-    &:hover{
+    &:hover {
       background: url(../assets/icons/github_logo_yellow800.svg) center right /22px 22px no-repeat;
-      color: $yellow-800; 
+      color: $yellow-800;
     }
   }
 
@@ -96,6 +156,7 @@ html[data-bs-theme="dark"] {
 
   & .welcome {
     background-color: $yellow-100;
+
     &__title {
       color: $colorBlack;
     }

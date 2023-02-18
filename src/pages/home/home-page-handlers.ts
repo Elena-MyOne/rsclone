@@ -57,7 +57,7 @@ function initStorage() {
   }
 }
 
-function initTheme() {
+export function initTheme() {
   const darkThemeSelected =
     localStorage.getItem("theme") === "dark";
   // console.log(localStorage.getItem("theme"))
