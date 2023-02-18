@@ -55,11 +55,11 @@ export const addCountriesButtons = (lang: string) => {
     div.ariaLabel = "Vertical button group";
     // let prop: keyof typeof res
     // for (prop in res) {
-    for (let i= 0; i < res.length; i++) {
+    for (let i= 0; i < res.data.length; i++) {
       const button: HTMLButtonElement = document.createElement("button");
       button.type = "button";
       button.className = "btn btn-info";
-      button.innerText = res[i];
+      button.innerText = res.data[i];
       button.id = `${i + 1}`
       div.append(button);
     }

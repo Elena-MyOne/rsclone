@@ -1,18 +1,19 @@
-import { getCountry } from "../../api/requests";
+import { getComments, getCountry, sendComment } from "../../api/requests";
 import { content } from "../../constants/i18n";
-import { Country } from "../../models/interfaces";
+import { Country, CountryComment } from "../../models/interfaces";
 import { Swiper, Navigation, Autoplay, Keyboard, Mousewheel, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { AxiosResponse } from "axios";
 
 const photoNumbers = new Array(15).fill(1); // массив для рендера фотографий в галерее
 const phraseNumber = new Array(5).fill(1); // массив для функции воспроизведения фраз
 
 export function generateCountryPage(id: number) {
   let lang = localStorage.getItem('language') || 'en';
-  setTimeout(() => getCountry(id, lang).then((res: Country) => {
-    const { name, nameEN, language, animalName, capital, cities, phrases, places, langCode, comments } = res;
+  setTimeout(() => getCountry(id, lang).then((res: AxiosResponse<Country>) => {
+    const { name, nameEN, language, animalName, capital, cities, phrases, places } = res.data;
     const main = document.querySelector('.root') as HTMLElement;
     main.innerHTML = `
     <section class="country">
@@ -103,18 +104,7 @@ export function generateCountryPage(id: number) {
           </div>
           <button type="submit" data-i18="buttonComment" class="btn btn-info comments__btn">Leave a comment</button>
         </form>
-        <div class="comments__body">
-          <div class="comments__item">
-            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/avatar2.jpg"></div>
-            <div class="comments__name">Victoria</div>
-            <div class="comments__text">Wonderful country! Very beautiful!</div>
-          </div>
-          <div class="comments__item">
-            <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/avatar4.jpg"></div>
-            <div class="comments__name">Martin</div>
-            <div class="comments__text">And I didn't like it. It was boring.</div>
-          </div>
-        </div>
+        <div class="comments__body"></div>
       </div>
     </section>`;
     translation();
@@ -127,8 +117,8 @@ export function generateCountryPage(id: number) {
     playPhrases();
     endPhrases();
     microHandler();
-    addComment();
-
+    addComment(id);
+    generateComments(id);
     cities.map((item, i) => getMap(item.coordinates.split(',').map(Number), i + 1));
     const swiper = new Swiper('.country__gallery', {
       modules: [Navigation, Autoplay, Keyboard, Mousewheel],
@@ -184,7 +174,6 @@ export function generateCountryPage(id: number) {
 }
 
 // обработка кликов play/pause
-
 export function playAudio(idPlay: string, idPause: string, classAudio: string) {
   const btnPlay = document.getElementById(idPlay) as HTMLElement;
   const btnPause = document.getElementById(idPause) as HTMLElement;
@@ -203,7 +192,6 @@ function playPhrases() {
 }
 
 // обработка окончания audio
-
 export function audioEnd(idPlay: string, idPause: string, classAudio: string) {
   const audio = document.querySelector(classAudio) as HTMLAudioElement;
   const btnPlay = document.getElementById(idPlay) as HTMLElement;
@@ -218,7 +206,6 @@ function endPhrases() {
 }
 
 // popup с животным
-
 function generateAnimalsPopup(img: string, animal: string) {
   return `<div class="card animal__card">
   <button type="button" class="btn-close animal__close" aria-label="Close"></button>
@@ -248,7 +235,6 @@ function openClosePopupAnimal() {
 }
 
 // popup с интересными местами
-
 function generatePlacesPopup(img: string, name: string, description: string, id: number, location: string) {
   return `<div class="place${id} place">
   <div class="card place__card">
@@ -291,7 +277,6 @@ function openClosePopupPlaces() {
 }
 
 // открытие большой галереи
-
 function openGallery() {
   const images = document.querySelectorAll('.gallery__img') as NodeListOf<HTMLImageElement>;
   const btnClose = document.querySelector('.big-gallery__close') as HTMLButtonElement;
@@ -321,7 +306,6 @@ function openGallery() {
 }
 
 // popup с картой города
-
 function generateMapPopup(city: string, id: number) {
   return `
   <div class="city${id} city">
@@ -362,7 +346,6 @@ function openClosePopupMap() {
 }
 
 // получение Яндекс карты
-
 function getMap(coordinates: number[], id: number) {
   ymaps.ready().then(() => {
     let myMap = new ymaps.Map(`map_${id}`, {
@@ -373,7 +356,6 @@ function getMap(coordinates: number[], id: number) {
 }
 
 //генерация SVG
-
 export function generateSvgPlay(className: string): string {
   return `<svg id="${className}" xmlns="http://www.w3.org/2000/svg" class="bi bi-play-fill" viewBox="0 0 16 16">
     <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
@@ -406,7 +388,6 @@ function generateSvgArrowDown() {
 }
 
 // генерация фото для галереи
-
 function generatePhoto(country: string, n: number) {
   return `<figure class="figure swiper-slide photo__slide">
       <img src="./assets/./images/gallery/${country}/img_${n}.jpg" class="figure-img img-fluid rounded gallery__img" alt="Nice place">
@@ -415,7 +396,6 @@ function generatePhoto(country: string, n: number) {
 }
 
 // функция перевода контента на всей странице с учетов выбранного пользователем языка
-
 export function translation() {
   const lang = localStorage.getItem('language') || 'en';
   document.querySelectorAll('[data-i18]').forEach((element) => {
@@ -426,7 +406,6 @@ export function translation() {
 }
 
 // функция распознавания голоса
-
 function microHandler() {
   const microphone = document.querySelector('.bi-mic-fill') as HTMLElement;
   microphone.addEventListener('click', voice);
@@ -473,32 +452,50 @@ function voice() {
 }
 
 // комментарии
+function generateComments(id: number) {
+  const commentsList = document.querySelector('.comments__body') as HTMLElement;
+  getComments(id).then((res: AxiosResponse<CountryComment[]>) => {
+    console.log(res.data);
+    res.data.map((item) => {
+      const { name, comment, avatar } = item;
+      const userComment = document.createElement('div');
+      userComment.className = 'comments__item';
+      userComment.innerHTML = `
+      <div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/avatar${avatar}.jpg"></div>
+      <div class="comments__name">${name}</div>
+      <div class="comments__text">${comment}</div>`;
+      commentsList.append(userComment);
+    })
+  })
+}
 
-function generateComment(name: string, avatar: string, comment: string) {
+function createComment(name: string, avatar: string, comment: string) {
   const commentItem = document.createElement('div');
   commentItem.classList.add('comments__item');
-  commentItem.innerHTML = `<div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/${avatar}.jpg"></div>
+  commentItem.innerHTML = `<div class="comments__avatar"><img class="comments__avatar-img" src="./assets/images/avatars/avatar${avatar}.jpg"></div>
             <div class="comments__name">${name}</div>
             <div class="comments__text">${comment}</div>`;
   return commentItem;
 }
 
-function addComment() {
+function addComment(id: number) {
   const commentText = document.querySelector('.comments__review') as HTMLTextAreaElement;
   const btnSend = document.querySelector('.comments__btn') as HTMLButtonElement;
   const commentsList = document.querySelector('.comments__body') as HTMLElement;
-  const name = localStorage.getItem('name') || 'incognito';
-  const avatar = localStorage.getItem('avatar') || 'avatar7';
   let value: string = '';
   commentText.addEventListener('input', () => {
     value = commentText.value;
   })
-  btnSend.addEventListener('click', () => {
+  btnSend.addEventListener('click', (e) => {
+    e.preventDefault();
+    const name = localStorage.getItem('userName') || 'incognito';
+    const avatar = localStorage.getItem('userAvatar') || '7';
     if (value) {
-      const commentContent = generateComment(name, avatar, value);
+      sendComment(name, value, avatar, id);
+      const commentContent = createComment(name, avatar, value);
       commentsList.append(commentContent);
+      commentText.value = '';
+      value = '';
     }
-    commentText.value = '';
-    value = '';
   })
 }
