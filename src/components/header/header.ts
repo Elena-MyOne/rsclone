@@ -28,21 +28,18 @@ export function generateHeader(): string {
                 <li class="nav-item">
                   <a data-i18="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
                 </li>
-
                 <li class="nav-item nav-item-signup">
                   <a data-i18="btnSignUp" class="nav-link" href="#registration">Sign up</a>
                 </li>
                 <li class="nav-item nav-item-profile" hidden>
                   <a data-i18="btnProfile" class="nav-link" href="#profile">Profile</a>
                 </li>
-
                 <li class="nav-item nav-item-login">
                   <a data-i18="btnLogIn" class="nav-link" href="#login">Log in</a>
                 </li>
                 <li class="nav-item nav-item-logout" hidden>
                   <a data-i18="btnLogOut" class="nav-link" href="#login">Log out</a>
                 </li>
-
                 <li class="nav-item">
                   <a data-i18="btnHelp" class="nav-link" href="#help">Help</a>
                 </li>
