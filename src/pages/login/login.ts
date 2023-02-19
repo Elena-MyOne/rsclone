@@ -119,9 +119,8 @@ function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, l
         loginBody.innerHTML = '';
         loginBody.append(regLogOut);
         setLogoutHandler(loginBody, regLogOut, loginForm);
-        translation();
-        showSuccessMessage();
         changeHeaderOnSignUp();
+        translation();
       } else {
         showFailureMessage(loginEmail, loginBody);
         setFailureHandler(loginBody, regLogOut, loginForm)
@@ -144,13 +143,7 @@ function checkUserData(data: [string, FormDataEntryValue][], dataItem: string) {
   return userDataResult[0][1];
 }
 
-function showSuccessMessage() {
-  console.log('Ok');
-  // translation();
-}
-
 function showFailureMessage(email: FormDataEntryValue, loginBody: HTMLElement): void {
-  console.log('Failure');
   loginBody.innerHTML = `
   <div class="failure">
     <div class="failure__body">
@@ -165,8 +158,6 @@ function showFailureMessage(email: FormDataEntryValue, loginBody: HTMLElement): 
   </div>
   `
 }
-
-//TODO сделать темную тему
 
 function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
   loginBody.innerHTML = '';
