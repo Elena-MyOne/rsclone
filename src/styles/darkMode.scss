@@ -165,4 +165,9 @@ html[data-bs-theme="dark"] {
       color: $colorBlack;
     }
   }
+
+  & .failure {
+    background-color: $yellow-100;
+  }
+
 }

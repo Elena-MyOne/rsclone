@@ -3,13 +3,13 @@ import { generateCountryPage, translation } from "./pages/country/country";
 import { generateHelpPage } from "./pages/help/help";
 import { generateStartPage } from "./pages/start/start";
 import { sceneInitStartPage, sceneInitHomePage } from "./components/canvas/SceneInit";
-import { generateHeader, setRegistrationHeaderLink } from "./components/header/header";
+import { generateHeader, changeHeaderOnSignUp } from "./components/header/header";
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
 import { header_handlers } from "./components/header/header_handlers";
 import { buttonTestHandler, changeAvatarHandler, generateProfilePage, visitCountryFromProfile } from "./pages/profile/profile";
-
+import { generateLoginPage } from "./pages/login/login";
 
 export function router() {
   generateContentByHash();
@@ -36,6 +36,8 @@ function generateContentByHash() {
       break;
     case ROUTER_PATH.REGISTRATION: contentMain = generateRegistrationPage();
       break;
+    case ROUTER_PATH.LOGIN: contentMain = generateLoginPage();
+      break;
     case '':
     case ROUTER_PATH.START: {
       contentMain = generateStartPage();
@@ -46,9 +48,9 @@ function generateContentByHash() {
   }
   header.innerHTML = contentHeader;
   main.append(contentMain);
-  setRegistrationHeaderLink();
-  
+  changeHeaderOnSignUp();
   translation();
+
 
 
   if (hash === ROUTER_PATH.START || hash === '') {
