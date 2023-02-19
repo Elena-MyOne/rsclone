@@ -25,7 +25,7 @@ export function generateRegistrationPage(): HTMLElement {
   } else {
     regBody.append(regForm);
     initRegistrationForm(regForm, profile, regBody, regBlog);
-    setIncognitoHandler(regForm, profile, regBody);
+    setIncognitoHandler(regBlog, regForm, profile, regBody)
   }
 
   regBlog.append(regBody);
@@ -176,7 +176,7 @@ function translateUserDefaultName(): string {
   }
 }
 
-function setIncognitoHandler(regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement): void {
+function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement): void {
   regForm.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (target) {
@@ -184,7 +184,7 @@ function setIncognitoHandler(regForm: HTMLFormElement, profile: HTMLElement, reg
         console.log('ok');
         localStorage.setItem('signUp', 'true');
         regBody.innerHTML = '';
-        showWelcomeMessage(regForm, profile, regBody);
+        showWelcomeMessage(regBlog, profile, regBody)
         translation();
         changeHeaderOnSignUp();
       }

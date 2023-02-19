@@ -15,3 +15,17 @@
     color: $colorBlack;
   }
 }
+
+.failure {
+  background-color: $gray-200;
+  border-radius: var(--border-radius);
+  color: $colorBlack;
+  padding: 30px;
+  &__body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+  }
+}

@@ -123,9 +123,14 @@ function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, l
         showSuccessMessage();
         changeHeaderOnSignUp();
       } else {
-        localStorage.setItem('signUp', 'false');
-        showFailureMessage();
+        showFailureMessage(loginEmail, loginBody);
+        setFailureHandler(loginBody, regLogOut, loginForm)
+        translation();
       }
+    } else {
+      showFailureMessage(loginEmail, loginBody);
+      setFailureHandler(loginBody, regLogOut, loginForm)
+      translation();
     }
   }
 }
@@ -144,9 +149,32 @@ function showSuccessMessage() {
   // translation();
 }
 
-function showFailureMessage() {
+function showFailureMessage(email: FormDataEntryValue, loginBody: HTMLElement): void {
   console.log('Failure');
-  // translation();
+  loginBody.innerHTML = `
+  <div class="failure">
+    <div class="failure__body">
+      <p class="failure__icon"><img src="../assets/icons/failure.svg" alt="something goes wrong"></p>
+      <p class="failure__text"><span data-i18="autTextUser">User</span> ${email} <span data-i18="autTextExist">do not exist</span></p>
+      <p class="failure__text" data-i18="autTextTry">Would you like to sign up or try again?</p>
+      <div class="failure__buttons form__buttons">
+        <a href="#registration" class="failure__link form__button btn" data-i18="btnRegistration">Sign up</a>
+        <a href="#login" class="failure__link failure__link-login form__button btn" data-i18="autLogin">Log in</a>
+      </div>
+    </div>
+  </div>
+  `
+}
+
+//TODO сделать темную тему
+
+function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
+  loginBody.innerHTML = '';
+  localStorage.setItem('signUp', 'false');
+  loginBody.append(loginForm);
+  initLogInForm(loginBody, regLogOut, loginForm);
+  changeHeaderOnSignUp();
+  translation();
 }
 
 function setLogoutHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
@@ -154,13 +182,17 @@ function setLogoutHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginF
     const target = e.target as HTMLElement;
     if (target) {
       if (target.closest('.logout__button')) {
-        loginBody.innerHTML = '';
-        localStorage.setItem('signUp', 'false');
-        loginBody.append(loginForm);
-        initLogInForm(loginBody, regLogOut, loginForm);
-        changeHeaderOnSignUp();
-        translation();
+        getLogInForm(loginBody, regLogOut, loginForm);
       }
     }
   })
+}
+
+function setFailureHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
+  const failureLogin = document.querySelector('.failure__link-login');
+  if (failureLogin) {
+    failureLogin.addEventListener('click', () => {
+      getLogInForm(loginBody, regLogOut, loginForm);
+    }) 
+  }
 }
