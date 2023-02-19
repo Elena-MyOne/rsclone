@@ -1,5 +1,5 @@
 import { getCountriesNames } from "../../api/requests";
-import { buttonHandlers, handlers } from "./home-page-handlers";
+import { buttonHandlers } from "./home-page-handlers";
 
 export function generateHomePage() {
 
@@ -17,22 +17,12 @@ export function generateHomePage() {
       <div class="row">
         <div class="col-2 country-buttons_container">
         </div>
-        <div class="col-7">
+        <div class="col-9">
           <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-i18="titleChoice">
             Choose the country
           </h4>
         </div>
-        <div class="col-2 select_container">
-          <select class="form-select lang_select">
-            <option class="lang-option" value="EN">EN</option>
-            <option class="lang-option" value="BE">BE</option>
-            <option class="lang-option" value="RU">RU</option>
-          </select>
-        </div>
-        <div class="col-1 theme_container">
-          <button type="button" class="button theme-button" id="themeSwitch">
-          </button>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -50,16 +40,16 @@ export const addCountriesButtons = (lang: string) => {
   getCountriesNames(lang).then((res) => {
     // console.log(res);
     const div: HTMLElement = document.createElement("div");
-    div.className = "d-grid gap-2";
+    div.className = "d-grid gap-2 position-absolute";
     div.role = "group";
     div.ariaLabel = "Vertical button group";
     // let prop: keyof typeof res
     // for (prop in res) {
-    for (let i= 0; i < res.length; i++) {
+    for (let i= 0; i < res.data.length; i++) {
       const button: HTMLButtonElement = document.createElement("button");
       button.type = "button";
       button.className = "btn btn-info";
-      button.innerText = res[i];
+      button.innerText = res.data[i];
       button.id = `${i + 1}`
       div.append(button);
     }

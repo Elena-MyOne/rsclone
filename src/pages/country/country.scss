@@ -60,8 +60,6 @@
 
 .info {
   padding: 0 20px 20px;
-  border-bottom: 2px solid $cyan-900;
-
 
   &__header {
     align-items: center;
@@ -114,7 +112,6 @@
   }
 
   &__btn {
-    @include button-outline-variant($colorWhite, $cyan-100, $cyan-700, $cyan-700);
     @include button-size(3px, 10px, 1.2vw, 0.25rem);
     width: max-content;
   }

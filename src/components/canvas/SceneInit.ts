@@ -200,8 +200,8 @@ export function sceneInitHomePage() {
   scene.add(camera)
 
   // Controls
-  const controls = new OrbitControls(camera, canvas)
-  controls.enableDamping = true
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
 
   //renderer
   const renderer = new THREE.WebGLRenderer({

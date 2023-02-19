@@ -7,10 +7,9 @@ import { generateHeader, changeHeaderOnSignUp } from "./components/header/header
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
-import { handlers } from "./pages/home/home-page-handlers";
-import { generateProfilePage } from "./pages/profile/profile";
+import { header_handlers } from "./components/header/header_handlers";
+import { buttonTestHandler, changeAvatarHandler, generateProfilePage, visitCountryFromProfile } from "./pages/profile/profile";
 import { generateLoginPage } from "./pages/login/login";
-
 
 export function router() {
   generateContentByHash();
@@ -25,7 +24,7 @@ function generateContentByHash() {
   let contentHeader = generateHeader();
   main.innerHTML = '';
   let contentMain = null;
-  const [hash, id] = window.location.hash.slice(1).split('/');  
+  const [hash, id] = window.location.hash.slice(1).split('/');
   switch (hash) {
     case ROUTER_PATH.HELP: contentMain = generateHelpPage();
       break;
@@ -51,12 +50,18 @@ function generateContentByHash() {
   main.append(contentMain);
   changeHeaderOnSignUp();
   translation();
-  
+
+
 
   if (hash === ROUTER_PATH.START || hash === '') {
     sceneInitStartPage();
-  };
-  if (hash === ROUTER_PATH.HOME) {
-    handlers();
-  };
+  } else {
+    header_handlers();
+  }
+  
+  if (hash === ROUTER_PATH.PROFILE) {
+    changeAvatarHandler();
+    buttonTestHandler();
+    visitCountryFromProfile();
+  }
 }

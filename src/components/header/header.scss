@@ -11,7 +11,6 @@
 .navbar {
   background-color: $cyan-700;
 }
-
 .offcanvas-header {
   padding-left: 36px;
   background-color: $cyan-700;
@@ -21,7 +20,16 @@
   padding-left: 36px;
   background-color: $cyan-700;
   overflow-y: visible;
+  justify-content: space-between;
 }
+.header-form {
+  width: 120px;
+}
+.form-select {
+  cursor: pointer;
+}
+
+
 
 .navbar-brand {
   margin-right: 50px;
