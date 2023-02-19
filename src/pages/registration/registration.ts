@@ -1,7 +1,6 @@
-import { changeHeaderOnSignUp } from "../../components/header/header";
+import { setRegistrationHeaderLink } from "../../components/header/header";
 import { translation } from "../country/country";
 import { content } from "../../constants/i18n";
-import { generateProfilePage } from "../profile/profile";
 
 export function generateRegistrationPage(): HTMLElement {
   // если есть бэк, отправляем запрос на сервер 
@@ -18,14 +17,18 @@ export function generateRegistrationPage(): HTMLElement {
   regForm.setAttribute('novalidate', '');
   regForm.innerHTML = createRegistrationForm();
 
-  const profile = generateProfilePage();
+  const regLogOut = document.createElement('div') as HTMLElement;
+  regLogOut.classList.add('registration__logout', 'logout');
+  regLogOut.innerHTML = showLogOutMessage();
 
   if (isSignUp) {
-    regBlog.append(profile);
+    regBody.append(regLogOut);
+    setLogoutHandler(regForm, regLogOut, regBody);
+
   } else {
     regBody.append(regForm);
-    initRegistrationForm(regForm, profile, regBody, regBlog);
-    setIncognitoHandler(regBlog, regForm, profile, regBody)
+    initRegistrationForm(regForm, regLogOut, regBody);
+    setIncognitoHandler(regForm, regLogOut, regBody);
   }
 
   regBlog.append(regBody);
@@ -75,7 +78,16 @@ function createRegistrationForm(): string {
   `
 }
 
-function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement, regBlog: HTMLElement): void {
+function showLogOutMessage(): string {
+  return `
+  <div class="logout__body">
+    <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
+    <a data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
+  </div>
+  `
+}
+
+function initRegistrationForm(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   regForm.addEventListener('submit', event => {
     event.preventDefault()
 
@@ -85,8 +97,8 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
     } else {
       localStorage.setItem('signUp', 'true');
       handleFormSubmit(regForm);
-      changeHeaderOnSignUp();
-      showWelcomeMessage(regBlog, profile, regBody);
+      setRegistrationHeaderLink();
+      showWelcomeMessage(regForm, regLogOut, regBody);
       translation();
     }
     regForm.classList.add('was-validated');
@@ -94,9 +106,12 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
 }
 
 //TODO check why data is duplicate
-export function handleFormSubmit(regForm: HTMLFormElement): void {
+function handleFormSubmit(regForm: HTMLFormElement): void {
   if (regForm) {
+    // console.log('handleFormSubmit called with form:', regForm);
     const { elements } = regForm
+
+    // const data: { name: string; value: string; }[] = [];
 
     //TODO ready to send throw fetch() to the server
     const formData = new FormData(regForm)
@@ -111,18 +126,14 @@ export function handleFormSubmit(regForm: HTMLFormElement): void {
     });
 
     const dataStore = Array.from(formData.entries());
-    const dataName = regForm.name as unknown as HTMLInputElement;
-    const userName = dataName.value
-
-
     localStorage.setItem('userData', JSON.stringify(dataStore));
-    localStorage.setItem('userName', userName);
 
+    // console.log(Array.from(formData.entries()))
   }
 }
 
 //if registration was successful 
-function showWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
+function showWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   //TODO 'Name' comes from localStorage / guthub / maybe backend
   regBody.innerHTML = `
     <div class="registration__welcome welcome">
@@ -139,14 +150,16 @@ function showWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement, regBody:
   const close = document.querySelector('.welcome__close');
   if (close) {
     close.addEventListener('click', () => {
-      closeWelcomeMessage(regBlog, profile)
+      closeWelcomeMessage(regForm,regLogOut, regBody)
     })
   }
 }
 
-function closeWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement): void {
-  regBlog.innerHTML = '';
-  regBlog.append(profile);
+function closeWelcomeMessage(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
+  regBody.innerHTML = '';
+  regBody.append(regLogOut);
+  showLogOutMessage();
+  setLogoutHandler(regForm, regLogOut, regBody);
   translation();
 }
 
@@ -176,7 +189,23 @@ function translateUserDefaultName(): string {
   }
 }
 
-function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement): void {
+function setLogoutHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
+  regBody.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target) {
+      if (target.closest('.logout__button')) {
+        regBody.innerHTML = '';
+        localStorage.setItem('signUp', 'false');
+        regBody.append(regForm);
+        initRegistrationForm(regForm, regLogOut, regBody);
+        setRegistrationHeaderLink();
+        translation();
+      }
+    }
+  })
+}
+
+function setIncognitoHandler(regForm: HTMLFormElement, regLogOut: HTMLElement, regBody: HTMLElement): void {
   regForm.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (target) {
@@ -184,9 +213,9 @@ function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, pro
         console.log('ok');
         localStorage.setItem('signUp', 'true');
         regBody.innerHTML = '';
-        showWelcomeMessage(regBlog, profile, regBody)
+        showWelcomeMessage(regForm, regLogOut, regBody);
         translation();
-        changeHeaderOnSignUp();
+        setRegistrationHeaderLink();
       }
     }
   })

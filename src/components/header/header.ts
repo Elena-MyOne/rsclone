@@ -1,3 +1,4 @@
+import { HEADER_PAGES } from "../../constants/enums";
 import { content } from "../../constants/i18n";
 
 export function generateHeader(): string {
@@ -28,17 +29,11 @@ export function generateHeader(): string {
                 <li class="nav-item">
                   <a data-i18="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
                 </li>
-                <li class="nav-item nav-item-signup">
-                  <a data-i18="btnSignUp" class="nav-link" href="#registration">Sign up</a>
+                <li class="nav-item">
+                  <a class="nav-link sign-up" href="#registration">Sign up</a>
                 </li>
-                <li class="nav-item nav-item-profile" hidden>
-                  <a data-i18="btnProfile" class="nav-link" href="#profile">Profile</a>
-                </li>
-                <li class="nav-item nav-item-login">
-                  <a data-i18="btnLogIn" class="nav-link" href="#login">Log in</a>
-                </li>
-                <li class="nav-item nav-item-logout" hidden>
-                  <a data-i18="btnLogOut" class="nav-link" href="#login">Log out</a>
+                <li class="nav-item">
+                  <a data-i18="btnLogIn" class="nav-link" href="#profile">Log in</a>
                 </li>
                 <li class="nav-item">
                   <a data-i18="btnHelp" class="nav-link" href="#help">Help</a>
@@ -61,26 +56,35 @@ export function generateHeader(): string {
   `
 }
 
-export function changeHeaderOnSignUp(): void {
+function checkRegistration(): string {
   const signUp = localStorage.getItem('signUp');
-  let isSignUp = signUp ? JSON.parse(signUp) : false;
+  const language = localStorage.getItem('language') || 'en';
+  if (signUp) {
+    const isSignUp = JSON.parse(signUp);
 
-  const signup = document.querySelector('.nav-item-signup');
-  const login = document.querySelector('.nav-item-login');
-  const profile = document.querySelector('.nav-item-profile');
-  const logout = document.querySelector('.nav-item-logout');
+    if (isSignUp)
+      switch(language) {
+        case 'ru':
+          return content.ru.btnLogOut
+        case 'be':
+          return content.be.btnLogOut
+        default:
+          return content.en.btnLogOut
+      }
+  }
+  switch(language) {
+    case 'ru':
+      return content.ru.btnSignUp
+    case 'be':
+      return content.be.btnSignUp
+    default:
+      return content.en.btnSignUp
+  }
+}
 
-  if (signup && profile && login && logout) {
-    if (isSignUp) {
-      profile.removeAttribute('hidden');
-      logout.removeAttribute('hidden');
-      signup.setAttribute('hidden', '');
-      login.setAttribute('hidden', '');
-    } else {
-      signup.removeAttribute('hidden');
-      login.removeAttribute('hidden');
-      profile.setAttribute('hidden', '');
-      logout.setAttribute('hidden', '');
-    }
+export function setRegistrationHeaderLink(): void {
+  const link = document.querySelector('.sign-up');
+  if (link) {
+    link.innerHTML = checkRegistration();
   }
 }
