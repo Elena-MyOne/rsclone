@@ -1,6 +1,6 @@
 import { translation } from "../../pages/country/country";
 import { addCountriesButtons } from "../../pages/home/home";
-import { setRegistrationHeaderLink } from "./header";
+import { changeHeaderOnSignUp } from "./header";
 import { ROUTER_PATH } from "../../constants/enums";
 import { clickOnCountryButton } from "../../pages/home/home-page-handlers";
 import { sceneInitHomePage } from "../canvas/SceneInit";
@@ -16,8 +16,8 @@ export function header_handlers() {
   langSelect.addEventListener('change', () => {
     const currentLang = langSelect.value as string;
     localStorage.setItem("language", currentLang.toLowerCase())
+    changeHeaderOnSignUp();
     translation(); // переводит контент
-    setRegistrationHeaderLink();
 
     if (window.location.hash.slice(1).split('/')[0] === ROUTER_PATH.HOME) {
       //remove eventListener
