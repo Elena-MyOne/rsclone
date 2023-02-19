@@ -16,16 +16,18 @@ export function header_handlers() {
   langSelect.addEventListener('change', () => {
     const currentLang = langSelect.value as string;
     localStorage.setItem("language", currentLang.toLowerCase())
+
     changeHeaderOnSignUp();
-    translation(); // переводит контент
+    location.reload();
 
-    if (window.location.hash.slice(1).split('/')[0] === ROUTER_PATH.HOME) {
-      //remove eventListener
-      const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
-      countryButtons.removeEventListener('click', clickOnCountryButton);
 
-    addCountriesButtons(currentLang.toLowerCase());
-    };
+    // if (window.location.hash.slice(1).split('/')[0] === ROUTER_PATH.HOME) {
+    //   //remove eventListener
+    //   const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
+    //   countryButtons.removeEventListener('click', clickOnCountryButton);
+
+    // addCountriesButtons(currentLang.toLowerCase());
+    // };
     
 
   })
