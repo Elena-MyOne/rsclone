@@ -8,7 +8,7 @@ import { generateSvgPlay, generateSvgPause, playAudio, audioEnd } from "../count
 
 import { translation } from "../country/country";
 
-import { setRegistrationHeaderLink } from "../../components/header/header";
+import { changeHeaderOnSignUp } from "../../components/header/header";
 import { AxiosResponse } from "axios";
 
 
@@ -28,7 +28,7 @@ export function buttonHandlers() {
 //     const currentLang = langSelect.value as string;
 //     localStorage.setItem("language", currentLang.toLowerCase())
 //     translation(); // переводит контент
-//     setRegistrationHeaderLink();
+//     changeHeaderOnSignUp();
 
 //     //remove eventListener
 //     const countryButtons = document.querySelector(".country-buttons_container") as HTMLElement;
