@@ -4,7 +4,6 @@ import { content } from "../../constants/i18n";
 import { generateProfilePage } from "../profile/profile";
 
 export function generateRegistrationPage(): HTMLElement {
-  // если есть бэк, отправляем запрос на сервер 
   let signUp = localStorage.getItem('signUp');
   let isSignUp = signUp ? JSON.parse(signUp) : false;
 
@@ -179,10 +178,11 @@ function translateUserDefaultName(): string {
 function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement): void {
   regForm.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
+    const defaultUserName = translateUserDefaultName();
     if (target) {
       if (target.closest('.form__button-incognito')) {
-        console.log('ok');
         localStorage.setItem('signUp', 'true');
+        localStorage.setItem('userName', defaultUserName);
         regBody.innerHTML = '';
         showWelcomeMessage(regBlog, profile, regBody)
         translation();
