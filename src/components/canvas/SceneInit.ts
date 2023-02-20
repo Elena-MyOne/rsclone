@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
+import { Font, FontLoader } from 'three/examples/jsm/loaders/FontLoader'
+import { ShapeGeometry } from 'three/src/geometries/ShapeGeometry';
 import { generatePopUp } from '../../pages/home/home-page-handlers';
+import fontJson from '../../components/canvas/fonts/Kalam_Regular.json'
 
 const noCloudsBg = require('../../assets/images/textures/2_no_clouds_8k-min.jpg')
 const nightBg = require('../../assets/images/textures/earth_nightlights_10K.jpg')
@@ -9,6 +13,9 @@ const specularBg = require('../../assets/images/textures/water_8k-min.png')
 const cloudBg = require('../../assets/images/textures/earthCloud-min.png')
 const borderBg = require('../../assets/images/textures/boundaries_8k.png')
 const galaxyBg = require('../../assets/images/textures/galaxy.png')
+const matcap = require('../../assets/images/textures/matcaps/2.png')
+
+
 
 
 export function sceneInitStartPage() {
@@ -79,6 +86,7 @@ export function sceneInitStartPage() {
   //     console.log('loadingManager: loading error')
   // }
   const textureLoader = new THREE.TextureLoader(loadingManager);
+  const matcapTexture = textureLoader.load(matcap)
   const colorTexture = textureLoader.load(noCloudsBg)
   const bumpTexture = textureLoader.load(bumpBg)
   const specularTexture = textureLoader.load(specularBg)
@@ -137,6 +145,42 @@ scene.add(galaxy);
   const pointLight = new THREE.PointLight(0xffffff, 1, 100) // 5 for night
   pointLight.position.set(5, 3, 5);
   scene.add(pointLight);
+
+  //
+
+  const font = new Font(fontJson)
+  console.log(font)
+
+  const textGeometry = new TextGeometry(
+    'Amazing Trip',
+    {
+      font: font,
+      size: 0.12,
+      height: 0.05,
+      curveSegments: 12,
+      bevelEnabled: false,
+    }
+  )
+  textGeometry.center();
+
+  const material = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
+
+
+  const text = new THREE.Mesh(textGeometry, material)
+  text.position.set(0, 0.6, 1)
+  scene.add(text)
+
+
+//   var textMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+// var textGeometry = new TextGeometry("Patrick Sullivan", {
+//     font: font,
+//     size: 40,
+//     height: 15
+// });
+// var textMesh = new THREE.Mesh(textGeometry, textMaterial);
+// scene.add(textMesh);
+
+  //
 
   //animation
   const clock = new THREE.Clock()
