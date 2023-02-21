@@ -4,12 +4,13 @@
 import { onHelpClick, startPageHandlers } from "./handlers";
 
 export function generateStartPage() {
-  const helpBlock = document.createElement('div');
-  helpBlock.innerHTML = `
+  const startPage = document.createElement('div');
+  startPage.classList.add("start-page")
+  startPage.innerHTML = `
   <canvas class="start-page"></canvas>
   <div class="container py-5 text-center">
     <h1 class="start-page__title display-1 fw-semibold">Amazing Trip</h1>
-    <div class="buttons-container container">
+    <div class="buttons-container">
       <div class="row">
         <div class="col">
           <button type="button" class="button help-button">
@@ -23,7 +24,7 @@ export function generateStartPage() {
     </div>
   </div>
 `;
-  (helpBlock.querySelector('.help-button') as HTMLButtonElement).onclick = onHelpClick;
+  (startPage.querySelector('.help-button') as HTMLButtonElement).onclick = onHelpClick;
   startPageHandlers();
-  return helpBlock;
+  return startPage;
 }

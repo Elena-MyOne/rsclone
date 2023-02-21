@@ -13,18 +13,17 @@ export function generateHomePage() {
   content.innerHTML = `
   <canvas class="home-page"></canvas>
   <div class="container py-2 text-center">
-    <div class="home-page__container container">
-      <div class="row">
-        <div class="col-2 country-buttons_container">
+      <div class="home-page__container row container">
+        <div class="col-2 country-buttons_container position-relative">
         </div>
-        <div class="col-9">
+        <div class="col-10">
           <h4 class="home-page__title py-2 display-3 fst-italic fw-semibold" data-i18="titleChoice">
             Choose the country
           </h4>
         </div>
         
       </div>
-    </div>
+    
   </div>
   `;
 //get coutries

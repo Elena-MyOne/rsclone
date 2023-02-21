@@ -171,16 +171,16 @@ export function generatePopUp(id: number) {
           </div>
         </div>
         <div class="country__adv row">
-          <div class="col-5 img__container">
+          <div class="col img__container">
             <img class="character" src="./assets/images/country_characters/${nameEN}.png" alt="Country Caracter">
           </div>
-          <div class="col-7 grid">
+          <div class="col grid">
             ${places.map((item, i) => `
             <div class="grid__item">
               <div class="img" style="background-image: url('./assets/images/places/${nameEN}/${i + 1}.jpg');">
               </div>
               <div class="photo-container">
-                <h5 class="photo__title">${item.name}</h5>
+                <h6 class="photo__title">${item.name}</h6>
               </div>
             </div>`).join('')}
           </div>
