@@ -9,8 +9,7 @@ export function generateStartPage() {
   startPage.innerHTML = `
   <canvas class="start-page"></canvas>
   <div class="container py-5 text-center">
-    <h1 class="start-page__title display-1 fw-semibold">Amazing Trip</h1>
-    <div class="buttons-container">
+    <div class="buttons-container container">
       <div class="row">
         <div class="col">
           <button type="button" class="button help-button">

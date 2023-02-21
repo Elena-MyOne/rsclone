@@ -1,14 +1,20 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
+import { Font } from 'three/examples/jsm/loaders/FontLoader'
 import { generatePopUp } from '../../pages/home/home-page-handlers';
+import fontJson from '../../components/canvas/fonts/Kalam_Regular.json'
 
-const noCloudsBg = require('../../assets/images/textures/2_no_clouds_8k-min.jpg')
-const nightBg = require('../../assets/images/textures/earth_nightlights_10K.jpg')
-const bumpBg = require('../../assets/images/textures/elev_bump_8k-min.jpg')
-const specularBg = require('../../assets/images/textures/water_8k-min.png')
-const cloudBg = require('../../assets/images/textures/earthCloud-min.png')
-const borderBg = require('../../assets/images/textures/boundaries_8k.png')
-const galaxyBg = require('../../assets/images/textures/galaxy.png')
+const noCloudsBg = require('../../assets/images/textures/2_no_clouds_8k-min.jpg');
+const nightBg = require('../../assets/images/textures/earth_nightlights_10K.jpg');
+const bumpBg = require('../../assets/images/textures/topography_10k.jpg');
+const specularBg = require('../../assets/images/textures/water_8k-min.png');
+const cloudBg = require('../../assets/images/textures/earthCloud-min.png');
+const borderBg = require('../../assets/images/textures/boundaries_8k.png');
+const galaxyBg = require('../../assets/images/textures/galaxy.png');
+const matcap = require('../../assets/images/textures/matcaps/2.png');
+
+
 
 
 export function sceneInitStartPage() {
@@ -24,72 +30,62 @@ export function sceneInitStartPage() {
   const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
-  }
+  };
   window.addEventListener('resize', () =>
   {
     // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
 
     // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
 
     // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
+    renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  })
+  });
 
   // Base camera
   const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.1, 1000);
   camera.position.y = 0.35;
   camera.position.z = 2;
-  scene.add(camera)
+  scene.add(camera);
 
   // Controls
-  const controls = new OrbitControls(camera, canvas)
-  controls.enableDamping = true
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.minDistance = 1.2;
+  controls.maxDistance = 10;
+  controls.enablePan = false;
+  controls.update();
+  controls.saveState();
 
   //renderer
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
-  })
-  renderer.setSize(sizes.width, sizes.height)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  });
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
 
   //loading console.log - debug
-  const loadingManager = new THREE.LoadingManager()
-  // loadingManager.onStart = () =>
-  // {
-  //     console.log('loadingManager: loading started')
-  // }
-  // loadingManager.onLoad = () =>
-  // {
-  //     console.log('loadingManager: loading finished')
-  // }
-  // loadingManager.onProgress = () =>
-  // {
-  //     console.log('loadingManager: loading progressing')
-  // }
-  // loadingManager.onError = () =>
-  // {
-  //     console.log('loadingManager: loading error')
-  // }
+  const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
-  const colorTexture = textureLoader.load(noCloudsBg)
-  const bumpTexture = textureLoader.load(bumpBg)
-  const specularTexture = textureLoader.load(specularBg)
-  const cloudTexture = textureLoader.load(cloudBg)
-  const galaxyTexture = textureLoader.load(galaxyBg)
+  const matcapTexture = textureLoader.load(matcap);
+  const colorTexture = textureLoader.load(noCloudsBg);
+  const bumpTexture = textureLoader.load(bumpBg);
+  const specularTexture = textureLoader.load(specularBg);
+  const cloudTexture = textureLoader.load(cloudBg);
+  const galaxyTexture = textureLoader.load(galaxyBg);
   function createEarth(colorTexture: THREE.Texture, bumpTexture: THREE.Texture) {
     const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
     const earthMaterial = new THREE.MeshPhongMaterial({
         map: colorTexture,
         bumpMap: bumpTexture,
-        bumpScale: 0.0007,
+        bumpScale: 0.006,
         specularMap: specularTexture,
         specular: new THREE.Color('grey'),
     });
@@ -130,16 +126,39 @@ export function sceneInitStartPage() {
 const galaxy = createGalaxy();
 scene.add(galaxy);
 
-  const ambientlight = new THREE.AmbientLight(0x333333, 1); // 5 for night
+  const ambientlight = new THREE.AmbientLight(0x333333, 1);
   scene.add(ambientlight);
 
   // point light
-  const pointLight = new THREE.PointLight(0xffffff, 1, 100) // 5 for night
+  const pointLight = new THREE.PointLight(0xffffff, 1, 100);
   pointLight.position.set(5, 3, 5);
   scene.add(pointLight);
 
+  //Font
+  const font = new Font(fontJson);
+
+  const textGeometry = new TextGeometry(
+    'Amazing Trip',
+    {
+      font: font,
+      size: 0.12,
+      height: 0.05,
+      curveSegments: 12,
+      bevelEnabled: false,
+    }
+  )
+  textGeometry.center();
+
+  const material = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
+
+
+  const text = new THREE.Mesh(textGeometry, material);
+  text.position.set(0, 0.6, 1);
+  scene.add(text);
+
+
   //animation
-  const clock = new THREE.Clock()
+  const clock = new THREE.Clock();
 
   const tick = () =>
   {
@@ -149,17 +168,16 @@ scene.add(galaxy);
       clouds.rotation.y -= 0.0016;
 
       // Update controls
-      controls.update()
+      controls.update();
 
       // Render
-      renderer.render(scene, camera)
+      renderer.render(scene, camera);
 
       // Call tick again on the next frame
-      window.requestAnimationFrame(tick)
+      window.requestAnimationFrame(tick);
   }
 
-  tick()
-  // console.log(scene);
+  tick();
 }
 
 export function sceneInitHomePage() {
@@ -175,40 +193,44 @@ export function sceneInitHomePage() {
   const sizes = {
     width: window.innerWidth,
     height: document.body.clientHeight - topOffset
-  }
+  };
 
   window.addEventListener('resize', () =>
   {
     topOffset = Number(canvas.offsetTop);
     // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight - topOffset
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight - topOffset;
 
     // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
 
     // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  })
+    renderer.setSize(sizes.width, sizes.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  });
 
   // Base camera
   const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.1, 1000);
   camera.position.y = 0.35;
   camera.position.z = 2;
-  scene.add(camera)
+  scene.add(camera);
 
   // Controls
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
+  controls.minDistance = 1.1;
+  controls.maxDistance = 30;
+  controls.enablePan = false;
+  controls.update();
+  controls.saveState();
 
   //renderer
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
-  })
-  // console.log(renderer.getContext())
+  });
   renderer.clear(true);
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -216,23 +238,7 @@ export function sceneInitHomePage() {
   renderer.setClearColor(0x000000, 0.0);
 
   // loading
-  const loadingManager = new THREE.LoadingManager()
-  // loadingManager.onStart = () =>
-  // {
-  //     console.log('loadingManager: loading started')
-  // }
-  // loadingManager.onLoad = () =>
-  // {
-  //     console.log('loadingManager: loading finished')
-  // }
-  // loadingManager.onProgress = () =>
-  // {
-  //     console.log('loadingManager: loading progressing')
-  // }
-  // loadingManager.onError = () =>
-  // {
-  //     console.log('loadingManager: loading error')
-  // }
+  const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
   const earth = createPlanet();
@@ -259,7 +265,7 @@ export function sceneInitHomePage() {
   scene.add(ambientlight);
 
   // point light
-  const pointLight = new THREE.PointLight(0xffffff, 1, 100) // 5 for night
+  const pointLight = new THREE.PointLight(0xffffff, 1, 100);
   pointLight.position.set(5, 3, 5);
   scene.add(pointLight);
 
@@ -295,6 +301,7 @@ export function sceneInitHomePage() {
       lon: -77.0363700
     },
   ];
+
   function calcPosFromLatLonRad(lat: number, lon: number) {
     const phi = (90 - lat) * (Math.PI / 180);
     const theta = (lon + 180) * (Math.PI / 180);
@@ -334,7 +341,6 @@ export function sceneInitHomePage() {
 
     if (intersects.length > 0) {
       intersectedObject = intersects[0].object;
-      // alert(`${intersectedObject.userData.name}, ${intersectedObject.userData.id}`)
       generatePopUp(Number(intersectedObject.userData.id))
     }
   }
@@ -349,36 +355,20 @@ export function sceneInitHomePage() {
     earth.rotation.y -= 0.002;
 
     // Update controls
-    controls.update()
+    controls.update();
 
     // Render
-    renderer.render(scene, camera)
+    renderer.render(scene, camera);
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(tick);
   }
 
-  tick()
+  tick();
 }
 
 const createPlanet = () => {
-  const loadingManager = new THREE.LoadingManager()
-  // loadingManager.onStart = () =>
-  // {
-  //     console.log('loadingManager: loading started')
-  // }
-  // loadingManager.onLoad = () =>
-  // {
-  //     console.log('loadingManager: loading finished')
-  // }
-  // loadingManager.onProgress = () =>
-  // {
-  //     console.log('loadingManager: loading progressing')
-  // }
-  // loadingManager.onError = () =>
-  // {
-  //     console.log('loadingManager: loading error')
-  // }
+  const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
   const bumpTexture = textureLoader.load(bumpBg);
   const borderTexture = textureLoader.load(borderBg);
@@ -395,13 +385,13 @@ const createPlanet = () => {
       break;
   }
   return earth;
-}
+};
 
 const createDarkPlanet = (bumpTexture: THREE.Texture, borderTexture: THREE.Texture) => {
   const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
-  const colorTexture = textureLoader.load(nightBg)
+  const colorTexture = textureLoader.load(nightBg);
   const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
   const earthMaterial = new THREE.MeshStandardMaterial({
     color: 0xFFC489,
@@ -420,7 +410,7 @@ const createLightPlanet = (bumpTexture: THREE.Texture, borderTexture: THREE.Text
   const loadingManager = new THREE.LoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager);
 
-  const colorTexture = textureLoader.load(noCloudsBg)
+  const colorTexture = textureLoader.load(noCloudsBg);
   const earthGeometry = new THREE.SphereGeometry(1, 32, 32);
   const earthMaterial = new THREE.MeshStandardMaterial({
     metalness: 1,
