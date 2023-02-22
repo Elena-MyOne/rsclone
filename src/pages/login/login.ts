@@ -108,12 +108,12 @@ function generateLoginResponse(email: FormDataEntryValue, password: FormDataEntr
     loginBody.append(regLogOut);
     setLogoutHandler(loginBody, regLogOut, loginForm);
     changeHeaderOnSignUp();
-    // translation();
+    translation();
   }).catch((error) => {
     // console.log(error);
     showFailureMessage(email, loginBody);
     setFailureHandler(loginBody, regLogOut, loginForm)
-    // translation();
+    translation();
   })
 }
 
@@ -139,7 +139,7 @@ function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm:
   loginBody.append(loginForm);
   initLogInForm(loginBody, regLogOut, loginForm);
   changeHeaderOnSignUp();
-  // translation();
+  translation();
 }
 
 function setLogoutHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {

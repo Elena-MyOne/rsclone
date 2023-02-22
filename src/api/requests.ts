@@ -49,7 +49,7 @@ export function getUsers() {
 }
 
 //регистрация пользователя
-export function createUser(name: string, email: string, password: string) {
+export function createUser(name: FormDataEntryValue, email: FormDataEntryValue, password: FormDataEntryValue) {
   try {
     return axios.post(`${baseUrl}/users`, { name, email, password })
   } catch (error) {

@@ -2,13 +2,16 @@ import { changeHeaderOnSignUp } from "../../components/header/header";
 import { translation } from "../country/country";
 import { content } from "../../constants/i18n";
 import { generateProfilePage } from "../profile/profile";
+import { userInfo } from "../../models/interfaces";
+import { createUser } from "../../api/requests";
+import { AxiosResponse } from "axios";
 
 export function generateRegistrationPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
   let isSignUp = signUp ? JSON.parse(signUp) : false;
 
   const regBlog = document.createElement('section');
-  regBlog.classList.add('registration');
+  regBlog.classList.add('registration', 'container');
   const regBody = document.createElement('div');
   regBody.classList.add('registration__body');
 
@@ -83,41 +86,41 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
       localStorage.setItem('signUp', 'false');
     } else {
       localStorage.setItem('signUp', 'true');
-      handleFormSubmit(regForm);
-      changeHeaderOnSignUp();
-      showWelcomeMessage(regBlog, profile, regBody);
-      translation();
+      handleFormSubmit(regForm, regBlog, profile, regBody);
     }
     regForm.classList.add('was-validated');
   }, false);
 }
 
-//TODO check why data is duplicate
-export function handleFormSubmit(regForm: HTMLFormElement): void {
+export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
   if (regForm) {
-    const { elements } = regForm
+    const { name, email, password } = regForm.elements as typeof regForm.elements & {
+      name: HTMLInputElement;
+      email: HTMLInputElement;
+      password: HTMLInputElement;
+    };
 
-    //TODO ready to send throw fetch() to the server
-    const formData = new FormData(regForm)
+    const formValues: userInfo = {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+    };
 
-    Array.from(elements).forEach((element: Element) => {
-      if (element instanceof HTMLInputElement) {
-        const { name, value } = element as HTMLInputElement;
-        if (!formData.has(name)) {
-          formData.append(name, value);
-        }
-      }
-    });
+    localStorage.setItem('userName', formValues.name);
 
-    const dataStore = Array.from(formData.entries());
-    const dataName = regForm.name as unknown as HTMLInputElement;
-    const userName = dataName.value
-
-
-    localStorage.setItem('userData', JSON.stringify(dataStore));
-    localStorage.setItem('userName', userName);
-
+    if (formValues.password) {
+      setLoginUser(formValues.name, formValues.email, formValues.password, regBlog, profile, regBody)
+    }
   }
+}
+
+function setLoginUser(name: FormDataEntryValue, email: FormDataEntryValue, password: FormDataEntryValue, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement) {
+  createUser(name, email, password).then((res: AxiosResponse<userInfo>) => {
+    // console.log(res.data);
+    changeHeaderOnSignUp();
+    showWelcomeMessage(regBlog, profile, regBody);
+    translation();
+  })
 }
 
 //if registration was successful 
@@ -150,17 +153,11 @@ function closeWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement): void {
 }
 
 function getUserName(): string {
-  const userData = localStorage.getItem('userData');
-  if (userData) {
-    const userDataParse: string[] = JSON.parse(userData);
-    const nameDataName = userDataParse.filter((item) => {
-      if (item.includes('name')) {
-        return item;
-      }
-    })
-    return nameDataName[0][1];
+  const name = localStorage.getItem('userName');
+  if (name) {
+    return name
   }
-    return translateUserDefaultName();
+  return translateUserDefaultName();
 }
 
 function translateUserDefaultName(): string {
