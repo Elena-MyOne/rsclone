@@ -1,5 +1,8 @@
 import { translation } from "../country/country";
 import { changeHeaderOnSignUp } from "../../components/header/header";
+import { setLoginUser } from "../../api/requests";
+import { AxiosResponse } from "axios";
+import { userInfo } from "../../models/interfaces";
 
 export function generateLoginPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -89,58 +92,29 @@ function initLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm
 
 function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
   if (loginForm) {
-    const { elements } = loginForm
-    //================
-    //TODO ready to send throw fetch() to the server
-    const formDataLogIn = new FormData(loginForm)
-
-    Array.from(elements).forEach((element: Element) => {
-      if (element instanceof HTMLInputElement) {
-        const { name, value } = element as HTMLInputElement;
-        if (!formDataLogIn.has(name)) {
-          formDataLogIn.append(name, value);
-        }
-      }
-    });
-
-    const dataCompare = Array.from(formDataLogIn.entries());
-    //================
-    const loginEmail = checkUserData(dataCompare, 'email');
-    const loginPassword = checkUserData(dataCompare, 'password');
-
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      const userEmail = checkUserData(userData, 'email');
-      const userPassword = checkUserData(userData, 'password');
-
-      if (loginEmail === userEmail && loginPassword === userPassword) {
-        localStorage.setItem('signUp', 'true');
-        loginBody.innerHTML = '';
-        loginBody.append(regLogOut);
-        setLogoutHandler(loginBody, regLogOut, loginForm);
-        changeHeaderOnSignUp();
-        translation();
-      } else {
-        showFailureMessage(loginEmail, loginBody);
-        setFailureHandler(loginBody, regLogOut, loginForm)
-        translation();
-      }
-    } else {
-      showFailureMessage(loginEmail, loginBody);
-      setFailureHandler(loginBody, regLogOut, loginForm)
-      translation();
-    }
+    const { email, password } = loginForm
+    const loginEmail = email.value;
+    const loginPassword = password.value;
+    generateLoginResponse(loginEmail, loginPassword, loginBody, regLogOut, loginForm);
   }
 }
 
-function checkUserData(data: [string, FormDataEntryValue][], dataItem: string) {
-  const userDataResult = data.filter((item: [string, FormDataEntryValue]) => {
-    if (item.includes(dataItem)) {
-      return item;
-    }
-  });
-  return userDataResult[0][1];
+function generateLoginResponse(email: FormDataEntryValue, password: FormDataEntryValue, loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
+  setLoginUser(email, password).then((res: AxiosResponse<userInfo>) => {
+    // const data = res.data;
+    // console.log(data);
+    localStorage.setItem('signUp', 'true');
+    loginBody.innerHTML = '';
+    loginBody.append(regLogOut);
+    setLogoutHandler(loginBody, regLogOut, loginForm);
+    changeHeaderOnSignUp();
+    // translation();
+  }).catch((error) => {
+    // console.log(error);
+    showFailureMessage(email, loginBody);
+    setFailureHandler(loginBody, regLogOut, loginForm)
+    // translation();
+  })
 }
 
 function showFailureMessage(email: FormDataEntryValue, loginBody: HTMLElement): void {
@@ -165,7 +139,7 @@ function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm:
   loginBody.append(loginForm);
   initLogInForm(loginBody, regLogOut, loginForm);
   changeHeaderOnSignUp();
-  translation();
+  // translation();
 }
 
 function setLogoutHandler(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {

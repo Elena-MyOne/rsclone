@@ -58,7 +58,7 @@ export function createUser(name: string, email: string, password: string) {
 }
 
 //вход с систему для зарегистрированного пользователя
-export function setLoginUser(email: string, password: string) {
+export function setLoginUser(email: FormDataEntryValue, password: FormDataEntryValue) {
   try {
     return axios.post(`${baseUrl}/login`, { email, password })
   } catch (error) {
