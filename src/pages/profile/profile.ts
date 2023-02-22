@@ -73,11 +73,11 @@ function generateAvatarsPopup() {
             <img src="./assets/images/avatars/avatar${item}.jpg" class="change-img" alt="Avatar">
           </label>
         </div>`}).join('')}
+        </div>
       <div class="card-body avatar__btns">
         <button data-i18="btnAvatarConfirm" class="btn btn-info btn-confirm"></button>
         <button data-i18="btnAvatarCancel" class="btn btn-info btn-cancel"></button>
       </div>
-    </div>
     </div>`;
 }
 
@@ -132,7 +132,7 @@ export function changeAvatarHandler() {
 function generateQuizPopup() {
   return `
   <div class="profile__wrapper-quiz">
-    <div class="profile__quiz"></div>
+    <div class="profile__quiz"></div>k
   </div>`
 }
 

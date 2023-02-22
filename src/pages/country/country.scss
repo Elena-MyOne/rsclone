@@ -152,6 +152,7 @@
 }
 
 .img-fluid {
+  border: 1px solid $cyan-400;
   width: 15vw;
   margin-bottom: 2px;
 }
@@ -447,6 +448,11 @@
   .place__card {
     width: 60vw;
   }
+  .loading {
+    width: 40vw;
+    left: calc(50% - 40vw/2);
+    top: calc(50% - 40vw/2);
+  }
 }
 
 @media (max-width: 767px) {
@@ -536,6 +542,12 @@
   .phrases__text {
     font-size: 14px;
   }
+
+  .loading {
+    width: 60vw;
+    left: calc(50% - 60vw/2);
+    top: calc(50% - 60vw/2);
+  }
 }
 
 @media (max-width: 451px) {
@@ -555,5 +567,11 @@
     margin-left: 10px;
     font-size: 14px;
     padding: 5px;
+  }
+
+  .loading {
+    width: 80vw;
+    left: calc(50% - 80vw/2);
+    top: calc(50% - 80vw/2);
   }
 }
