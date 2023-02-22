@@ -51,6 +51,7 @@ export function generateProfilePage(): HTMLElement {
           <button data-countryId="5" data-i18="profileVisit" class="country-list__visit button_visit btn btn-info col"></button>
         </div>
       </div>
+      ${noAvatarChoice()}
     </div>
     ${generateAvatarsPopup()}
     `;
@@ -60,37 +61,52 @@ export function generateProfilePage(): HTMLElement {
 const numbersAvatar = [1, 2, 3, 4, 5, 6]; // массив для генерации popup с выбором аватарки
 
 // генерация popup с выбором аватарки
-
 function generateAvatarsPopup() {
-  return `<div class="change-avatar">
+  return `
+  <div class="change-avatar">
     <div class="change-avatar__block">
       <button type="button" class="btn-close change-avatar__close" aria-label="Close"></button>
       <div class="card-img-top change-avatar__list">
         ${numbersAvatar.map((item) => {
-    return `
+        return `
         <div data-avatar="${item}" class="change-avatar__item">
           <input name="avatar" id="avatar${item}" type="radio">
           <label for="avatar${item}">
             <img src="./assets/images/avatars/avatar${item}.jpg" class="change-img" alt="Avatar">
           </label>
-        </div>`}).join('')}
-        </div>
-      <div class="card-body avatar__btns">
-        <button data-i18="btnAvatarConfirm" class="btn btn-info btn-confirm"></button>
-        <button data-i18="btnAvatarCancel" class="btn btn-info btn-cancel"></button>
+      </div>`}).join('')}
+    </div>
+    <div class="card-body avatar__btns">
+      <button data-i18="btnAvatarConfirm" class="btn btn-info btn-confirm"></button>
+      <button data-i18="btnAvatarCancel" class="btn btn-info btn-cancel"></button>
+    </div>
+  </div>`;
+}
+
+// генерация popup с запретом на выбор аватарки
+function noAvatarChoice() {
+  return `
+  <div class="card no-avatar">
+    <div class="no-avatar__block">
+      <button type="button" class="btn-close no-avatar__close" aria-label="Close"></button>
+      <div class="card-body no-avatar__desc">
+        <p data-i18="noAvatar" class="no-avatar__title card-text"></p>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 }
 
 // выбор аватарки и закрытие popup
-
 export function changeAvatarHandler() {
+  const userName = localStorage.getItem('userName') || 'Incognito';
   const btnChangeAvatar = document.querySelector('.photo__select') as HTMLButtonElement;
   const btnClose = document.querySelector('.change-avatar__close') as HTMLButtonElement;
+  const btnCloseNoAvatar = document.querySelector('.no-avatar__close') as HTMLButtonElement;
   const avatars = document.querySelector('.change-avatar') as HTMLElement;
   const avatarConfirm = document.querySelector('.btn-confirm') as HTMLButtonElement;
   const avatarCancel = document.querySelector('.btn-cancel') as HTMLButtonElement;
   const userAvatar = document.querySelector('.photo__img') as HTMLImageElement;
+  const noAvatar = document.querySelector('.no-avatar') as HTMLElement;
   const avatarList = document.querySelectorAll('.change-avatar__item') as NodeListOf<HTMLElement>;
   let numberAvatar: string;
 
@@ -109,7 +125,15 @@ export function changeAvatarHandler() {
   })
 
   btnChangeAvatar.addEventListener('click', () => {
-    avatars.classList.add('change-avatar_active');
+    if (userName !== 'Incognito' && userName !== 'Незнакомец') {
+      avatars.classList.add('change-avatar_active');
+    } else {
+      noAvatar.classList.add('no-avatar_active');
+    }
+  })
+
+  btnCloseNoAvatar.addEventListener('click', () => {
+    noAvatar.classList.remove('no-avatar_active');
   })
 
   btnClose.addEventListener('click', () => {
@@ -126,19 +150,24 @@ export function changeAvatarHandler() {
       avatars.classList.remove('change-avatar_active');
     }
   })
+
+  noAvatar.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('no-avatar')) {
+      noAvatar.classList.remove('no-avatar_active');
+    }
+  })
 }
 
 // генерация popup с квизом
-
 function generateQuizPopup() {
   return `
   <div class="profile__wrapper-quiz">
-    <div class="profile__quiz"></div>k
+    <div class="profile__quiz"></div>
   </div>`
 }
 
 // вызов и закрытие теста
-
 export function buttonTestHandler() {
   const btnQuiz = document.querySelectorAll('.country-list__quiz') as NodeListOf<HTMLButtonElement>;
   const quiz = document.querySelector('.profile__quiz') as HTMLElement;
@@ -162,7 +191,6 @@ export function buttonTestHandler() {
 }
 
 // переход на страницу страны
-
 export function visitCountryFromProfile() {
   const buttonsVisit = document.querySelectorAll('.button_visit') as NodeListOf<HTMLButtonElement>;
 
