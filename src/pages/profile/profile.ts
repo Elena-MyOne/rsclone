@@ -6,13 +6,14 @@ export function generateProfilePage(): HTMLElement {
   const profileBlock = document.createElement('section');
   profileBlock.className = 'profile container';
   const avatarNumber = localStorage.getItem('userAvatar') || '7';
+  const nameUser = localStorage.getItem('userName') || 'Incognito';
   profileBlock.innerHTML = `<div class="profile__header">
       <div class="profile__personal">
         <div class="profile__avatar">
           <div class="photo"><img class="photo__img" src="./assets/images/avatars/avatar${avatarNumber}.jpg" alt="Avatar"></div>
           <button data-i18="btnAvatar" class="btn btn-info photo__select">Выбрать аватар</button>
         </div>
-        <h1 class="profile__name">Name</h1>
+        <h1 class="profile__name">${nameUser}</h1>
       </div>
     </div>
     ${generateQuizPopup()}
