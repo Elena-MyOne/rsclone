@@ -93,6 +93,7 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
 }
 
 export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
+  const defaultAvatar = '7';
   if (regForm) {
     const { name, email, password } = regForm.elements as typeof regForm.elements & {
       name: HTMLInputElement;
@@ -104,9 +105,11 @@ export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement,
       name: name.value,
       email: email.value,
       password: password.value,
+      avatar: defaultAvatar
     };
 
     localStorage.setItem('userName', formValues.name);
+    localStorage.setItem('userAvatar', defaultAvatar);
 
     if (formValues.password) {
       setLoginUser(formValues.name, formValues.email, formValues.password, regBlog, profile, regBody)
