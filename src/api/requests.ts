@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
-const baseUrl = 'https://backend-rs-clone-production.up.railway.app';
-// const baseUrl = 'http://localhost:3001'; для локального использования бека
+// const baseUrl = 'https://backend-rs-clone-production.up.railway.app';
+const baseUrl = 'http://localhost:3001'; //для локального использования бека
 
 //get the right country in the right language
 export function getCountry(id: number, lang: string) {
@@ -38,3 +38,30 @@ export function getComments(countryId: number) {
       throw new Error('Error: ' + error);
     }
   }
+
+//получить список пользователей
+export function getUsers() {
+  try {
+    return axios.get(`${baseUrl}/users`)
+  } catch (error) {
+    throw new Error('Error: ' + error)
+  }
+}
+
+//регистрация пользователя
+export function createUser(name: FormDataEntryValue, email: FormDataEntryValue, password: FormDataEntryValue) {
+  try {
+    return axios.post(`${baseUrl}/users`, { name, email, password })
+  } catch (error) {
+    throw new Error('Error: ' + error)
+  }
+}
+
+//вход с систему для зарегистрированного пользователя
+export function setLoginUser(email: FormDataEntryValue, password: FormDataEntryValue) {
+  try {
+    return axios.post(`${baseUrl}/login`, { email, password })
+  } catch (error) {
+    throw new Error('Error: ' + error)
+  }
+}
