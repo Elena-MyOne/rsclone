@@ -11,7 +11,7 @@ export function generateRegistrationPage(): HTMLElement {
   let isSignUp = signUp ? JSON.parse(signUp) : false;
 
   const regBlog = document.createElement('section');
-  regBlog.classList.add('registration', 'container');
+  regBlog.classList.add('registration');
   const regBody = document.createElement('div');
   regBody.classList.add('registration__body');
 
