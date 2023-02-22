@@ -102,7 +102,7 @@ function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, l
 function generateLoginResponse(email: FormDataEntryValue, password: FormDataEntryValue, loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
   setLoginUser(email, password).then((res: AxiosResponse<userInfo>) => {
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     localStorage.setItem('signUp', 'true');
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userAvatar', data.avatar);
