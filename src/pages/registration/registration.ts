@@ -49,7 +49,7 @@ function createRegistrationForm(): string {
   </div>
   <div class="form__item">
     <label data-i18="regEmail" class="form__label text form-label" for="email">Email</label>
-    <input class="form__input form-control" id="email" type="email" name="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+    <input class="form__input form-control" id="email" type="email" name="email" placeholder="name@example.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" required>
     <div data-i18="regFormValidEmail" class="invalid-feedback form__feedback">
       Please input valid email
     </div>
@@ -93,6 +93,7 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
 }
 
 export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
+  const defaultAvatar = '7';
   if (regForm) {
     const { name, email, password } = regForm.elements as typeof regForm.elements & {
       name: HTMLInputElement;
@@ -104,9 +105,11 @@ export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement,
       name: name.value,
       email: email.value,
       password: password.value,
+      avatar: defaultAvatar
     };
 
     localStorage.setItem('userName', formValues.name);
+    localStorage.setItem('userAvatar', defaultAvatar);
 
     if (formValues.password) {
       setLoginUser(formValues.name, formValues.email, formValues.password, regBlog, profile, regBody)
@@ -125,7 +128,6 @@ function setLoginUser(name: FormDataEntryValue, email: FormDataEntryValue, passw
 
 //if registration was successful 
 function showWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
-  //TODO 'Name' comes from localStorage / guthub / maybe backend
   regBody.innerHTML = `
     <div class="registration__welcome welcome">
       <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> ${getUserName()}</h5>
@@ -176,10 +178,12 @@ function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, pro
   regForm.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const defaultUserName = translateUserDefaultName();
+    const defaultAvatar = '7';
     if (target) {
       if (target.closest('.form__button-incognito')) {
         localStorage.setItem('signUp', 'true');
         localStorage.setItem('userName', defaultUserName);
+        localStorage.setItem('userAvatar', defaultAvatar);
         regBody.innerHTML = '';
         showWelcomeMessage(regBlog, profile, regBody)
         translation();

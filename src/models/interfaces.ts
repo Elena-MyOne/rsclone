@@ -31,5 +31,6 @@ export interface CountryComment {
 export interface userInfo {
   name: string,
   email: string,
-  password?: string
+  password?: string,
+  avatar: string
 }
