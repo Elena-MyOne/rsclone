@@ -115,7 +115,6 @@ export function changeAvatarHandler() {
       const target = e.currentTarget as HTMLElement;
       numberAvatar = target.getAttribute('data-avatar') || '7';
       localStorage.setItem('userAvatar', numberAvatar);
-      console.log(numberAvatar);
     })
   })
 
@@ -125,7 +124,7 @@ export function changeAvatarHandler() {
   })
 
   btnChangeAvatar.addEventListener('click', () => {
-    if (userName !== 'Incognito' && userName !== 'Незнакомец') {
+    if (userName !== 'Incognito' && userName !== 'Инкогнито' && userName !== 'Інкогніта') {
       avatars.classList.add('change-avatar_active');
     } else {
       noAvatar.classList.add('no-avatar_active');
