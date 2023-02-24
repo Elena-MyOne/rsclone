@@ -1,23 +1,3 @@
-html[data-bs-theme="dark"] .quiz {
-  &__body {
-    background: $gray-200;
-    color: $yellow-900;
-  }
-  &__input {
-    border: 1px solid $yellow-600;
-    background: $gray-100;
-  }
-  &__button {
-    color:  $yellow-100;
-    background-color: $yellow-700;
-
-    &:hover{
-      background-color: $yellow-800;
-      color: $yellow-200; 
-    }
-  }
-}
-
 .quiz {
     display: flex;
     justify-content: center;
@@ -25,9 +5,9 @@ html[data-bs-theme="dark"] .quiz {
     height: 75vh;
 
   &__body {
-    padding: 15px;
+    padding: 20px;
     border-radius: 10px;
-    max-width: 700px;
+    max-width: 650px;
     background: $gray-200;
     color: $cyan-900;
   }
@@ -42,7 +22,6 @@ html[data-bs-theme="dark"] .quiz {
     justify-content: flex-start;
     align-items: center;
     gap: 25px;
-    margin: 20px 0px;
   }
 
   &__input {
@@ -54,24 +33,11 @@ html[data-bs-theme="dark"] .quiz {
     background: $gray-100;
   }
 
-  &__feedback {
-    flex: 0 1 25%;
-  }
-
-  &__symbol {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    height: 100px;
-  }
-
   &__flag {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    height: 56px;
   }
 
   &__label-flag {
@@ -94,21 +60,21 @@ html[data-bs-theme="dark"] .quiz {
   }
 
   &__label-symbol {
-    width: 120px;
-    height: 70px;
+    width: 90px;
+    height: 60px;
     border-radius: 5px;
     margin-left: 10px;
 
     &-one {
-      background: url('../assets/images/quiz/animals/australia-kenguru.jpg') 0 0/cover no-repeat;
+      background: url('../assets/images/quiz/animals/australia-kenguru.jpg') center /cover no-repeat;
     }
 
     &-two {
-      background: url('../assets/images/quiz/animals/brazil-jaguar.jpg') 0 0 /cover no-repeat;
+      background: url('../assets/images/quiz/animals/brazil-jaguar.jpg') center /cover no-repeat;
     }
 
     &-three {
-      background: url('../assets/images/quiz/animals/china-panda.jpg') 0 0/cover no-repeat;
+      background: url('../assets/images/quiz/animals/china-panda.jpg') center /cover no-repeat;
     }
   }
 
@@ -145,5 +111,5 @@ html[data-bs-theme="dark"] .quiz {
 }
 
 .text {
-  flex: 0 0 22%;
+  flex: 0 0 25%;
 }

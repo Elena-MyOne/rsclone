@@ -1,5 +1,6 @@
 import { generateQuiz } from "../../components/quiz/quiz";
 import { ROUTER_PATH } from "../../constants/enums";
+import { translation } from "../country/country";
 
 export function generateProfilePage(): HTMLElement {
   const profileBlock = document.createElement('section');
@@ -21,31 +22,31 @@ export function generateProfilePage(): HTMLElement {
         <div class="country-list__item row">
           <h4 class="country-list__name col" data-i18="progressAustralia"></h4>
           <span class="country-list__percent col">0%</span>
-          <button data-i18="profileTest" class="country-list__quiz col btn btn-info"></button>
+          <button data-i18="profileTest" data-quiz="1" class="country-list__quiz col btn btn-info"></button>
           <button data-countryId="1" data-i18="profileVisit" class="country-list__visit button_visit btn btn-info col"></button>
         </div>
         <div class="country-list__item row">
           <h4 class="country-list__name col" data-i18="progressBrazil"></h4>
           <span class="country-list__percent col">0%</span>
-          <button data-i18="profileTest" class="country-list__quiz col btn btn-info"></button>
+          <button data-i18="profileTest" data-quiz="2" class="country-list__quiz col btn btn-info"></button>
           <button data-countryId="2" data-i18="profileVisit" class="country-list__visit button_visit btn btn-info col"></button>
         </div>
         <div class="country-list__item row">
           <h4 class="country-list__name col" data-i18="progressChina"></h4>
           <span class="country-list__percent col">0%</span>
-          <button data-i18="profileTest" class="country-list__quiz col btn btn-info"></button>
+          <button data-i18="profileTest" data-quiz="3" class="country-list__quiz col btn btn-info"></button>
           <button data-countryId="3" data-i18="profileVisit" class="country-list__visit button_visit btn btn-info col"></button>
         </div>
         <div class="country-list__item row">
           <h4 class="country-list__name col" data-i18="progressRussia"></h4>
           <span class="country-list__percent col">0%</span>
-          <button data-i18="profileTest" class="country-list__quiz col btn btn-info"></button>
+          <button data-i18="profileTest" data-quiz="4" class="country-list__quiz col btn btn-info"></button>
           <button data-countryId="4" data-i18="profileVisit" class="country-list__visit button_visit btn btn-info col"></button>
         </div>
         <div class="country-list__item row">
           <h4 class="country-list__name col" data-i18="progressUsa"></h4>
           <span class="country-list__percent col">0%</span>
-          <button data-i18="profileTest" class="country-list__quiz col btn btn-info"></button>
+          <button data-i18="profileTest" data-quiz="5" class="country-list__quiz col btn btn-info"></button>
           <button data-countryId="5" data-i18="profileVisit" class="country-list__visit button_visit btn btn-info col"></button>
         </div>
       </div>
@@ -146,6 +147,7 @@ export function buttonTestHandler() {
     btn.addEventListener('click', () => {
       quiz.innerHTML = '';
       quiz.append(generateQuiz());
+      translation();
       quizBlock.classList.add('profile__wrapper-quiz_active');
       const btnClose = document.querySelector('.quiz__close') as HTMLButtonElement;
       btnClose.addEventListener('click', () => {

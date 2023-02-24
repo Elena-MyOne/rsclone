@@ -170,4 +170,32 @@ html[data-bs-theme="dark"] {
     background-color: $yellow-100;
   }
 
+  & .form-check-input:checked {
+    background-color: $yellow-600;
+    border-color: $yellow-400;
+  }
+
+  & .quiz__body {
+    background: $yellow-100;
+    color: $yellow-900;
+  }
+
+  & .quiz__title {
+    color: $colorBlack;
+  }
+
+  & .quiz__input {
+    border: 1px solid $yellow-600;
+    background: $gray-100;
+  }
+
+  & .quiz__button {
+    color:  $yellow-100;
+    background-color: $yellow-700;
+    &:hover{
+      background-color: $yellow-800;
+      color: $yellow-200; 
+    }
+  }
+
 }

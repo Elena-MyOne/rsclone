@@ -1,3 +1,6 @@
+import { translation } from "../../pages/country/country";
+import { quizAnimals, quizFlags } from "./qiuz-images";
+
 export function generateQuiz(): HTMLElement {
   const quizBlock = document.createElement('section');
   quizBlock.classList.add('quiz');
@@ -11,68 +14,90 @@ export function generateQuiz(): HTMLElement {
   quizForm.innerHTML = `
   <button type="button" class="btn-close quiz__close" aria-label="Close"></button>
     <h4 data-i18="titleTest" class="quiz__title">Country Quiz</h4>
-      <div class="quiz__item">
-      <label data-i18="testCountry" class="quiz__label text form-label" for="country">Country name</label>
-      <input class="quiz__input form-control" id="country" type="text" required>
-      <div class="invalid-feedback quiz__feedback">
-        Please enter country name
-      </div>
-      <div class="valid-feedback quiz__feedback">
-        Looks good!
-      </div>
-    </div>
-    <div class="quiz__item">
-      <label data-i18="countryCapital" class="quiz__label text form-label" for="capital">Capital</label>
-      <input class="quiz__input form-control" id="capital" type="text" required>
-      <div class="invalid-feedback quiz__feedback">
-        Please enter country capital
-      </div>
-      <div class="valid-feedback quiz__feedback">
-        Looks good!
+    <div class="form__item">
+      <div class="row mb-3">
+        <label data-i18="testCountry" class="col-sm-5 col-form-label text form-label" for="country">Country name</label>
+        <div class="col-sm-8">
+          <input class="form__input form-control" id="country" type="text" required>
+          <div data-i18="testNameFeedback" class="invalid-feedback form__feedback">
+            Please enter country name
+          </div>
+          <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
+            Looks good!
+          </div>
+        </div>
       </div>
     </div>
-    <div class="quiz__item">
-      <span data-i18="testFlag" class="text">Choose country flag</span>
-      <div class="quiz__flag form-check">
-        <input class="quiz__radio form-check-input" id="flag-one" type="radio" name="flag">
-        <label for="flag-one" class="quiz__label quiz__label-flag quiz__label-flag-one form-check-label"></label>
-      </div>
-      <div class="quiz__flag form-check">
-        <input class="quiz__radio form-check-input" id="flag-two" type="radio" name="flag">
-        <label for="flag-two" class="quiz__label quiz__label-flag quiz__label-flag-two"></label>
-      </div>
-      <div class="quiz__flag form-check">
-        <input class="quiz__radio form-check-input" id="flag-three" type="radio" name="flag">
-        <label for="flag-three" class="quiz__label quiz__label-flag quiz__label-flag-three"></label>
-      </div>
-    </div>
-    <div class="quiz__item">
-      <span data-i18="countryAnimal" class="text">National symbol</span>
-      <span class="quiz__symbol">
-        <input class="quiz__radio form-check-input" id="symbol-one" type="radio" name="symbol">
-        <label for="symbol-one" class="quiz__label quiz__label-symbol quiz__label-symbol-one"></label>
-      </span>
-      <span class="quiz__symbol">
-        <input class="quiz__radio form-check-input" id="symbol-two" type="radio" name="symbol">
-        <label for="symbol-two" class="quiz__label quiz__label-symbol quiz__label-symbol-two"></label>
-      </span>
-      <span class="quiz__symbol">
-        <input class="quiz__radio form-check-input" id="symbol-three" type="radio" name="symbol">
-        <label for="symbol-three" class="quiz__label quiz__label-symbol quiz__label-symbol-three"></label>
-      </span>
-    </div>
-    <div class="quiz__item">
-      <label data-i18="countryLanguage" class="quiz__label text form-label" for="language">Official language</label>
-      <input class="quiz__input form-control" id="language" type="text" required>
-      <div class="invalid-feedback quiz__feedback">
-        Please enter language
-      </div>
-      <div class="valid-feedback quiz__feedback">
-        Looks good!
+    <div class="form__item">
+      <div class="row mb-3">
+        <label data-i18="countryCapital" class="col-sm-5 col-form-label text form-label" for="capital">Capital</label>
+        <div class="col-sm-8">
+          <input class="form__input form-control" id="capital" type="text" required>
+          <div data-i18="testCapitalFeedback" class="invalid-feedback form__feedback">
+            Please enter country capital
+          </div>
+          <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
+            Looks good!
+          </div>
+        </div>
       </div>
     </div>
+    <div class="form__item">
+      <fieldset class="row mb-3">
+        <legend data-i18="testFlag" class="col-form-label col-sm-5 pt-0 text">Country flag</legend>
+        <div class="col-sm-8 quiz__item">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flag-one" type="radio" name="flag" value="1" checked>
+            <label class="form-check-label quiz__label-flag quiz__label-flag-one" for="flag-one"></label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flag-two" type="radio" name="flag" value="2">
+            <label class="form-check-label quiz__label-flag quiz__label-flag-two" for="flag-two"></label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="flag-three" type="radio" name="flag" value="3">
+            <label class="form-check-label quiz__label-flag quiz__label-flag-three" for="flag-three"></label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="form__item">
+      <fieldset class="row mb-3">
+        <legend data-i18="countryAnimal" class="col-form-label col-sm-5 pt-0 text">National symbol</legend>
+        <div class="col-sm-8 quiz__item">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="symbol-one" type="radio" name="symbol" value="1" checked>
+            <label class="form-check-label quiz__label-symbol quiz__label-symbol-one" for="symbol-one"></label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="symbol-two" type="radio" name="symbol" value="2">
+            <label class="form-check-label quiz__label-symbol quiz__label-symbol-two" for="symbol-two"></label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="symbol-three" type="radio" name="symbol" value="3">
+            <label class="form-check-label quiz__label-symbol quiz__label-symbol-three" for="symbol-three"></label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="form__item">
+      <div class="row mb-3">
+        <label data-i18="countryLanguage" class="col-sm-5 col-form-label text form-label" for="language">Official language</label>
+        <div class="col-sm-8">
+          <input class="form__input form-control" id="language" type="text" required>
+          <div data-i18="testLanguageFeedback" class="invalid-feedback form__feedback">
+            Please enter language
+          </div>
+          <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
+            Looks good!
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="quiz__buttons">
-      <button data-i18="btnCheck" class="quiz__button btn" type="submit">Check</button>
+      <button data-i18="btnCheck" class="form__button btn" type="submit">Check</button>
     </div>
   `;
 
