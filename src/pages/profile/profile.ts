@@ -145,9 +145,12 @@ export function buttonTestHandler() {
 
   btnQuiz.forEach((btn) => {
     btn.addEventListener('click', () => {
-      quiz.innerHTML = '';
-      quiz.append(generateQuiz());
-      translation();
+      const countryName = btn.dataset.quiz;
+      if (countryName) {
+        quiz.innerHTML = '';
+        quiz.append(generateQuiz(countryName));
+        translation();
+      }
       quizBlock.classList.add('profile__wrapper-quiz_active');
       const btnClose = document.querySelector('.quiz__close') as HTMLButtonElement;
       btnClose.addEventListener('click', () => {

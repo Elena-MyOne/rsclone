@@ -34,3 +34,14 @@ export interface userInfo {
   password?: string,
   avatar: string
 }
+
+export interface QuizInfoInputs {
+  country: string,
+  capital: string,
+  language: string,
+}
+
+export interface QuizInfoCheckboxes {
+  flag: string,
+  symbol: string,
+}
