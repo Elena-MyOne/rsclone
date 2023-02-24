@@ -1,8 +1,6 @@
 import { AxiosResponse } from "axios";
 import { getCountry } from "../../api/requests";
 import { Country, QuizInfoInputs, QuizInfoCheckboxes } from "../../models/interfaces";
-import { translation } from "../../pages/country/country";
-import { quizAnimals, quizFlags } from "./qiuz-images";
 
 export function generateQuiz(countryName: string): HTMLElement {
   const quizBlock = document.createElement('section');
@@ -121,12 +119,22 @@ export function generateQuiz(countryName: string): HTMLElement {
   quizBody.append(quizForm);
   quizBlock.append(quizBody);
 
+  quizBlock.addEventListener('click', (e: Event) => {
+    const target = e.target as HTMLElement;
+    const profileWrapperQuiz = document.querySelector('.profile__wrapper-quiz')
+      if (target.classList.contains('quiz__close')) {
+        if (profileWrapperQuiz) {
+          profileWrapperQuiz.classList.remove('profile__wrapper-quiz_active');
+        }
+      }
+  })
+
   quizForm.addEventListener('submit', event => {
     event.preventDefault();
     if (!quizForm.checkValidity()) {
       event.stopPropagation()
     } else {
-      checkAnswers(countryName, quizForm)
+      checkAnswers(countryName, quizForm, quizBody)
     }
 
     quizForm.classList.add('was-validated')
@@ -135,24 +143,19 @@ export function generateQuiz(countryName: string): HTMLElement {
   return quizBlock;
 }
 
-function checkAnswers(countryName: string, quizForm: HTMLFormElement) {
-  const answersRadio = checkAnswersRadio(countryName, quizForm);
-  console.log('answersRadio', answersRadio);
-
+function checkAnswers(countryName: string, quizForm: HTMLFormElement, quizBlock: HTMLElement) {
+  const answersRadio = checkAnswersRadio(countryName, quizForm, quizBlock);
   checkAnswersInputs(countryName, quizForm).then((res) => {
-    // console.log(res);
-    if (res && answersRadio) {
-      showWinMessage();
-    } else {
-      showFailureMessage();
+    const result = answersRadio + res;
+    if (result) {
+      quizBlock.innerHTML = showWinMessage(result);
     }
   })
 }
 
-function checkAnswersInputs(countryName: string, quizForm: HTMLFormElement): Promise<boolean> {
+function checkAnswersInputs(countryName: string, quizForm: HTMLFormElement): Promise<number> {
   let lang = localStorage.getItem('language') || 'en';
   const countryId = Number(countryName);
-  // console.log(countryId);
 
   const { country, capital, language } = quizForm.elements as typeof quizForm.elements & {
     country: HTMLInputElement;
@@ -166,27 +169,27 @@ function checkAnswersInputs(countryName: string, quizForm: HTMLFormElement): Pro
     language: language.value.toLocaleLowerCase(),
   }
 
-  // console.log(formValues);
-
   const countryData = getCountry(countryId, lang).then((res: AxiosResponse<Country>) => {
     const { name, capital, language} = res.data;
+    const questionsNumber = 5;
+    const correctAnswers = (100 / questionsNumber);
+    const wrongAnswers = 0;
 
-    // console.log(name, capital, language);
+    const countryValue = (formValues.country === name.toLocaleLowerCase()) ? correctAnswers : wrongAnswers;
+    const capitalValue = (formValues.capital === capital.toLocaleLowerCase()) ? correctAnswers : wrongAnswers;
+    const languageValue = (formValues.language === language.toLocaleLowerCase()) ? correctAnswers : wrongAnswers;
 
-    if (formValues.country === name.toLocaleLowerCase() 
-      && formValues.capital === capital.toLocaleLowerCase()
-      && formValues.language === language.toLocaleLowerCase()) {
-        // console.log('OK');
-        return true
-    } else {
-      return false
-    }
+    return countryValue + capitalValue + languageValue
   })
 
   return countryData
 }
 
-function checkAnswersRadio(countryName: string, quizForm: HTMLFormElement): boolean {
+function checkAnswersRadio(countryName: string, quizForm: HTMLFormElement, quizBody: HTMLElement): number {
+  const questionsNumber = 5;
+    const correctAnswers = (100 / questionsNumber);
+    const wrongAnswers = 0;
+
   const { flag, symbol} = quizForm.elements as typeof quizForm.elements & {
     flag: HTMLInputElement;
     symbol: HTMLInputElement;
@@ -197,21 +200,22 @@ function checkAnswersRadio(countryName: string, quizForm: HTMLFormElement): bool
     symbol: symbol.value,
   }
 
-  if (formValues.flag === countryName && formValues.symbol === countryName) {
-    // console.log('OK');
-    return true
-  }
-
-  // console.log(formValues);
-  return false
+  const flagValue = (formValues.flag === countryName) ? correctAnswers : wrongAnswers;
+  const symbolValue = (formValues.symbol === countryName) ? correctAnswers : wrongAnswers;
+  return flagValue + symbolValue
 }
 
-function showWinMessage() {
-  console.log('Win');
-  //TODO показывать попап если все ок
-}
-
-function showFailureMessage() {
-  console.log('Lost');
-  //TODO показывать попап если все плохо
+function showWinMessage(result: number): string {
+  const numberAvatar = localStorage.getItem('userAvatar') || '7';
+  localStorage.setItem('quizResult', String(result))
+  
+  return `
+    <div class="quiz__win">
+    <button type="button" class="btn-close quiz__close quiz__close-results" aria-label="Close"></button>
+      <p class="quiz__photo photo">
+        <img class="quiz__photo-image photo__img" src="./assets/images/avatars/avatar${numberAvatar}.jpg" alt="Avatar">
+      </p>
+      <h5 class="quiz__title">Results: ${result}%</h5>
+    </div>
+  `
 }
