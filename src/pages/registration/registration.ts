@@ -73,9 +73,6 @@ function createRegistrationForm(): string {
     <button data-i18="btnRegistration" class="form__button btn sbmt-btn" type="submit">Sign up</button>
     <span data-i18="btnIncognito" class="form__button form__button-incognito btn">Travel incognito</span>
   </div>
-  <a class="form__github" href="#">
-    <span data-i18="regGit" class="form__github-text">Log in with</span>
-  </a>
   `
 }
 
