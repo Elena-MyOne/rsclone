@@ -140,6 +140,7 @@ function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm:
   changeHeaderOnSignUp();
   localStorage.removeItem('userName');
   localStorage.removeItem('userAvatar');
+  localStorage.removeItem('quizResult');
   translation();
 }
 

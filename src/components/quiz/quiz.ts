@@ -151,14 +151,47 @@ function getCountryName(countryName: string): string {
   return result;
 }
 
+function createQuizResultsObject(): Array<{name: string, result: string}> {
+  const countriesAmount = 5;
+  const quizResult: Array<{name: string, result: string}> = [];
+  for (let i = 0; i < countriesAmount; i +=1) {
+    quizResult.push({name: String(i + 1), result: '0'});
+  }
+  return quizResult;
+}
+
 function checkAnswers(countryName: string, quizForm: HTMLFormElement, quizBlock: HTMLElement) {
   const answersRadio = checkAnswersRadio(countryName, quizForm, quizBlock);
   checkAnswersInputs(countryName, quizForm).then((res) => {
     const result = answersRadio + res;
+
     if (result) {
       quizBlock.innerHTML = showWinMessage(result);
+      setQuizResultsIntoLocalStorage(countryName, result);
     }
   })
+}
+
+function setQuizResultsIntoLocalStorage(countryName: string, result: number) {
+  const newQuizResult = createQuizResultsObject();
+    const quizLocalStorage = localStorage.getItem('quizResult');
+
+  if (quizLocalStorage) {
+    const quizResult = JSON.parse(quizLocalStorage);
+    quizResult.filter((item: {name: string, result: string}) => {
+      if (item.name === countryName) {
+        item.result = String(result);
+      }
+    });
+    localStorage.setItem('quizResult', JSON.stringify(quizResult));
+  } else {
+    newQuizResult.filter((item) => {
+      if (item.name === countryName) {
+        item.result = String(result);
+      }
+    });
+    localStorage.setItem('quizResult', JSON.stringify(newQuizResult));
+  }
 }
 
 function checkAnswersInputs(countryName: string, quizForm: HTMLFormElement): Promise<number> {
@@ -212,7 +245,6 @@ function checkAnswersRadio(countryName: string, quizForm: HTMLFormElement, quizB
 
 function showWinMessage(result: number): string {
   const numberAvatar = localStorage.getItem('userAvatar') || '7';
-  localStorage.setItem('quizResult', String(result))
   
   return `
     <div class="quiz__win">
