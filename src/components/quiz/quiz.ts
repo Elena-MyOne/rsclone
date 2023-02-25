@@ -12,23 +12,11 @@ export function generateQuiz(countryName: string): HTMLElement {
   quizForm.classList.add('quiz__form', 'row', 'g-4', 'needs-validation');
   quizForm.setAttribute('novalidate', '');
 
+  const country = getCountryName(countryName);
+
   quizForm.innerHTML = `
   <button type="button" class="btn-close quiz__close" aria-label="Close"></button>
-    <h4 data-i18="titleTest" class="quiz__title">Country Quiz</h4>
-    <div class="form__item">
-      <div class="row mb-3">
-        <label data-i18="testCountry" class="col-sm-5 col-form-label text form-label" for="country">Country name</label>
-        <div class="col-sm-8">
-          <input class="form__input form-control" id="country" type="text" required>
-          <div data-i18="testNameFeedback" class="invalid-feedback form__feedback">
-            Please enter country name
-          </div>
-          <div data-i18="regFormValidPass" class="valid-feedback form__feedback">
-            Looks good!
-          </div>
-        </div>
-      </div>
-    </div>
+    <h4 data-i18="progress${country}" class="quiz__title"></h4>
     <div class="form__item">
       <div class="row mb-3">
         <label data-i18="countryCapital" class="col-sm-5 col-form-label text form-label" for="capital">Capital</label>
@@ -136,11 +124,31 @@ export function generateQuiz(countryName: string): HTMLElement {
     } else {
       checkAnswers(countryName, quizForm, quizBody)
     }
-
     quizForm.classList.add('was-validated')
   }, false)
 
   return quizBlock;
+}
+
+function getCountryName(countryName: string): string {
+  let result: string;
+  switch(countryName) {
+    case '1':
+      result = 'Australia'
+      break
+    case '2':
+      result = 'Brazil'
+      break
+    case '3':
+      result = 'China'
+      break
+    case '4':
+      result = 'Russia'
+      break
+    default: 
+    result = 'Usa'
+  }
+  return result;
 }
 
 function checkAnswers(countryName: string, quizForm: HTMLFormElement, quizBlock: HTMLElement) {
@@ -157,36 +165,33 @@ function checkAnswersInputs(countryName: string, quizForm: HTMLFormElement): Pro
   let lang = localStorage.getItem('language') || 'en';
   const countryId = Number(countryName);
 
-  const { country, capital, language } = quizForm.elements as typeof quizForm.elements & {
-    country: HTMLInputElement;
+  const { capital, language } = quizForm.elements as typeof quizForm.elements & {
     capital: HTMLInputElement;
     language: HTMLInputElement;
   };
 
   const formValues: QuizInfoInputs = {
-    country: country.value.toLocaleLowerCase(),
     capital: capital.value.toLocaleLowerCase(),
     language: language.value.toLocaleLowerCase(),
   }
 
   const countryData = getCountry(countryId, lang).then((res: AxiosResponse<Country>) => {
-    const { name, capital, language} = res.data;
-    const questionsNumber = 5;
+    const {capital, language} = res.data;
+    const questionsNumber = 4;
     const correctAnswers = (100 / questionsNumber);
     const wrongAnswers = 0;
 
-    const countryValue = (formValues.country === name.toLocaleLowerCase()) ? correctAnswers : wrongAnswers;
     const capitalValue = (formValues.capital === capital.toLocaleLowerCase()) ? correctAnswers : wrongAnswers;
     const languageValue = (formValues.language === language.toLocaleLowerCase()) ? correctAnswers : wrongAnswers;
 
-    return countryValue + capitalValue + languageValue
+    return capitalValue + languageValue
   })
 
   return countryData
 }
 
 function checkAnswersRadio(countryName: string, quizForm: HTMLFormElement, quizBody: HTMLElement): number {
-  const questionsNumber = 5;
+  const questionsNumber = 4;
     const correctAnswers = (100 / questionsNumber);
     const wrongAnswers = 0;
 

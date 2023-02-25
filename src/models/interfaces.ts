@@ -36,7 +36,6 @@ export interface userInfo {
 }
 
 export interface QuizInfoInputs {
-  country: string,
   capital: string,
   language: string,
 }
