@@ -2,7 +2,7 @@ import { translation } from "../country/country";
 import { changeHeaderOnSignUp } from "../../components/header/header";
 import { setLoginUser } from "../../api/requests";
 import { AxiosResponse } from "axios";
-import { userInfo } from "../../models/interfaces";
+import { UserInfo } from "../../models/interfaces";
 
 export function generateLoginPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -68,7 +68,7 @@ function showLogOutMessage(): string {
   return `
   <div class="logout__body">
     <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
-    <a data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
+    <a href='#home' data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
   </div>
   `
 }
@@ -96,12 +96,12 @@ function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, l
   }
 }
 
-function generateLoginResponse(email: FormDataEntryValue, password: FormDataEntryValue, loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
-  setLoginUser(email, password).then((res: AxiosResponse<userInfo>) => {
+function generateLoginResponse(email: string, password: string, loginBody: HTMLElement, regLogOut: HTMLElement, loginForm: HTMLFormElement): void {
+  setLoginUser(email, password).then((res: AxiosResponse<UserInfo>) => {
     const data = res.data;
-    // console.log(data);
     localStorage.setItem('signUp', 'true');
     localStorage.setItem('userName', data.name);
+    localStorage.setItem('userId', data.id);
     localStorage.setItem('userAvatar', data.avatar);
     loginBody.innerHTML = '';
     loginBody.append(regLogOut);

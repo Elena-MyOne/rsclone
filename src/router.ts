@@ -58,10 +58,4 @@ function generateContentByHash() {
   } else {
     header_handlers();
   }
-  
-  if (hash === ROUTER_PATH.PROFILE) {
-    changeAvatarHandler();
-    buttonTestHandler();
-    visitCountryFromProfile();
-  }
 }

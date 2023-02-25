@@ -4,28 +4,28 @@ import axios, { AxiosResponse } from "axios";
 // для локального использования бека
 const baseUrl = 'http://localhost:3001'; 
 
-//get the right country in the right language
+// получение страны по id
 export function getCountry(id: number, lang: string) {
   try {
-    return axios.get(`${baseUrl}/country/${id}`, {params: {lang}});
+    return axios.get(`${baseUrl}/countries/${id}`, { params: { lang } });
   } catch (error) {
     throw new Error('Error: ' + error);
   }
 }
 
-//get a list of country names
+// получение имен всех стран
 export function getCountriesNames(lang: string) {
   try {
-    return axios.get(`${baseUrl}/countries`, {params: {lang}});
+    return axios.get(`${baseUrl}/countries`, { params: { lang } });
   } catch (error) {
     throw new Error('Error: ' + error);
   }
 }
 
-// отправка комментариев
+// добавление нового комментария
 export function sendComment(name: string, comment: string, avatar: string, id: number) {
   try {
-    return axios.post(`${baseUrl}/comments/${id}`, { name, comment, avatar })
+    return axios.post(`${baseUrl}/comments/${id}`, { name, comment, avatar });
   } catch (error) {
     throw new Error('Error: ' + error);
   }
@@ -33,35 +33,62 @@ export function sendComment(name: string, comment: string, avatar: string, id: n
 
 // получение комментариев
 export function getComments(countryId: number) {
-    try {
-      return axios.get(`${baseUrl}/comments/${countryId}`);
-    } catch (error) {
-      throw new Error('Error: ' + error);
-    }
+  try {
+    return axios.get(`${baseUrl}/comments/${countryId}`);
+  } catch (error) {
+    throw new Error('Error: ' + error);
   }
+}
 
-//получить список пользователей
+// получить список пользователей
 export function getUsers() {
   try {
-    return axios.get(`${baseUrl}/users`)
+    return axios.get(`${baseUrl}/users`);
   } catch (error) {
-    throw new Error('Error: ' + error)
+    throw new Error('Error: ' + error);
   }
 }
 
-//регистрация пользователя
-export function createUser(name: FormDataEntryValue, email: FormDataEntryValue, password: FormDataEntryValue) {
+// регистрация пользователя
+export function createUser(name: string, email: string, password: string) {
   try {
-    return axios.post(`${baseUrl}/users`, { name, email, password })
+    return axios.post(`${baseUrl}/users`, { name, email, password });
   } catch (error) {
     throw new Error('Error: ' + error)
   }
 }
 
-//вход с систему для зарегистрированного пользователя
-export function setLoginUser(email: FormDataEntryValue, password: FormDataEntryValue) {
+// вход с систему для зарегистрированного пользователя
+export function setLoginUser(email: string, password: string) {
   try {
     return axios.post(`${baseUrl}/login`, { email, password })
+  } catch (error) {
+    throw new Error('Error: ' + error)
+  }
+}
+
+// получение пользователя по id
+export function getUser(id: string) {
+  try {
+    return axios.get(`${baseUrl}/users/${id}`);
+  } catch (error) {
+    throw new Error('Error: ' + error);
+  }
+}
+
+// обновление результатов квиза пользователя
+export function updateQuizResult(id: string, countryId: string, resultQuiz: number) {
+  try {
+    return axios.patch(`${baseUrl}/users/${id}`, { countryId, resultQuiz });
+  } catch (error) {
+    throw new Error('Error: ' + error)
+  }
+}
+
+// обновление аватарки пользователя
+export function updateUserAvatar(id: string, avatar: string) {
+  try {
+    return axios.patch(`${baseUrl}/users/${id}`, { avatar });
   } catch (error) {
     throw new Error('Error: ' + error)
   }

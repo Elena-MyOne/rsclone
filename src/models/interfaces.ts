@@ -28,11 +28,17 @@ export interface CountryComment {
   avatar: string
 }
 
-export interface userInfo {
+export interface UserInfo {
+  id: string,
   name: string,
   email: string,
   password?: string,
-  avatar: string
+  avatar: string,
+  countryQuiz: QuizInfo
+}
+
+interface QuizInfo {
+  [key: number]: string
 }
 
 export interface QuizInfoInputs {
