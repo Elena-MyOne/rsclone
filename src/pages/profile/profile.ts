@@ -3,6 +3,8 @@ import { ROUTER_PATH } from "../../constants/enums";
 import { translation } from "../country/country";
 
 export function generateProfilePage(): HTMLElement {
+  const userId = localStorage.getItem('userId') || null;
+  
   const profileBlock = document.createElement('section');
   profileBlock.className = 'profile container';
   const avatarNumber = localStorage.getItem('userAvatar') || '7';

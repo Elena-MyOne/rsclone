@@ -2,7 +2,7 @@ import { changeHeaderOnSignUp } from "../../components/header/header";
 import { translation } from "../country/country";
 import { content } from "../../constants/i18n";
 import { generateProfilePage } from "../profile/profile";
-import { userInfo } from "../../models/interfaces";
+import { UserInfo } from "../../models/interfaces";
 import { createUser } from "../../api/requests";
 import { AxiosResponse } from "axios";
 import {ROUTER_PATH } from "../../constants/enums"
@@ -106,7 +106,7 @@ export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement,
       password: HTMLInputElement;
     };
 
-    const formValues: userInfo = {
+    const formValues = {
       name: name.value,
       email: email.value,
       password: password.value,
@@ -123,8 +123,9 @@ export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement,
   }
 }
 
-function setLoginUser(name: FormDataEntryValue, email: FormDataEntryValue, password: FormDataEntryValue, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement) {
-  createUser(name, email, password).then((res: AxiosResponse<userInfo>) => {
+function setLoginUser(name: string, email: string, password: string, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement) {
+  createUser(name, email, password).then((res: AxiosResponse<UserInfo>) => {
+    localStorage.setItem('userId', res.data.id)
     // console.log(res.data);
     changeHeaderOnSignUp();
     showWelcomeMessage(regBlog, profile, regBody);
