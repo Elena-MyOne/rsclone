@@ -368,20 +368,20 @@ export function generateSvgPause(className: string): string {
 </svg>`;
 }
 
-function generateSvgMicro(className: string) {
+function generateSvgMicro(className: string): string {
   return `<svg id="${className}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill" viewBox="0 0 16 16">
   <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z"/>
   <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
 </svg>`;
 }
 
-function generateSvgArrowUp() {
+function generateSvgArrowUp(): string {
   return `<svg class="arrow__up swiper-button-prev" xmlns="http://www.w3.org/2000/svg"  class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
 </svg>`;
 }
 
-function generateSvgArrowDown() {
+function generateSvgArrowDown(): string {
   return `<svg class="arrow__down swiper-button-next" xmlns="http://www.w3.org/2000/svg"  class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
 </svg>`;

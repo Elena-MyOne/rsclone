@@ -69,9 +69,9 @@ export function generateHelpPage(): HTMLElement {
   <h3 data-i18="helpWish" class="wish">Have a nice trip!</h3>
       <div  class="creators">
         <p data-i18="helpCreators">Cats worked on this app</p>
-        <a class="tooltips" href="https://github.com/AlexKabanau" target="_blank"> <img class="creators__link" src="./assets/icons/github_logo_black.svg" alt="github logo"><span class="tooltiptext">AlexKabanau</span></a>
-        <a class="tooltips" href="https://github.com/Elena-MyOne" target="_blank"><img class="creators__link" title="Elena-MyOne" src="./assets/icons/github_logo_black.svg" alt="github logo"><span class="tooltiptext">Elena-MyOne</span></a>
-        <a class="tooltips" href="https://github.com/shipu4ka" target="_blank"><img class="creators__link " title="shipu4ka" src="./assets/icons/github_logo_black.svg" alt="github logo"><span class="tooltiptext">shipu4ka</span></a>
+        <a class="tooltips" href="https://github.com/AlexKabanau" target="_blank"> <img class="creators__link" src="./assets/icons/github_logo_white.svg" alt="github logo"><span class="tooltiptext">AlexKabanau</span></a>
+        <a class="tooltips" href="https://github.com/Elena-MyOne" target="_blank"><img class="creators__link" title="Elena-MyOne" src="./assets/icons/github_logo_white.svg" alt="github logo"><span class="tooltiptext">Elena-MyOne</span></a>
+        <a class="tooltips" href="https://github.com/shipu4ka" target="_blank"><img class="creators__link " title="shipu4ka" src="./assets/icons/github_logo_white.svg" alt="github logo"><span class="tooltiptext">shipu4ka</span></a>
       </div>
       <div class="rsschool">
         <span data-i18="helpSchool">Has gathered everyone together:</span>
