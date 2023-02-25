@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
-import { getCountry } from "../../api/requests";
+import { getCountry, updateQuizResult } from "../../api/requests";
 import { Country, QuizInfoInputs, QuizInfoCheckboxes } from "../../models/interfaces";
+import { generateProfilePage } from "../../pages/profile/profile";
 
 export function generateQuiz(countryName: string): HTMLElement {
   const quizBlock = document.createElement('section');
@@ -110,11 +111,11 @@ export function generateQuiz(countryName: string): HTMLElement {
   quizBlock.addEventListener('click', (e: Event) => {
     const target = e.target as HTMLElement;
     const profileWrapperQuiz = document.querySelector('.profile__wrapper-quiz')
-      if (target.classList.contains('quiz__close')) {
-        if (profileWrapperQuiz) {
-          profileWrapperQuiz.classList.remove('profile__wrapper-quiz_active');
-        }
+    if (target.classList.contains('quiz__close')) {
+      if (profileWrapperQuiz) {
+        profileWrapperQuiz.classList.remove('profile__wrapper-quiz_active');
       }
+    }
   })
 
   quizForm.addEventListener('submit', event => {
@@ -168,6 +169,10 @@ function checkAnswers(countryName: string, quizForm: HTMLFormElement, quizBlock:
     if (result) {
       quizBlock.innerHTML = showWinMessage(result);
       setQuizResultsIntoLocalStorage(countryName, result);
+      const userId = localStorage.getItem('userId') as string;
+      updateQuizResult(userId, countryName, result).then(() => {
+        (document.querySelector(`span[data-quiz="${countryName}"]`)as HTMLElement).innerText = `${result}%`;
+      });
     }
   })
 }
@@ -228,7 +233,7 @@ function checkAnswersRadio(countryName: string, quizForm: HTMLFormElement, quizB
     const correctAnswers = (100 / questionsNumber);
     const wrongAnswers = 0;
 
-  const { flag, symbol} = quizForm.elements as typeof quizForm.elements & {
+  const { flag, symbol } = quizForm.elements as typeof quizForm.elements & {
     flag: HTMLInputElement;
     symbol: HTMLInputElement;
   };

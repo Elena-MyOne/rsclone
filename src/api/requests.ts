@@ -76,8 +76,8 @@ export function getUser(id: string) {
   }
 }
 
-// обновление данных пользователя
-export function updateUser(id: string, countryId: string, resultQuiz: string) {
+// обновление результатов квиза пользователя
+export function updateQuizResult(id: string, countryId: string, resultQuiz: number) {
   try {
     return axios.patch(`${baseUrl}/users/${id}`, { countryId, resultQuiz });
   } catch (error) {

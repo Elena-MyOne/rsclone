@@ -33,7 +33,12 @@ export interface UserInfo {
   name: string,
   email: string,
   password?: string,
-  avatar: string
+  avatar: string,
+  countryQuiz: QuizInfo
+}
+
+interface QuizInfo {
+  [key: number]: string
 }
 
 export interface QuizInfoInputs {
