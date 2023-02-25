@@ -61,9 +61,6 @@ function generateLoginForm(): string {
       <div class="form__buttons">
         <button data-i18="autLogin" class="form__button btn sbmt-btn" type="submit">Log in</button>
       </div>
-      <a class="form__github" href="#">
-        <span data-i18="autGit" class="form__github-text">Log in with</span>
-      </a>
     `
 }
 
@@ -143,6 +140,7 @@ function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm:
   changeHeaderOnSignUp();
   localStorage.removeItem('userName');
   localStorage.removeItem('userAvatar');
+  localStorage.removeItem('quizResult');
   translation();
 }
 
