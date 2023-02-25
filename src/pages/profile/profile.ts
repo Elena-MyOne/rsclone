@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { getUser } from "../../api/requests";
+import { getUser, updateUserAvatar } from "../../api/requests";
 import { generateQuiz } from "../../components/quiz/quiz";
 import { ROUTER_PATH } from "../../constants/enums";
 import { UserInfo } from "../../models/interfaces";
@@ -114,6 +114,7 @@ export function changeAvatarHandler() {
   const avatarCancel = document.querySelector('.btn-cancel') as HTMLButtonElement;
   const userAvatar = document.querySelector('.photo__img') as HTMLImageElement;
   const avatarList = document.querySelectorAll('.change-avatar__item') as NodeListOf<HTMLElement>;
+  const userId = localStorage.getItem('userId') as string;
   let numberAvatar: string;
 
   avatarList.forEach(avatar => {
@@ -127,6 +128,9 @@ export function changeAvatarHandler() {
   avatarConfirm.addEventListener('click', () => {
     userAvatar.src = `./assets/images/avatars/avatar${numberAvatar}.jpg`;
     avatars.classList.remove('change-avatar_active');
+    updateUserAvatar(userId, numberAvatar).then(() => {
+      generateProfilePage();
+    });
   })
 
   btnChangeAvatar.addEventListener('click', () => {

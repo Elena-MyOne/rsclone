@@ -84,3 +84,12 @@ export function updateQuizResult(id: string, countryId: string, resultQuiz: numb
     throw new Error('Error: ' + error)
   }
 }
+
+// обновление аватарки пользователя
+export function updateUserAvatar(id: string, avatar: string) {
+  try {
+    return axios.patch(`${baseUrl}/users/${id}`, { avatar });
+  } catch (error) {
+    throw new Error('Error: ' + error)
+  }
+}
