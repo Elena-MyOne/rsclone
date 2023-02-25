@@ -5,6 +5,7 @@ import { generateProfilePage } from "../profile/profile";
 import { userInfo } from "../../models/interfaces";
 import { createUser } from "../../api/requests";
 import { AxiosResponse } from "axios";
+import {ROUTER_PATH } from "../../constants/enums"
 
 export function generateRegistrationPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -23,6 +24,7 @@ export function generateRegistrationPage(): HTMLElement {
   const profile = generateProfilePage();
 
   if (isSignUp) {
+    // window.location.hash = `#${ROUTER_PATH.PROFILE}`
     regBlog.append(profile);
   } else {
     regBody.append(regForm);
@@ -92,6 +94,12 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
   }, false);
 }
 
+function changeUrl(): void {
+  const url = window.location.href
+  const newUrl = url.replace(ROUTER_PATH.REGISTRATION, ROUTER_PATH.PROFILE)
+  window.location.href = newUrl;
+}
+
 export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
   const defaultAvatar = '7';
   if (regForm) {
@@ -113,6 +121,7 @@ export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement,
 
     if (formValues.password) {
       setLoginUser(formValues.name, formValues.email, formValues.password, regBlog, profile, regBody)
+      changeUrl();
     }
   }
 }
