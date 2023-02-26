@@ -109,20 +109,12 @@ function generateLoginResponse(email: string, password: string, loginBody: HTMLE
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userId', data.id);
     localStorage.setItem('userAvatar', data.avatar);
-    setDocumentLocationHome();
+    window.location.hash = `#${ROUTER_PATH.PROFILE}`;
   }).catch((error) => {
     showFailureMessage(email, loginBody);
     setFailureHandler(loginBody, regLogOut, loginForm)
     translation();
   })
-}
-
-function setDocumentLocationHome() {
-  const url = window.location.href
-  const newUrl = url.replace(ROUTER_PATH.LOGIN, ROUTER_PATH.PROFILE);
-  window.location.href = newUrl;
-  document.location = newUrl;
-  window.location.reload();
 }
 
 function showFailureMessage(email: FormDataEntryValue, loginBody: HTMLElement): void {

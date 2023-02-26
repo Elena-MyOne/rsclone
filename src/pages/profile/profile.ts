@@ -129,7 +129,6 @@ export function changeAvatarHandler() {
     userAvatar.src = `./assets/images/avatars/avatar${numberAvatar}.jpg`;
     avatars.classList.remove('change-avatar_active');
     updateUserAvatar(userId, numberAvatar).then(() => {
-      generateProfilePage();
     });
   })
 

@@ -1,7 +1,6 @@
 import { AxiosResponse } from "axios";
 import { getCountry, updateQuizResult } from "../../api/requests";
 import { Country, QuizInfoInputs, QuizInfoCheckboxes } from "../../models/interfaces";
-import { generateProfilePage } from "../../pages/profile/profile";
 
 export function generateQuiz(countryName: string): HTMLElement {
   const quizBlock = document.createElement('section');
