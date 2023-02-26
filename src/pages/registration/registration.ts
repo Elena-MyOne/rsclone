@@ -1,11 +1,10 @@
 import { changeHeaderOnSignUp } from "../../components/header/header";
 import { translation } from "../country/country";
 import { content } from "../../constants/i18n";
-import { generateProfilePage } from "../profile/profile";
 import { UserInfo } from "../../models/interfaces";
 import { createUser } from "../../api/requests";
 import { AxiosResponse } from "axios";
-import {ROUTER_PATH } from "../../constants/enums"
+import { ROUTER_PATH } from "../../constants/enums"
 
 export function generateRegistrationPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -21,15 +20,12 @@ export function generateRegistrationPage(): HTMLElement {
   regForm.setAttribute('novalidate', '');
   regForm.innerHTML = createRegistrationForm();
 
-  const profile = generateProfilePage();
-
   if (isSignUp) {
-    // window.location.hash = `#${ROUTER_PATH.PROFILE}`
-    regBlog.append(profile);
+    window.location.hash = `#${ROUTER_PATH.HOME}`
   } else {
     regBody.append(regForm);
-    initRegistrationForm(regForm, profile, regBody, regBlog);
-    setIncognitoHandler(regBlog, regForm, profile, regBody)
+    initRegistrationForm(regForm, regBody, regBlog);
+    setIncognitoHandler(regBlog, regForm, regBody)
   }
 
   regBlog.append(regBody);
@@ -76,7 +72,7 @@ function createRegistrationForm(): string {
   `
 }
 
-function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement, regBlog: HTMLElement): void {
+function initRegistrationForm(regForm: HTMLFormElement, regBody: HTMLElement, regBlog: HTMLElement): void {
   regForm.addEventListener('submit', event => {
     event.preventDefault()
 
@@ -85,19 +81,13 @@ function initRegistrationForm(regForm: HTMLFormElement, profile: HTMLElement, re
       localStorage.setItem('signUp', 'false');
     } else {
       localStorage.setItem('signUp', 'true');
-      handleFormSubmit(regForm, regBlog, profile, regBody);
+      handleFormSubmit(regForm, regBlog, regBody);
     }
     regForm.classList.add('was-validated');
   }, false);
 }
 
-function changeUrl(): void {
-  const url = window.location.href
-  const newUrl = url.replace(ROUTER_PATH.REGISTRATION, ROUTER_PATH.PROFILE)
-  window.location.href = newUrl;
-}
-
-export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
+export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement, regBody: HTMLElement): void {
   const defaultAvatar = '7';
   if (regForm) {
     const { name, email, password } = regForm.elements as typeof regForm.elements & {
@@ -117,24 +107,23 @@ export function handleFormSubmit(regForm: HTMLFormElement, regBlog: HTMLElement,
     localStorage.setItem('userAvatar', defaultAvatar);
 
     if (formValues.password) {
-      setLoginUser(formValues.name, formValues.email, formValues.password, regBlog, profile, regBody)
-      changeUrl();
+      setLoginUser(formValues.name, formValues.email, formValues.password, regBlog, regBody)
     }
   }
 }
 
-function setLoginUser(name: string, email: string, password: string, regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement) {
+function setLoginUser(name: string, email: string, password: string, regBlog: HTMLElement, regBody: HTMLElement) {
   createUser(name, email, password).then((res: AxiosResponse<UserInfo>) => {
     localStorage.setItem('userId', res.data.id)
-    // console.log(res.data);
     changeHeaderOnSignUp();
-    showWelcomeMessage(regBlog, profile, regBody);
+    showWelcomeMessage(regBlog, regBody);
     translation();
+    window.location.hash = `#${ROUTER_PATH.PROFILE}`;
   })
 }
 
 //if registration was successful 
-function showWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement, regBody: HTMLElement): void {
+function showWelcomeMessage(regBlog: HTMLElement, regBody: HTMLElement): void {
   regBody.innerHTML = `
     <div class="registration__welcome welcome">
       <h5 class="welcome__title"><span data-i18="regWelcomeTitle">Welcome</span> ${getUserName()}</h5>
@@ -150,15 +139,9 @@ function showWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement, regBody:
   const close = document.querySelector('.welcome__close');
   if (close) {
     close.addEventListener('click', () => {
-      closeWelcomeMessage(regBlog, profile)
+      regBlog.innerHTML = '';
     })
   }
-}
-
-function closeWelcomeMessage(regBlog: HTMLElement, profile: HTMLElement): void {
-  regBlog.innerHTML = '';
-  regBlog.append(profile);
-  translation();
 }
 
 function getUserName(): string {
@@ -171,7 +154,7 @@ function getUserName(): string {
 
 function translateUserDefaultName(): string {
   const language = localStorage.getItem('language') || 'en';
-  switch(language) {
+  switch (language) {
     case 'ru':
       return content.ru.regWelcomeTitleName
     case 'be':
@@ -181,7 +164,7 @@ function translateUserDefaultName(): string {
   }
 }
 
-function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, profile: HTMLElement, regBody: HTMLElement): void {
+function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, regBody: HTMLElement): void {
   regForm.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const defaultUserName = translateUserDefaultName();
@@ -192,7 +175,8 @@ function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, pro
         localStorage.setItem('userName', defaultUserName);
         localStorage.setItem('userAvatar', defaultAvatar);
         regBody.innerHTML = '';
-        showWelcomeMessage(regBlog, profile, regBody)
+        window.location.hash = `#${ROUTER_PATH.HOME}`;
+        showWelcomeMessage(regBlog, regBody)
         translation();
         changeHeaderOnSignUp();
       }

@@ -455,7 +455,6 @@ function voice() {
 function generateComments(id: number) {
   const commentsList = document.querySelector('.comments__body') as HTMLElement;
   getComments(id).then((res: AxiosResponse<CountryComment[]>) => {
-    console.log(res.data);
     res.data.map((item) => {
       const { name, comment, avatar } = item;
       const userComment = document.createElement('div');
