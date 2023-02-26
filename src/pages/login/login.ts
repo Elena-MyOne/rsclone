@@ -69,7 +69,10 @@ function showLogOutMessage(): string {
   return `
   <div class="logout__body">
     <p data-i18="regLogOut" class="logout__text">Are you sure you want to log out?</p>
-    <a href='#home' data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
+    <div class="failure__buttons form__buttons">
+      <a href="#home" data-i18="btnLogOut" class="logout__button form__button btn">Log out</a>
+      <a href="#home" data-i18="btnHome" class="form__button btn" >Home</a>
+    </div>
   </div>
   `
 }
