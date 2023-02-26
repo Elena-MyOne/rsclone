@@ -3,6 +3,7 @@ import { changeHeaderOnSignUp } from "../../components/header/header";
 import { setLoginUser } from "../../api/requests";
 import { AxiosResponse } from "axios";
 import { UserInfo } from "../../models/interfaces";
+import { ROUTER_PATH } from "../../constants/enums";
 
 export function generateLoginPage(): HTMLElement {
   let signUp = localStorage.getItem('signUp');
@@ -93,6 +94,8 @@ function handleLogInFormSubmit(loginBody: HTMLElement, regLogOut: HTMLElement, l
     const loginEmail = email.value;
     const loginPassword = password.value;
     generateLoginResponse(loginEmail, loginPassword, loginBody, regLogOut, loginForm);
+    email.value = '';
+    password.value = '';
   }
 }
 
@@ -103,17 +106,20 @@ function generateLoginResponse(email: string, password: string, loginBody: HTMLE
     localStorage.setItem('userName', data.name);
     localStorage.setItem('userId', data.id);
     localStorage.setItem('userAvatar', data.avatar);
-    loginBody.innerHTML = '';
-    loginBody.append(regLogOut);
-    setLogoutHandler(loginBody, regLogOut, loginForm);
-    changeHeaderOnSignUp();
-    translation();
+    setDocumentLocationHome();
   }).catch((error) => {
-    // console.log(error);
     showFailureMessage(email, loginBody);
     setFailureHandler(loginBody, regLogOut, loginForm)
     translation();
   })
+}
+
+function setDocumentLocationHome() {
+  const url = window.location.href
+  const newUrl = url.replace(ROUTER_PATH.LOGIN, ROUTER_PATH.PROFILE);
+  window.location.href = newUrl;
+  document.location = newUrl;
+  window.location.reload();
 }
 
 function showFailureMessage(email: FormDataEntryValue, loginBody: HTMLElement): void {
@@ -141,6 +147,7 @@ function getLogInForm(loginBody: HTMLElement, regLogOut: HTMLElement, loginForm:
   localStorage.removeItem('userName');
   localStorage.removeItem('userAvatar');
   localStorage.removeItem('quizResult');
+  localStorage.removeItem('userId');
   translation();
 }
 
