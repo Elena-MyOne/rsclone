@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -58,13 +59,10 @@ module.exports = {
         collapseWhitespace: isProd,
       },
     }),
+    new FaviconsWebpackPlugin('./favicon.png'),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        {
-          from: path.resolve(__dirname, 'src/favicon.ico'),
-          to: path.resolve(__dirname, 'dist'),
-        },
         {
           from: path.resolve(__dirname, 'src/assets/'),
           to: path.resolve(__dirname, 'dist/assets/'),
