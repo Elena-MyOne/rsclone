@@ -175,6 +175,7 @@ function setIncognitoHandler(regBlog: HTMLElement, regForm: HTMLFormElement, reg
         localStorage.setItem('userName', defaultUserName);
         localStorage.setItem('userAvatar', defaultAvatar);
         regBody.innerHTML = '';
+        window.location.hash = `#${ROUTER_PATH.HOME}`;
         showWelcomeMessage(regBlog, regBody)
         translation();
         changeHeaderOnSignUp();
