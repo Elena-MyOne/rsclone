@@ -528,6 +528,7 @@
 
   .info__flag {
     width: 26vw;
+    padding-top: 10px;
   }
 
   .big-gallery .swiper-pagination-bullet {
@@ -547,6 +548,10 @@
     width: 60vw;
     left: calc(50% - 60vw/2);
     top: calc(50% - 60vw/2);
+  }
+
+  .img__container {
+    display: none;
   }
 }
 
