@@ -7,7 +7,7 @@ import { generateHeader, changeHeaderOnSignUp } from "./components/header/header
 import { generateError404Page } from "./pages/error404/error404";
 import { generateHomePage } from "./pages/home/home";
 import { generateRegistrationPage } from "./pages/registration/registration";
-import { header_handlers } from "./components/header/header_handlers";
+import { header_handlers, changeActiveLink } from "./components/header/header_handlers";
 import { buttonTestHandler, changeAvatarHandler, generateProfilePage, visitCountryFromProfile } from "./pages/profile/profile";
 import { generateLoginPage } from "./pages/login/login";
 
@@ -49,6 +49,7 @@ function generateContentByHash() {
   header.innerHTML = contentHeader;
   main.append(contentMain);
   changeHeaderOnSignUp();
+  changeActiveLink();
   translation();
 
 
@@ -59,3 +60,6 @@ function generateContentByHash() {
     header_handlers();
   }
 }
+
+
+

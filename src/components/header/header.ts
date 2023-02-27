@@ -1,5 +1,3 @@
-import { content } from "../../constants/i18n";
-
 export function generateHeader(): string {
 
   return `

@@ -18,6 +18,7 @@ export function header_handlers() {
     localStorage.setItem("language", currentLang.toLowerCase())
 
     changeHeaderOnSignUp();
+    changeActiveLink();
     location.reload();
 
 
@@ -48,7 +49,6 @@ export function header_handlers() {
       };
       
     });
-  
 }
 
 
@@ -113,4 +113,31 @@ function setSelected(lang: string) {
       element.selected = true;
     }
   });
+}
+
+
+
+export function changeActiveLink() {
+  window.addEventListener('hashchange', () => {
+    setActiveLink()
+  });
+  window.addEventListener('load', () => {
+    setActiveLink()
+  });
+}
+
+function setActiveLink() {
+  const allNavLinks = document.querySelectorAll('.nav-link');
+    if (allNavLinks) {
+      Array.from(allNavLinks).forEach((item) => {
+        item.classList.remove('active');
+        item.removeAttribute('aria-current');
+  
+        const linkHash = item.getAttribute('href');
+        if (location.hash === linkHash) {
+          item.classList.add('active');
+          item.setAttribute('aria-current', 'page');
+        }
+      })
+    }
 }
