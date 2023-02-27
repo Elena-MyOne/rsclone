@@ -58,7 +58,6 @@ function generateContentByHash() {
     sceneInitStartPage();
   } else {
     header_handlers();
-    
   }
 }
 

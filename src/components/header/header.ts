@@ -24,7 +24,7 @@ export function generateHeader(): string {
             <div class="offcanvas-body">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a data-i18="btnHome" class="nav-link" href="#home">Home</a>
+                  <a data-i18="btnHome" class="nav-link active" aria-current="page" href="#home">Home</a>
                 </li>
                 <li class="nav-item nav-item-signup">
                   <a data-i18="btnSignUp" class="nav-link" href="#registration">Sign up</a>
