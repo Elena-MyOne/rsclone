@@ -43,6 +43,7 @@ module.exports = {
     alias: {
       '@models': path.resolve(__dirname, 'src/models'),
       '@': path.resolve(__dirname, 'src'),
+      'three': path.resolve('./node_modules/three'),
     },
   },
   optimization: optimization(),
