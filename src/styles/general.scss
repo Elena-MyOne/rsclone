@@ -1,0 +1,42 @@
+@import url(https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,200,300,regular,italic,500,600,700&display=swap&subset=cyrillic-ext);
+@import url(https://fonts.googleapis.com/css?family=Kalam:300,regular&display=swap&subset=cyrillic-ext);
+
+@import './variables.scss';
+@import 'reset.scss';
+@import "~bootstrap/scss/bootstrap";
+@import './darkMode.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100vh;
+  color: $colorWhite;
+  font-family: $fontFamily;
+  padding-right: 0px!important;
+}
+.content {
+  flex: 1 1 auto;
+}
+
+.root {
+  background: #000000 url(../assets/images/textures/galaxy.png) 0 0/100% 100% no-repeat;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+@import '../pages/start/start.scss';
+@import '../pages/help/help.scss';
+@import '../components/header/header.scss';
+@import '../pages/home/home.scss';
+@import '../pages/country/country.scss';
+@import '../components/quiz/quiz.scss';
+@import '../pages/profile/profile.scss';
+@import '../pages/registration/registration.scss';
+@import '../pages/error404/error404.scss';
+@import '../pages/login/login.scss';
