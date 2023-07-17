@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const baseUrl = 'https://backend-rs-clone-production.up.railway.app';
+const baseUrl = 'https://backend-rs-clone-copy.onrender.com';
 // для локального использования бека
 // const baseUrl = 'http://localhost:3001'; 
 
