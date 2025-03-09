@@ -1,0 +1,101 @@
+.help {
+  margin-top: 56px;
+  padding: 20px 10px;
+  height: 100%;
+
+  &__title {
+    margin-bottom: 30px;
+  }
+}
+
+.wish {
+  margin: 20px 0 50px;
+}
+
+.creators {
+  display: flex;
+  gap: 5px;
+
+  &__link {
+    width: 25px;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.rsschool {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  &__link {
+    width: 100px;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.tooltips {
+  position: relative;
+  display: inline-block;
+  visibility: visible;
+}
+
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 104px;
+  background-color: black;
+  color: $colorWhite;
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px 0;
+  top: -37px;
+  left: -31px;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+}
+
+@media (max-width: 537px) {
+  .help {
+    padding: 15px 10px;
+
+    &__title {
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+
+    &__btn {
+      height: 30px;
+    }
+  }
+
+  .wish {
+    margin: 15px 0 30px;
+  }
+
+  .accordion-body {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 350px) {
+  .help__title {
+    font-size: 20px;
+  }
+
+  .wish {
+    margin: 10px 0 10px;
+    font-size: 20px;
+  }
+}

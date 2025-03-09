@@ -1,0 +1,52 @@
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+//максимальная и минимальная ширина экрана
+$minWidth: 320px;
+$maxWidth: 1600px;
+
+//натроики шрифта
+$fontFamily: 'IBM Plex Sans', sans-serif;
+$fontSize: 16px;
+
+//цвета
+$colorWhite: #ffffff;
+$colorWhite75: rgba(255, 255, 255, 0.75);
+$colorGray: #4a4a4a;
+$colorBlack: #000000;
+$colorBlack75: rgba(0, 0, 0, 0.75);
+
+//color help
+$accordion-color: $colorBlack;
+$accordion-bg: $cyan-100;
+$accordion-border-color: $cyan-600;
+$accordion-button-color: $colorBlack;
+$accordion-button-bg: $cyan-300;
+$accordion-button-active-bg: $cyan-700;
+$accordion-button-active-color: $colorWhite;
+$accordion-button-focus-border-color: $colorWhite;
+$accordion-button-focus-box-shadow: $colorWhite;
+$accordion-icon-active-color: $colorWhite;
+$accordion-icon-color: $colorBlack;
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-active-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+
+//color header
+$navbar-dark-color: $colorWhite75;
+$navbar-dark-hover-color: $colorWhite;
+$navbar-dark-active-color: $colorWhite;
+$navbar-dark-toggler-icon-bg: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+$navbar-dark-toggler-border-color: $colorWhite75;
+$navbar-brand-color: $colorWhite;
+$navbar-dark-brand-hover-color: $cyan-100;
+$navbar-toggler-focus-width: none;
+
+//color forms
+$form-check-input-checked-bg-color: $cyan-700;
+$form-check-input-focus-box-shadow: none;
+
+$input-focus-border-color: $cyan-500;
+$input-focus-box-shadow: none;

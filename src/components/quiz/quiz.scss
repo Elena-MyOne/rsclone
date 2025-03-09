@@ -1,0 +1,152 @@
+.quiz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  &__win {
+    padding: 20px;
+    position: relative;
+    &.quiz__close {
+      top: 15px;
+    }
+  }
+
+  &__body {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    background: $gray-200;
+    color: $cyan-900;
+  }
+
+  &__title {
+    text-align: center;
+    padding: 20px 0px;
+  }
+
+  &__country {
+    text-align: center;
+    margin-top: 0px;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    @media (max-width: 710px) {
+      flex: 1 1 auto;
+    }
+  }
+
+  &__input {
+    border-radius: 5px;
+    flex: 0 1 50%;
+    height: 35px;
+    padding: 5px 10px;
+    border: 1px solid $cyan-600;
+    background: $gray-100;
+  }
+
+  &__flag {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__label-flag {
+    width: 50px;
+    height: 35px;
+    border-radius: 5px;
+    margin-left: 5px;
+
+    &-one {
+      background: url('../assets/images/quiz/flags/australia.jpg') 0 0/cover no-repeat;
+    }
+
+    &-two {
+      background: url('../assets/images/quiz/flags/brazil.png') 0 0 /cover no-repeat;
+    }
+
+    &-three {
+      background: url('../assets/images/quiz/flags/china.png') 0 0/cover no-repeat;
+    }
+
+    &-four {
+      background: url('../assets/images/quiz/flags/russia.png') 0 0/cover no-repeat;
+    }
+
+    &-five {
+      background: url('../assets/images/quiz/flags/usa.png') 0 0/cover no-repeat;
+    }
+  }
+
+  &__label-symbol {
+    width: 90px;
+    height: 60px;
+    border-radius: 5px;
+    margin-left: 10px;
+
+    &-one {
+      background: url('../assets/images/quiz/animals/australia-kenguru.jpg') center /cover no-repeat;
+    }
+
+    &-two {
+      background: url('../assets/images/quiz/animals/brazil-jaguar.jpg') center /cover no-repeat;
+    }
+
+    &-three {
+      background: url('../assets/images/quiz/animals/china-panda.jpg') center /cover no-repeat;
+    }
+
+    &-four {
+      background: url('../assets/images/quiz/animals/russia-bear.jpg') center /cover no-repeat;
+    }
+
+    &-five {
+      background: url('../assets/images/quiz/animals/usa-bald-eagle.jpg') center /cover no-repeat;
+    }
+  }
+
+  &__buttons {
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    color:  $cyan-100;
+    max-width: 150px;
+    background-color: $cyan-700;
+    padding: 7px 50px;
+    border-radius: 5px;
+    transition: 0.3s;
+
+    &:hover{
+      background-color: $cyan-800;
+      color: $cyan-200; 
+    }
+  }
+
+  &__form {
+    position: relative;
+  }
+
+  &__close {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+  }
+}
+
+.text {
+  flex: 0 0 25%;
+  @media (max-width: 710px) {
+    flex: 1 1 auto;
+  }
+}
