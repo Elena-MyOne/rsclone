@@ -1,3 +1,6 @@
+
+![Capture](https://github.com/user-attachments/assets/30c0c418-618c-44ab-8f77-bfbab9866c20)
+
 # Amazing Trip
 
 Authors: [Elena Iakovenko](https://github.com/Elena-MyOne), [Tatyana Shipulina](https://github.com/shipu4ka), [Alexandr Kabanau](https://github.com/AlexKabanau)
